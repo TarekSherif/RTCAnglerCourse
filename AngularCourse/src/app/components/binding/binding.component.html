@@ -1,0 +1,38 @@
+<h1>One Way Binding</h1>
+
+<h2>Interpolation Binding</h2>
+
+<p>{{ name }}</p>
+
+<h2>Property Binding</h2>
+
+ <input [value]="name" />
+<h2>Attribute Binding</h2>
+
+<table>
+<tr>
+  <th>Month</th>
+  <th>Savings</th>
+  <th>Savings for holiday!</th>
+</tr>
+<tr>
+  <td>January</td>
+  <td>$100</td>
+  <td [attr.rowspan]="rowspan">$50</td>
+</tr>
+<tr>
+  <td>February</td>
+  <td>$80</td>
+</tr>
+</table>
+
+<h2>Event Binding</h2>
+
+<button (click)="showAlert('Test')">Alert</button>
+
+<h1>
+  Two Way Binding
+</h1>
+
+<input [(ngModel)]="name"/>
+
