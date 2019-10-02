@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-directives',
   templateUrl: './directives.component.html',
   styleUrls: ['./directives.component.css']
 })
-export class DirectivesComponent implements OnInit {
+export class DirectivesComponent {
 
-  students:Array<string>=["Tarek","Sherif","Ahmed","Ali"];
-  constructor() { }
+  students:Array<string>=["Tarek","Mohamed","Sherif","Ahmed","Ali","Abd Allah"];
+  search:string=""
 
-  ngOnInit() {
-  }
 
 }

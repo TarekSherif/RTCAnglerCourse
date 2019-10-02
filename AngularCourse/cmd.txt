@@ -1,0 +1,12 @@
+ng new ProjectMakerWithBootstrap
+
+npm install jquery bootstrap  font-awesome angular-font-awesome --save
+
+
+
+ng g c components/binding
+ng g c components/directives
+ng g c components/not-found
+
+
+ng g c Layout/app-layout

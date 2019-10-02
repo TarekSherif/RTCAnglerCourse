@@ -1,8 +1,32 @@
-<h1>*ngFor</h1>
-<table class="table table-hover">
-  <tr *ngFor="let stn of students" >
-    <td>
-      {{stn}}
-    </td>
-  </tr>
-</table>
+
+
+  <h2>directives</h2>
+  <br>
+  <form  >
+
+      <div class="form-group mx-sm-3 mb-2">
+          <label for="inputsearch2" class="sr-only">search</label>
+          <input type="search" name="search" class="form-control" [(ngModel)]="search" placeholder="search">
+        </div>
+  </form>
+  <table class="table table-hover">
+      <tr>
+        <th>#</th>
+        <th>student Name</th>
+      </tr>
+
+      <tr *ngFor="let stn of students;let i =index;let isOdd=odd;let f =first"
+      [ngStyle]="{'color':f?'red':'#000'}" [ngClass]="{'row-odd':!isOdd}" >
+        <td  *ngIf="stn.indexOf(search) > -1">
+          {{i+1}}
+        </td>
+        <td *ngIf="stn.indexOf(search) > -1">
+          {{stn}}
+        </td>
+      </tr>
+    </table>
+
+
+
+
+

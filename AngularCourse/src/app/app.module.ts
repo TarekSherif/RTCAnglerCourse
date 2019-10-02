@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BindingComponent } from './components/binding/binding.component';
 import { DirectivesComponent } from './components/directives/directives.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { AppLayoutComponent } from './Layout/app-layout/app-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BindingComponent,
-    DirectivesComponent
+    DirectivesComponent,
+    NotFoundComponent,
+    AppLayoutComponent
   ],
   imports: [
     BrowserModule,

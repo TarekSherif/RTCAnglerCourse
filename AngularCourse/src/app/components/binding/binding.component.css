@@ -2,3 +2,7 @@ table,th,tr,td{
   border: solid blue 2px;
   text-align: center;
 }
+
+.tab-pane{
+  margin: 50px;
+}

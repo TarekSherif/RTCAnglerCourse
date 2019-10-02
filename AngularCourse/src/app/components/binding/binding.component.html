@@ -1,4 +1,15 @@
-<h1>One Way Binding</h1>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="true">One Way Binding</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="two" aria-selected="false">Two  Way Binding</a>
+    </li>
+
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="one" role="tabpanel" aria-labelledby="one-tab">
+
 
 <h2>Interpolation Binding</h2>
 
@@ -30,9 +41,11 @@
 
 <button (click)="showAlert('Test')">Alert</button>
 
-<h1>
-  Two Way Binding
-</h1>
+    </div>
+    <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
 
-<input [(ngModel)]="name"/>
 
+          <input [(ngModel)]="name"/>
+    </div>
+
+  </div>
