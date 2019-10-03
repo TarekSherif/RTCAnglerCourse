@@ -1,0 +1,147 @@
+<div class="row" *ngFor="let item of items;let isOdd=odd" [ngClass]="{'row-odd':isOdd}">
+   <div class="col-md-3"> </div>
+   <div class="col-md-3"><b>{{ item.name }}</b> </div>
+   <div class="col-md-3">{{ item.price | currency }}</div>
+   <div class="col-md-3">  </div>
+</div>
+<br>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="template-tab" data-toggle="tab" href="#template" role="tab" aria-controls="template" aria-selected="true">template Driven Forms</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="reactive-tab" data-toggle="tab" href="#reactive" role="tab" aria-controls="reactive" aria-selected="false">reactive  Driven Forms</a>
+  </li>
+
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="template" role="tabpanel" aria-labelledby="template-tab">
+
+
+
+    <form #frmTemplate='ngForm'  (ngSubmit)="onFormTemplateSubmit(frmTemplate)"  >
+      <div class="form-row">
+        <div class="col-md-12 form-group">
+          <label for="validationServer01">name</label>
+          <input type="text" class="form-control" id="validationServer01" name="name" placeholder="name" required
+          #name='ngModel' ngModel
+          [ngClass]="(name.touched && name.errors?.required) ?'is-invalid' :'is-valid'"
+          >
+          <div  class="invalid-feedback"  *ngIf="name.touched && name.errors?.required">
+              invalid-feedback
+          </div>
+        </div>
+
+
+        <div class="col-md-12 form-group">
+          <label for="price">price</label>
+          <input type="number" class="form-control " id="price" name="price" placeholder="price" required
+           #price='ngModel' ngModel   [ngClass]="(price.touched && price.errors?.required) ?'is-invalid' :'is-valid'" >
+          <div class="invalid-feedback" *ngIf="price.touched && price.errors?.required">
+              invalid-feedback
+          </div>
+        </div>
+
+      </div>
+
+
+      <button class="btn btn-primary" type="submit">Submit form</button>
+    </form>
+
+  </div>
+  <div class="tab-pane fade" id="reactive" role="tabpanel" aria-labelledby="reactive-tab">
+
+
+
+      <ul class="nav nav-tabs" id="myReactiveTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="formControl-tab" data-toggle="tab" href="#formControl" role="tab" aria-controls="formControl" aria-selected="true">formControl  Driven Forms</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link " id="formBuilder-tab" data-toggle="tab" href="#formBuilder" role="tab" aria-controls="formBuilder" aria-selected="false">formBuilder Driven Forms</a>
+        </li>
+
+
+      </ul>
+      <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade" id="formControl" role="tabpanel" aria-labelledby="formControl-tab">
+
+
+              <form [formGroup]="frmFormGroup" (ngSubmit)="onFormGroupSubmit()">
+                <div class="form-row">
+                  <div class="col-md-12 form-group">
+                    <label for="validationServer01">name</label>
+                    <input type="text" class="form-control"
+                    [ngClass]="frmFormGroup.get('name').invalid && frmFormGroup.get('name').touched ?'is-invalid':' is-valid'"
+                    id="validationServer01" placeholder="name" formControlName="name" required >
+                    <div class="invalid-feedback" *ngIf="frmFormGroup.get('name').invalid && frmFormGroup.get('name').touched ">
+                        invalid
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-12 form-group">
+                    <label for="validationServer05">price</label>
+                    <input type="number" class="form-control" id="validationServer05"
+                    [ngClass]="frmFormGroup.get('price').invalid && frmFormGroup.get('price').touched ?'is-invalid':' is-valid'"
+                    placeholder="price"  formControlName="price"  >
+                    <div class="invalid-feedback" *ngIf="frmFormGroup.get('price').invalid && frmFormGroup.get('price').touched ">
+                        invalid
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <button class="btn btn-primary"  [disabled]="!frmFormGroup.valid" type="submit">Submit form</button>
+              </form>
+
+            </div>
+        <div class="tab-pane fade show active" id="formBuilder" role="tabpanel" aria-labelledby="formBuilder-tab">
+
+
+
+          <form [formGroup]="frmFormBuilder" (ngSubmit)="onFormBuilderSubmit()">
+            <div class="form-row">
+              <div class="col-md-12 form-group">
+                <label for="validationServer01">name</label>
+                <input type="text" class="form-control " id="validationServer01" placeholder="name"
+                formControlName="name"
+                [ngClass]="frmFormBuilder.get('name').invalid && frmFormBuilder.get('name').touched ?'is-invalid':' is-valid'"
+                >
+                <div class="invalid-feedback" *ngIf="frmFormBuilder.get('name').invalid && frmFormBuilder.get('name').touched ">
+                    invalid
+                </div>
+              </div>
+
+
+              <div class="col-md-12 form-group">
+                <label for="validationServer05">price</label>
+                <input type="number" class="form-control " id="validationServer05" placeholder="price"
+                formControlName="price"
+                [ngClass]="frmFormBuilder.get('price').invalid && frmFormBuilder.get('price').touched ?'is-invalid':' is-valid'"
+                >
+                <div class="invalid-feedback" *ngIf="frmFormBuilder.get('price').invalid && frmFormBuilder.get('price').touched ">
+                    invalid
+                </div>
+              </div>
+
+            </div>
+
+
+            <button class="btn btn-primary"  [disabled]="!frmFormBuilder.valid"  type="submit">Submit form</button>
+          </form>
+
+        </div>
+
+
+      </div>
+
+
+
+  </div>
+
+</div>
+
