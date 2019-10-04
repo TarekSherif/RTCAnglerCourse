@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,FormBuilder,Validators} from '@angular/forms';
-import { Item } from 'src/app/interface/item';
+import { Item } from 'src/app/interfaces/item';
 
 @Component({
   selector: 'app-forms',
@@ -16,8 +16,9 @@ export class FormsComponent implements OnInit {
     });
 
     onFormGroupSubmit(){
-      this.items.push(this.frmFormGroup.value)
+      this.items.push(this.frmFormGroup.value);
       console.warn(this.frmFormGroup.value);
+      this.frmFormGroup.reset();
     }
 
 
@@ -26,14 +27,16 @@ export class FormsComponent implements OnInit {
       price: ['0',[Validators.required,Validators.max(1000)]],
     });
     onFormBuilderSubmit(){
-      this.items.push(this.frmFormBuilder.value)
+      this.items.push(this.frmFormBuilder.value);
       console.warn(this.frmFormBuilder.value);
+      this.frmFormBuilder.reset();
     }
 
   //TemplateForm
-  onFormTemplateSubmit(frmTemplate){
-    this.items.push(frmTemplate.value)
+  onFormTemplateSubmit(frmTemplate:FormGroup){
+    this.items.push(frmTemplate.value);
   console.warn(frmTemplate.value);
+  frmTemplate.reset();
 
   }
 

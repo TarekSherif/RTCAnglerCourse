@@ -8,6 +8,8 @@ import { DirectivesComponent } from './components/directives/directives.componen
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AppLayoutComponent } from './Layout/app-layout/app-layout.component';
 import { FormsComponent } from './components/forms/forms.component';
+import { HttpClientComponent } from './components/http-client/http-client.component';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { FormsComponent } from './components/forms/forms.component';
     DirectivesComponent,
     NotFoundComponent,
     AppLayoutComponent,
-    FormsComponent
+    FormsComponent,
+    HttpClientComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
