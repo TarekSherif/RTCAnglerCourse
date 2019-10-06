@@ -1,8 +1,10 @@
 
 install Node.js
-
+npm init
 npm install
 npm update
+
+npm run scriptName
 
 package.json
 

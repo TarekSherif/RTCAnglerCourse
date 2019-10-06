@@ -1,0 +1,23 @@
+<div>
+
+  <button (click) = "toggle()" class="btn btn-primary">animations toggle </button>
+
+  <hr>
+
+  <div [@marquee] = "marqueeDirection" class="rotate">
+     <h1>Tarek Sherif</h1>
+  </div>
+</div>
+
+
+<ul>
+  <li [@fade]="fadeStatus" *ngFor="let stu of stydents ">
+    {{stu}}
+  </li>
+</ul>
+
+
+
+<div [@openClose]="isOpen ? 'open' : 'closed'" class="open-close-container"   >
+  <p>The box is now {{ isOpen ? 'Open' : 'Closed' }}!</p>
+</div>

@@ -1,0 +1,1535 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>CSS  Basic </title>
+
+	<link href="jquery-ui-1.10.1.sunny/css/sunny/jquery-ui-1.10.1.custom.css" rel="stylesheet" />
+	<script  type="text/javascript" language="javascript" src="jquery-ui-1.10.1.sunny/js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" language="javascript" src="jquery-ui-1.10.1.sunny/js/jquery-ui-1.10.1.custom.js"></script>
+	<script  type="text/javascript" src="jquery-ui-1.10.1.sunny/js/juery.topbar.js" ></script>
+		<script type="text/javascript" language="javascript">
+			var Vorder=new String();
+			
+			$(function() {
+				$('h4').hover(function(){
+		    	$(this).css("color","red");
+		   		 },function(){
+		    	$(this).css("color","#383838");
+		        });
+				$( "#headSection" ).accordion();
+				$( "#BodySection" ).accordion();
+				$( "#radioset" ).buttonset();
+				$(".BorderStyle").click(function(){
+				var VborderStyle=$(this).text()
+				$(".BorderStyleView").text(VborderStyle);
+				$("#Div-top-style").css("border-top-style",VborderStyle);
+				$("#Div-right-style").css("border-right-style",VborderStyle);	
+				$("#Div-bottom-style").css("border-bottom-style",VborderStyle);
+				$("#Div-left-style").css("border-left-style",VborderStyle);
+				$("#Div-style").css("border-style",VborderStyle);
+
+				});
+				$(".Borderweight").click(function(){
+				var VborderWeight=$(this).text()
+				$(".BorderWidthView").text(VborderWeight);
+				$("#Div-top-Width").css("border-top-Width",VborderWeight);
+				$("#Div-right-Width").css("border-right-Width",VborderWeight);	
+				$("#Div-bottom-Width").css("border-bottom-Width",VborderWeight);
+				$("#Div-left-Width").css("border-left-Width",VborderWeight);
+				$("#Div-Width").css("border-Width",VborderWeight);
+
+				});
+			$(".BorderColor").click(function(){
+				var VborderColor=$(this).text()
+				$(".BorderColorView").text(VborderColor);
+				$("#Div-top-Color").css("border-top-Color",VborderColor);
+				$("#Div-right-Color").css("border-right-Color",VborderColor);	
+				$("#Div-bottom-Color").css("border-bottom-Color",VborderColor);
+				$("#Div-left-Color").css("border-left-Color",VborderColor);
+				$("#Div-Color").css("border-Color",VborderColor);
+
+				});
+			$(".BG-repeat").click(function(){
+				var Vrepeat=$(this).text()
+				$(".DivBG").css("background-repeat",Vrepeat);
+				});
+					$(".BG-position").click(function(){
+				var Vposition=$(this).text();
+				$(".DivBG").css("background-position",Vposition);
+				});
+ 		 $("select").change(function(){
+ 		 var VSelect=$(this).val();
+ 		 $("#PFontExample").css(this.id.substr(3),VSelect);
+ 		 
+ 		 });
+ 		$("#CmdDivcolor").change(function(){
+ 		 var VSelect=$(this).val();
+ 		 $(".DivBG").css('background-color',VSelect);
+	      });  
+    });
+				</script>
+	<style type="text/css">
+		 .Syntax{display:inline;font-size:xx-large;background-color:yellow;border-radius:10px;font-weight:bold }
+}
+		.demoHeaders {margin-top: 2em;}
+	 	.Massage{position: absolute; width: 100%; height: 30%;z-Index:100; background-color:rgba(0, 0, 0, 0.5); display:none;}
+		.Tbl{border: thick solid #C0C0C0;  width:90%; background-color:#FEEEBD}
+		td {border:thin solid #C0C0C0;}
+		th,.Head{	border: 1px solid #494437;
+	background: #817865 url(images/ui-bg_gloss-wave_45_817865_500x100.png) 50% 50% repeat-x;
+	color: #ffffff;
+	font-weight: bold;		}
+		.BG-position:hover,.BG-repeat:hover,.BorderColor:hover,.Borderweight:hover,.BorderStyle:hover{ background-color:#FFF9E5;border-color:red}
+		a:hover{ color: #FF0000;}
+		.BorderColor,.Borderweight{border-style:solid;border-width:thin ;}
+		.marginView,.paddingView,.BorderColorView,.BorderWidthView,.BorderStyleView{font-size:x-large;color:red}
+	.DivBG{background-image:url('SmileIcon.png'); height: 300px;background-color:orange}
+	
+	</style>
+</head>
+
+<body>
+<!-- TopbarMessage-->
+	
+	<table   style="width: 100%">
+		<tr>
+				<th colspan="2" style="text-align: center;" ><h1>Cascading Style Sheets ( CSS )  </h1> </th>
+		</tr>
+
+		<tr>
+		<td style="width: 20%; vertical-align: top;">
+		<img alt="SmileToLife" src="images\SmileToLife.jpg" width="150" />
+<hr/>
+<h3 style="" >CSS Basic</h3>
+<hr/>
+<!-- Accordion -->
+<div id="BodySection">
+
+	<h3 style="" >CSS Basic</h3>
+	<div>
+		 <a href="#CSSBasic">CSS Basic</a>
+		 <ul>
+		 <li > <a href="#CSSBasic"> CSS Syntax  </a></li>
+			 <li > <a href="#CSSBasic">How To </a></li>
+			
+			 <li > <a href="#Selector">Selector</a></li>
+			 <li>  <a href="#Colors">Colors</a></li>
+			 <li>  <a href="#Units">Units</a></li>
+		 </ul>
+
+	</div>
+	<h3>Background</h3>
+	<div>
+		 <ul>
+			 <li > <a href="#Background">B-color</a></li>
+			 <li > <a href="#Background">B-image</a></li>
+			 <li > <a href="#Background">B-repeat</a></li>
+						 
+			 <li > <a href="#Background">B-attachment</a></li>
+			 <li > <a href="#Background">B-position</a></li>
+			 <li><a href="#Background">Background</a></li>
+		 </ul>
+		
+	</div>
+	<h3>Text </h3>
+	<div>
+		 
+		 <ul>
+			 <li > <a href="#Text">Color</a></li>
+			 <li > <a href="#Text">Alignment</a></li>
+			 <li > <a href="#Text">Decoration</a></li>
+			 <li > <a href="#Text">Transformation</a></li>
+			 <li > <a href="#Text">Indentation</a></li>
+			 <li > <a href="#Text">vertical-align</a></li>
+			 <li > <a href="#Text">white-space</a></li>
+			 <li > <a href="#Text">letter-spacing</a></li>
+			 <li > <a href="#Text">line-height</a></li>
+
+		 </ul>
+	</div>
+	
+	<h3>Border</h3>
+	<div>
+		 
+		 <ul>
+			 <li > <a href="#Border">Style </a></li>
+			 <li > <a href="#Border">Width</a></li>
+			 <li > <a href="#Border">Color </a></li>
+		 </ul>
+	</div>
+	
+<h3>Boxing</h3>
+	<div>
+
+
+		 <ul>
+			 <li > <a href="#Boxing">padding</a></li>
+			  <ul>
+					  <li > <a href="#Boxing">Top</a></li>
+					   <li > <a href="#Boxing">right</a></li>
+					   <li > <a href="#Boxing">bottom</a></li>
+					   <li > <a href="#Boxing">Left</a></li>
+			  </ul>
+			 
+			 <li > <a href="#Marging">Marging</a></li>
+		   <ul>
+					  <li > <a href="#Boxing">Top</a></li>
+					   <li > <a href="#Boxing">right</a></li>
+					   <li > <a href="#Boxing">bottom</a></li>
+					   <li > <a href="#Boxing">Left</a></li>			
+					    </ul>
+			
+		 </ul>
+
+	</div>
+</div>
+
+		
+		</td>
+		<td>
+		
+		
+			<hr />	<h1><a id="CSSBasic"> </a><span style="color:red">CSS</span> Basic</h1><hr />
+<h2>  CSS Syntax </h2>
+<div class="Syntax"><a href="#Selector">Sectors</a></div>&nbsp;&nbsp;&nbsp;&nbsp; <div class="Syntax"  >{<a href="#Selector">property </a>:<a href="#Selector"> Value</a>}</div>
+<div >/*This is a comment*/</div>
+
+<h2> How To </h2>			
+
+	 <h2 style="font-family: verdana, helvetica, arial, sans-serif; font-size: 22px; margin-top: 10px; margin-bottom: 10px; font-weight: normal; background-color: transparent; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;">
+				 Three Ways to Insert CSS</h2>
+			<p style="line-height: 16px; font-family: verdana, helvetica, arial, sans-serif; color: rgb(0, 0, 0); font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;">
+			There are three ways of inserting a style sheet:</p>
+			
+<table class="Tbl" align="center" >
+
+<tr>
+<td class="Head">External style sheet</td>
+<td ><div class="code notranslate"><div>
+
+&lt;head&gt;<br/>
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;
+href=&quot;mystyle.css&quot;&gt;<br/>
+&lt;/head&gt;</div></div>
+</td>
+</tr>
+<tr>
+<td class="Head">Internal style sheet</td>
+<td >
+<div>
+
+&lt;head&gt;<br/>
+&lt;style&gt;<br/>
+hr {color:sienna;}<br/>
+p {margin-left:20px;}<br/>
+body {background-image:url(&quot;images/back40.gif&quot;);}<br/>
+&lt;/style&gt;<br/>
+&lt;/head&gt;</div>
+</td>
+</tr>
+
+<tr>
+<td class="Head">Inline style</td>
+<td >
+<div>
+
+&lt;p style=&quot;color:sienna;margin-left:20px&quot;&gt;This is a paragraph.&lt;/p&gt;</div>
+</td>
+</tr>
+	
+</table>
+			 <hr />
+			  <h2><a id="Colors">Colors</a></h2>
+			  <hr />
+<p>Colors in CSS can be specified by the following methods:</p>
+<ul>
+	<li>Hexadecimal colors</li>
+	<li>RGB colors</li>
+	<li>RGBA colors</li>
+	<li>HSL colors</li>
+	<li>HSLA colors</li>
+	<li>Predefined/Cross-browser color names</li>
+</ul>
+<hr />
+
+			  <table  class="Tbl">
+  <tr>
+    <th width="50%">Color</th>
+    <th width="25%">Color HEX</th>
+    <th width="25%">Color RGB</th>
+  </tr>
+  <tr>
+    <td bgcolor="#000000">&nbsp;</td>
+    <td>#000000</td>
+    <td>rgb(0,0,0)</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FF0000">&nbsp;</td>
+    <td>#FF0000</td>
+    <td>rgb(255,0,0)</td>
+  </tr>
+  <tr>
+    <td bgcolor="#00FF00">&nbsp;</td>
+    <td>#00FF00</td>
+    <td>rgb(0,255,0)</td>
+  </tr>
+  <tr>
+    <td bgcolor="#0000FF">&nbsp;</td>
+    <td>#0000FF</td>
+    <td>rgb(0,0,255)</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFF00">&nbsp;</td>
+    <td>#FFFF00</td>
+    <td>rgb(255,255,0)</td>
+  </tr>
+  <tr>
+    <td bgcolor="#00FFFF">&nbsp;</td>
+    <td>#00FFFF</td>
+    <td>rgb(0,255,255)</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FF00FF">&nbsp;</td>
+    <td>#FF00FF</td>
+    <td>rgb(255,0,255)</td>
+  </tr>
+  <tr>
+    <td bgcolor="#C0C0C0">&nbsp;</td>
+    <td>#C0C0C0</td>
+    <td>rgb(192,192,192)</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td>#FFFFFF</td>
+    <td>rgb(255,255,255)</td>
+  </tr>
+</table>
+<hr />
+
+			 <h2><a id="Units">Units Measurement Values</a></h2>
+			 <hr />
+<table class="Tbl">
+  <tr>
+    <th align="left" width="25%">Unit</th>
+    <th align="left" width="75%">Description</th>
+  </tr>
+  <tr>
+    <td>%</td>
+    <td>percentage</td>
+  </tr>
+  <tr>
+    <td>in</td>
+    <td>inch</td>
+  </tr>
+  <tr>
+    <td>cm</td>
+    <td>centimeter</td>
+  </tr>
+  <tr>
+    <td>mm</td>
+    <td>millimeter</td>
+  </tr>
+  <tr>
+    <td>em</td>
+    <td>1em is equal to the current font size. 2em means 2 times 
+	the size of the current font. E.g., if an element is displayed with a font 
+	of 12 pt, then '2em' is 24 pt. The 'em' is a very useful unit in CSS, since 
+	it can adapt automatically to the font that the reader uses</td>
+  </tr>
+  <tr>
+    <td>ex</td>
+    <td>one ex is the x-height of a font (x-height is usually
+      about half the font-size)</td>
+  </tr>
+  <tr>
+    <td>pt</td>
+    <td>point (1 pt is the same as 1/72 inch)</td>
+  </tr>
+  <tr>
+    <td>pc</td>
+    <td>pica (1 pc is the same as 12 points)</td>
+  </tr>
+  <tr>
+    <td>px</td>
+    <td>pixels (a dot on the computer screen)</td>
+  </tr>
+</table>
+
+
+
+			<hr />				<h2> <a id="Selector">Selector</a></h2><hr />
+
+			<br/>
+			<table  class="Tbl"  align="center" > 
+				<tr >
+					<th >Selector</th>
+					<th >Example</th>
+					<th >Example description</th>
+					<th >CSS</th>
+				</tr>
+				<tr>
+					<td align="left">
+					<a href="http://www.w3schools.com/cssref/sel_class.asp" style="background-color:transparent">
+					.class</a></td>
+					<td align="left">.intro</td>
+					<td align="left" >Selects all 
+					elements with class=&quot;intro&quot;</td>
+					<td align="right">1</td>
+				</tr>
+				<tr>
+					<td align="left" >
+					<a href="http://www.w3schools.com/cssref/sel_id.asp" style="background-color:
+  transparent">#id</a></td>
+					<td align="left"   >#firstname</td>
+					<td align="left"   >Selects the 
+					element with id=&quot;firstname&quot;</td>
+					<td align="right"  >1</td>
+				</tr>
+				  <tr >
+					<td  >
+					<a href="http://www.w3schools.com/cssref/sel_all.asp" style="background-color:
+  transparent">*</a></td>
+					<td align="left"   >*</td>
+					<td align="left"   >Selects all 
+					elements</td>
+					<td align="right"  >2</td>
+				</tr>
+				  <tr >
+					<td  >
+					<a href="http://www.w3schools.com/cssref/sel_element.asp" style="background-color:
+  transparent">element</a></td>
+					<td align="left"   >p</td>
+					<td align="left"   >Selects all &lt;p&gt; 
+					elements</td>
+					<td align="right"  >1</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_element_comma.asp" style="background-color:transparent">
+					element,element</a></td>
+					<td align="left"   >div,p</td>
+					<td align="left"   >Selects all &lt;div&gt; 
+					elements and all &lt;p&gt; elements</td>
+					<td align="right"  >1</td>
+				</tr>
+				<tr  >
+					<td  >
+					<a href="http://www.w3schools.com/cssref/sel_element_element.asp" style="background-color:transparent">
+					element&nbsp;element</a></td>
+					<td align="left"   >div p</td>
+					<td align="left"   >Selects all &lt;p&gt; 
+					elements inside &lt;div&gt; elements</td>
+					<td align="right"  >1</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_element_gt.asp" style="background-color:
+  transparent">element&gt;element</a></td>
+					<td align="left"   >div&gt;p</td>
+					<td align="left"   >Selects all &lt;p&gt; 
+					elements where the parent is a &lt;div&gt; element</td>
+					<td align="right"  >2</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_element_pluss.asp" style="background-color:transparent">
+					element+element</a></td>
+					<td align="left"   >div+p</td>
+					<td align="left"   >Selects all &lt;p&gt; 
+					elements that are placed immediately after &lt;div&gt; elements</td>
+					<td align="right"  >2</td>
+				</tr>
+				<tr height="91">
+					<td align="left" >
+					<a href="http://www.w3schools.com/cssref/sel_attribute.asp" style="background-color:
+  transparent">[attribute]</a></td>
+					<td align="left"   >[target]</td>
+					<td align="left"   >Selects all 
+					elements with a target attribute</td>
+					<td align="right"  >2</td>
+				</tr>
+				<tr height="91">
+					<td align="left" >
+					<a href="http://www.w3schools.com/cssref/sel_attribute_value.asp" style="background-color:transparent">
+					[attribute=value]</a></td>
+					<td align="left"   >[target=_blank]</td>
+					<td align="left"   >Selects all 
+					elements with target=&quot;_blank&quot;</td>
+					<td align="right"  >2</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_attribute_value_contains.asp" style="background-color:transparent">
+					[attribute~=value]</a></td>
+					<td align="left"   >[title~=flower]</td>
+					<td align="left"   >Selects all 
+					elements with a title attribute containing the word &quot;flower&quot;</td>
+					<td align="right"  >2</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_attribute_value_lang.asp" style="background-color:transparent">
+					[attribute|=value]</a></td>
+					<td align="left"   >[lang|=en]</td>
+					<td align="left"   >Selects all 
+					elements with a lang attribute value starting with &quot;en&quot;</td>
+					<td align="right"  >2</td>
+				</tr>
+				  <tr >
+					<td  >
+					<a href="http://www.w3schools.com/cssref/sel_link.asp" style="background-color:
+  transparent">:link</a></td>
+					<td align="left"   >a:link</td>
+					<td align="left"   >Selects all 
+					unvisited links</td>
+					<td align="right"  >1</td>
+				</tr>
+				  <tr >
+					<td  >
+					<a href="http://www.w3schools.com/cssref/sel_visited.asp" style="background-color:
+  transparent">:visited</a></td>
+					<td align="left"   >a:visited</td>
+					<td align="left"   >Selects all 
+					visited links</td>
+					<td align="right"  >1</td>
+				</tr>
+				  <tr >
+					<td  >
+					<a href="http://www.w3schools.com/cssref/sel_active.asp" style="background-color:
+  transparent">:active</a></td>
+					<td align="left"   >a:active</td>
+					<td align="left"   >Selects the active 
+					link</td>
+					<td align="right"  >1</td>
+				</tr>
+				  <tr >
+					<td  >
+					<a href="http://www.w3schools.com/cssref/sel_hover.asp" style="background-color:
+  transparent">:hover</a></td>
+					<td align="left"   >a:hover</td>
+					<td align="left"   >Selects links on 
+					mouse over</td>
+					<td align="right"  >1</td>
+				</tr>
+				<tr  >
+					<td  >
+					<a href="http://www.w3schools.com/cssref/sel_focus.asp" style="background-color:
+  transparent">:focus</a></td>
+					<td align="left"   >input:focus</td>
+					<td align="left"   >Selects the input 
+					element which has focus</td>
+					<td align="right"  >2</td>
+				</tr>
+				<tr height="91">
+					<td align="left" >
+					<a href="http://www.w3schools.com/cssref/sel_firstletter.asp" style="background-color:
+  transparent">:first-letter</a></td>
+					<td align="left"   >p:first-letter</td>
+					<td align="left"   >Selects the first 
+					letter of every &lt;p&gt; element</td>
+					<td align="right"  >1</td>
+				</tr>
+				<tr height="91">
+					<td align="left" >
+					<a href="http://www.w3schools.com/cssref/sel_firstline.asp" style="background-color:
+  transparent">:first-line</a></td>
+					<td align="left"   >p:first-line</td>
+					<td align="left"   >Selects the first 
+					line of every &lt;p&gt; element</td>
+					<td align="right"  >1</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_firstchild.asp" style="background-color:
+  transparent">:first-child</a></td>
+					<td align="left"   >p:first-child</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that is the first child of its parent</td>
+					<td align="right"  >2</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_before.asp" style="background-color:
+  transparent">:before</a></td>
+					<td align="left"   >p:before</td>
+					<td align="left"   >Insert content 
+					before&nbsp; the content of every &lt;p&gt; element</td>
+					<td align="right"  >2</td>
+				</tr>
+				<tr height="91">
+					<td align="left" >
+					<a href="http://www.w3schools.com/cssref/sel_after.asp" style="background-color:
+  transparent">:after</a></td>
+					<td align="left"   >p:after</td>
+					<td align="left"   >Insert content 
+					after every &lt;p&gt; element</td>
+					<td align="right"  >2</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_lang.asp" style="background-color:
+  transparent">:lang(language)</a></td>
+					<td align="left"   >p:lang(it)</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element with a lang attribute value starting with &quot;it&quot;</td>
+					<td align="right"  >2</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_gen_sibling.asp" style="background-color:
+  transparent">element1~element2</a></td>
+					<td align="left"   >p~ul</td>
+					<td align="left"   >Selects every &lt;ul&gt; 
+					element that are preceded by a &lt;p&gt; element</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_attr_begin.asp" style="background-color:
+  transparent">[attribute^=value]</a></td>
+					<td align="left"   >a[src^=&quot;https&quot;]</td>
+					<td align="left"   >Selects every &lt;a&gt; 
+					element whose src attribute value begins with &quot;https&quot;</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_attr_end.asp" style="background-color:
+  transparent">[attribute$=value]</a></td>
+					<td align="left"   >a[src$=&quot;.pdf&quot;]</td>
+					<td align="left"   >Selects every &lt;a&gt; 
+					element whose src attribute value ends with &quot;.pdf&quot;</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr height="211">
+					<td align="left" class="xl26" height="211" width="64">
+					<a href="http://www.w3schools.com/cssref/sel_attr_contain.asp" style="background-color:
+  transparent">[attribute*=value]</a></td>
+					<td align="left"   >a[src*=&quot;w3schools&quot;]</td>
+					<td align="left"   >Selects every &lt;a&gt; 
+					element whose src attribute value contains the substring 
+					&quot;w3schools&quot;</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_first-of-type.asp" style="background-color:transparent">
+					:first-of-type</a></td>
+					<td align="left"   >p:first-of-type</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that is the first &lt;p&gt; element of its parent</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_last-of-type.asp" style="background-color:
+  transparent">:last-of-type</a></td>
+					<td align="left"   >p:last-of-type</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that is the last &lt;p&gt; element of its parent</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_only-of-type.asp" style="background-color:
+  transparent">:only-of-type</a></td>
+					<td align="left"   >p:only-of-type</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that is the only &lt;p&gt; element of its parent</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_only-child.asp" style="background-color:
+  transparent">:only-child</a></td>
+					<td align="left"   >p:only-child</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that is the only child of its parent</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_nth-child.asp" style="background-color:
+  transparent">:nth-child(n)</a></td>
+					<td align="left"   >p:nth-child(2)</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that is the second child of its parent</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr height="211">
+					<td align="left" class="xl26" height="211" width="64">
+					<a href="http://www.w3schools.com/cssref/sel_nth-last-child.asp" style="background-color:transparent">
+					:nth-last-child(n)</a></td>
+					<td align="left"   >p:nth-last-child(2)</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that is the second child of its parent, counting 
+					from the last child</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_nth-of-type.asp" style="background-color:
+  transparent">:nth-of-type(n)</a></td>
+					<td align="left"   >p:nth-of-type(2)</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that is the second &lt;p&gt; element of its parent</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr height="226">
+					<td align="left" class="xl26" height="226" width="64">
+					<a href="http://www.w3schools.com/cssref/sel_nth-last-of-type.asp" style="background-color:transparent">
+					:nth-last-of-type(n)</a></td>
+					<td align="left"   >
+					p:nth-last-of-type(2)</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that is the second &lt;p&gt; element of its parent, 
+					counting from the last child</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_last-child.asp" style="background-color:
+  transparent">:last-child</a></td>
+					<td align="left"   >p:last-child</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that is the last child of its parent</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr height="76">
+					<td align="left" class="xl26" height="76" width="64">
+					<a href="http://www.w3schools.com/cssref/sel_root.asp" style="background-color:transparent">
+					:root</a></td>
+					<td align="left"   >:root</td>
+					<td align="left"   >Selects the 
+					document’s root element</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_empty.asp" style="background-color:
+  transparent">:empty</a></td>
+					<td align="left"   >p:empty</td>
+					<td align="left"   >Selects every &lt;p&gt; 
+					element that has no children (including text nodes)</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr height="196">
+					<td align="left" class="xl26" height="196" width="64">
+					<a href="http://www.w3schools.com/cssref/sel_target.asp" style="background-color:
+  transparent">:target</a></td>
+					<td align="left"   >#news:target</td>
+					<td align="left"   >Selects the 
+					current active #news element (clicked on a URL containing 
+					that anchor name)</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr height="76">
+					<td align="left" class="xl26" height="76" width="64">
+					<a href="http://www.w3schools.com/cssref/sel_enabled.asp" style="background-color:transparent">
+					:enabled</a></td>
+					<td align="left"   >input:enabled</td>
+					<td align="left"   >Selects every 
+					enabled &lt;input&gt; element</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr height="76">
+					<td align="left" class="xl26" height="76" width="64">
+					<a href="http://www.w3schools.com/cssref/sel_disabled.asp" style="background-color:transparent">
+					:disabled</a></td>
+					<td align="left"   >input:disabled</td>
+					<td align="left"   >Selects every 
+					disabled &lt;input&gt; element</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr height="76">
+					<td align="left" class="xl26" height="76" width="64">
+					<a href="http://www.w3schools.com/cssref/sel_checked.asp" style="background-color:transparent">
+					:checked</a></td>
+					<td align="left"   >input:checked</td>
+					<td align="left"   >Selects every 
+					checked &lt;input&gt; element</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td  >
+					<a href="http://www.w3schools.com/cssref/sel_not.asp" style="background-color:
+  transparent">:not(selector)</a></td>
+					<td align="left"   >:not(p)</td>
+					<td align="left"   >Selects every 
+					element that is not a &lt;p&gt; element</td>
+					<td align="right"  >3</td>
+				</tr>
+				<tr  >
+					<td align="left" class="xl26"   width="64">
+					<a href="http://www.w3schools.com/cssref/sel_selection.asp" style="background-color:
+  transparent">::selection</a></td>
+					<td align="left"   >::selection</td>
+					<td align="left"   >Selects the 
+					portion of an element that is selected by a user</td>
+					<td align="right"  >3</td>
+				</tr>
+			</table>
+			
+				 
+				
+				
+				<br/><br/><br/><br/><br/>
+
+
+
+
+				
+			<hr />	<h1><a id="Background"> </a>Background </h1><hr />
+			
+				 <table class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+					<th style="width: 330px">property</th>
+					<th></th>
+					</tr>
+										<tr>
+						<td style="width: 330px"  >
+								<strong>background-color: {Colors}</strong><br/>
+					background-color:yellow;
+						</td>
+						<td>
+						<select id="CmdDivcolor" ><option style="background-color:AliceBlue">AliceBlue</option >
+<option style="background-color:AntiqueWhite">AntiqueWhite</option >
+<option style="background-color:Aqua">Aqua</option >
+<option style="background-color:Aquamarine">Aquamarine</option >
+<option style="background-color:Azure">Azure</option >
+<option style="background-color:Beige">Beige</option >
+<option style="background-color:Bisque">Bisque</option >
+<option style="background-color:Black">Black</option >
+<option style="background-color:BlanchedAlmond">BlanchedAlmond</option >
+<option style="background-color:Blue">Blue</option >
+<option style="background-color:BlueViolet">BlueViolet</option >
+<option style="background-color:Brown">Brown</option >
+<option style="background-color:BurlyWood">BurlyWood</option >
+<option style="background-color:CadetBlue">CadetBlue</option >
+<option style="background-color:Chartreuse">Chartreuse</option >
+<option style="background-color:Chocolate">Chocolate</option >
+<option style="background-color:Coral">Coral</option >
+<option style="background-color:CornflowerBlue">CornflowerBlue</option >
+<option style="background-color:Cornsilk">Cornsilk</option >
+<option style="background-color:Crimson">Crimson</option >
+<option style="background-color:Cyan">Cyan</option >
+<option style="background-color:DarkBlue">DarkBlue</option >
+<option style="background-color:DarkCyan">DarkCyan</option >
+<option style="background-color:DarkGoldenRod">DarkGoldenRod</option >
+<option style="background-color:DarkGray">DarkGray</option >
+<option style="background-color:DarkGrey">DarkGrey</option >
+<option style="background-color:DarkGreen">DarkGreen</option >
+<option style="background-color:DarkKhaki">DarkKhaki</option >
+<option style="background-color:DarkMagenta">DarkMagenta</option >
+<option style="background-color:DarkOliveGreen">DarkOliveGreen</option >
+<option style="background-color:Darkorange">Darkorange</option >
+<option style="background-color:DarkOrchid">DarkOrchid</option >
+<option style="background-color:DarkRed">DarkRed</option >
+<option style="background-color:DarkSalmon">DarkSalmon</option >
+<option style="background-color:DarkSeaGreen">DarkSeaGreen</option >
+<option style="background-color:DarkSlateBlue">DarkSlateBlue</option >
+<option style="background-color:DarkSlateGray">DarkSlateGray</option >
+<option style="background-color:DarkSlateGrey">DarkSlateGrey</option >
+<option style="background-color:DarkTurquoise">DarkTurquoise</option >
+<option style="background-color:DarkViolet">DarkViolet</option >
+<option style="background-color:DeepPink">DeepPink</option >
+<option style="background-color:DeepSkyBlue">DeepSkyBlue</option >
+<option style="background-color:DimGray">DimGray</option >
+<option style="background-color:DimGrey">DimGrey</option >
+<option style="background-color:DodgerBlue">DodgerBlue</option >
+<option style="background-color:FireBrick">FireBrick</option >
+<option style="background-color:FloralWhite">FloralWhite</option >
+<option style="background-color:ForestGreen">ForestGreen</option >
+<option style="background-color:Fuchsia">Fuchsia</option >
+<option style="background-color:Gainsboro">Gainsboro</option >
+<option style="background-color:GhostWhite">GhostWhite</option >
+<option style="background-color:Gold">Gold</option >
+<option style="background-color:GoldenRod">GoldenRod</option >
+<option style="background-color:Gray">Gray</option >
+<option style="background-color:Grey">Grey</option >
+<option style="background-color:Green">Green</option >
+<option style="background-color:GreenYellow">GreenYellow</option >
+<option style="background-color:HoneyDew">HoneyDew</option >
+<option style="background-color:HotPink">HotPink</option >
+<option style="background-color:IndianRed ">IndianRed </option >
+<option style="background-color:Indigo ">Indigo </option >
+<option style="background-color:Ivory">Ivory</option >
+<option style="background-color:Khaki">Khaki</option >
+<option style="background-color:Lavender">Lavender</option >
+<option style="background-color:LavenderBlush">LavenderBlush</option >
+<option style="background-color:LawnGreen">LawnGreen</option >
+<option style="background-color:LemonChiffon">LemonChiffon</option >
+<option style="background-color:LightBlue">LightBlue</option >
+<option style="background-color:LightCoral">LightCoral</option >
+<option style="background-color:LightCyan">LightCyan</option >
+<option style="background-color:LightGoldenRodYellow">LightGoldenRodYellow</option >
+<option style="background-color:LightGray">LightGray</option >
+<option style="background-color:LightGrey">LightGrey</option >
+<option style="background-color:LightGreen">LightGreen</option >
+<option style="background-color:LightPink">LightPink</option >
+<option style="background-color:LightSalmon">LightSalmon</option >
+<option style="background-color:LightSeaGreen">LightSeaGreen</option >
+<option style="background-color:LightSkyBlue">LightSkyBlue</option >
+<option style="background-color:LightSlateGray">LightSlateGray</option >
+<option style="background-color:LightSlateGrey">LightSlateGrey</option >
+<option style="background-color:LightSteelBlue">LightSteelBlue</option >
+<option style="background-color:LightYellow">LightYellow</option >
+<option style="background-color:Lime">Lime</option >
+<option style="background-color:LimeGreen">LimeGreen</option >
+<option style="background-color:Linen">Linen</option >
+<option style="background-color:Magenta">Magenta</option >
+<option style="background-color:Maroon">Maroon</option >
+<option style="background-color:MediumAquaMarine">MediumAquaMarine</option >
+<option style="background-color:MediumBlue">MediumBlue</option >
+<option style="background-color:MediumOrchid">MediumOrchid</option >
+<option style="background-color:MediumPurple">MediumPurple</option >
+<option style="background-color:MediumSeaGreen">MediumSeaGreen</option >
+<option style="background-color:MediumSlateBlue">MediumSlateBlue</option >
+<option style="background-color:MediumSpringGreen">MediumSpringGreen</option >
+<option style="background-color:MediumTurquoise">MediumTurquoise</option >
+<option style="background-color:MediumVioletRed">MediumVioletRed</option >
+<option style="background-color:MidnightBlue">MidnightBlue</option >
+<option style="background-color:MintCream">MintCream</option >
+<option style="background-color:MistyRose">MistyRose</option >
+<option style="background-color:Moccasin">Moccasin</option >
+<option style="background-color:NavajoWhite">NavajoWhite</option >
+<option style="background-color:Navy">Navy</option >
+<option style="background-color:OldLace">OldLace</option >
+<option style="background-color:Olive">Olive</option >
+<option style="background-color:OliveDrab">OliveDrab</option >
+<option style="background-color:Orange">Orange</option >
+<option style="background-color:OrangeRed">OrangeRed</option >
+<option style="background-color:Orchid">Orchid</option >
+<option style="background-color:PaleGoldenRod">PaleGoldenRod</option >
+<option style="background-color:PaleGreen">PaleGreen</option >
+<option style="background-color:PaleTurquoise">PaleTurquoise</option >
+<option style="background-color:PaleVioletRed">PaleVioletRed</option >
+<option style="background-color:PapayaWhip">PapayaWhip</option >
+<option style="background-color:PeachPuff">PeachPuff</option >
+<option style="background-color:Peru">Peru</option >
+<option style="background-color:Pink">Pink</option >
+<option style="background-color:Plum">Plum</option >
+<option style="background-color:PowderBlue">PowderBlue</option >
+<option style="background-color:Purple">Purple</option >
+<option style="background-color:Red">Red</option >
+<option style="background-color:RosyBrown">RosyBrown</option >
+<option style="background-color:RoyalBlue">RoyalBlue</option >
+<option style="background-color:SaddleBrown">SaddleBrown</option >
+<option style="background-color:Salmon">Salmon</option >
+<option style="background-color:SandyBrown">SandyBrown</option >
+<option style="background-color:SeaGreen">SeaGreen</option >
+<option style="background-color:SeaShell">SeaShell</option >
+<option style="background-color:Sienna">Sienna</option >
+<option style="background-color:Silver">Silver</option >
+<option style="background-color:SkyBlue">SkyBlue</option >
+<option style="background-color:SlateBlue">SlateBlue</option >
+<option style="background-color:SlateGray">SlateGray</option >
+<option style="background-color:SlateGrey">SlateGrey</option >
+<option style="background-color:Snow">Snow</option >
+<option style="background-color:SpringGreen">SpringGreen</option >
+<option style="background-color:SteelBlue">SteelBlue</option >
+<option style="background-color:Tan">Tan</option >
+<option style="background-color:Teal">Teal</option >
+<option style="background-color:Thistle">Thistle</option >
+<option style="background-color:Tomato">Tomato</option >
+<option style="background-color:Turquoise">Turquoise</option >
+<option style="background-color:Violet">Violet</option >
+<option style="background-color:Wheat">Wheat</option >
+<option style="background-color:White">White</option >
+<option style="background-color:WhiteSmoke">WhiteSmoke</option >
+<option style="background-color:Yellow">Yellow</option >
+<option style="background-color:YellowGreen">YellowGreen</option >
+
+
+					</select>
+
+						
+						</td>
+
+					</tr>
+
+					<tr>
+						<td style="width: 330px"  >
+								<strong>background-image:{url('path')}</strong><br/>
+								  background-image:url('paper.gif');
+						</td>
+						<td rowspan="4"> 
+						<div class="DivBG"></div></td>
+					</tr>
+
+					<tr>
+						<td style="width: 330px"  >
+								<strong>background-repeat:<br />
+								<span style="font-size:x-large;color:red ">{</span>
+								<span class="BG-repeat" >no-repeat </span>,
+								<span class="BG-repeat" > repeat </span>,
+								<span class="BG-repeat" > repeat-x </span>,
+								<span class="BG-repeat"   >repeat-y</span>
+								<span style="font-size:x-large;color:red ">}</span>
+
+								
+								
+								</strong><br/>
+					
+						</td>
+					
+					</tr>
+					<tr>
+						<td style="width: 330px"  >
+								<strong>background-attachment:<br />{scroll , fixed}</strong><br/>
+					
+						</td>
+						
+					</tr>
+					<tr>
+						<td style="width: 330px"  >
+								<strong>background-position:<br />
+								<span style="font-size:x-large;color:red ">{</span>
+								<table>
+									<tr>
+										<td><span class="BG-position" > left top</span></td>
+										<td><span class="BG-position" >  top  </span></td>
+										<td><span class="BG-position" >  right top  </span></td>
+									</tr>
+
+									<tr>
+										<td><span class="BG-position" >left </span></td>
+										<td><span class="BG-position"   > center</span></td>
+										<td><span class="BG-position" > right </span></td>
+									</tr>
+
+									<tr>
+										<td><span class="BG-position" >  left bottom</span></td>
+										<td><span class="BG-position"   > bottom</span></td>
+										<td><span class="BG-position" >  right bottom</span></td>
+									</tr>
+
+								</table>
+								
+								<span style="font-size:x-large;color:red ">}</span>
+
+
+								
+								</strong><br/>
+					
+						</td>
+						
+					</tr>
+					<tr>
+						<td style="width: 330px"  >
+								<strong>background:Shorthand property</strong><br/>
+					
+						</td>
+						<td> <div>{background:#ffffff url('img_tree.png') no-repeat right top;}</div></td>
+					</tr>
+
+
+					
+				</table>
+				
+			<hr />	<h1><a id="Font"> </a>Styling Font</h1><hr />
+				<table  class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+					<th colspan="3">Property</th>
+					</tr>
+					<tr>
+					<td style="width: 175px">font-family</td>
+					<td style="width: 350px">
+					<select id="Cmdfont-family">
+<option style="font-family:Georgia">Georgia</option>
+<option style="font-family:Palatino Linotype">Palatino Linotype</option>
+<option style="font-family:Book Antiqua">Book Antiqua</option>
+<option style="font-family:Times New Roman">Times New Roman</option>
+<option style="font-family:Arial">Arial</option>
+<option style="font-family:Helvetica">Helvetica</option>
+<option style="font-family:Arial Black">Arial Black</option>
+<option style="font-family:Impact">Impact</option>
+<option style="font-family:Lucida Sans Unicode">Lucida Sans Unicode</option>
+<option style="font-family:Tahoma">Tahoma</option>
+<option style="font-family:Verdana">Verdana</option>
+<option style="font-family:Courier New">Courier New</option>
+<option style="font-family:Lucida Console">Lucida Console</option>
+					
+
+					</select>
+					</td>
+					<td rowspan="13">
+					<p id="PFontExample">
+					Save a lot of work with CSS!
+
+In our CSS tutorial you will learn how to use CSS to control the style and layout of multiple Web pages all at once.
+
+
+					</p>
+					</td>
+
+					</tr>
+<tr>
+<td style="width: 175px">font-size</td>
+					<td style="width: 350px"><select id="Cmdfont-size">
+					
+						<option>xx-small	</option>
+						<option>x-small	</option>
+						<option>small	</option>
+						<option>medium	</option>
+						<option>large	</option>
+						<option>x-large</option>
+						<option>xx-large</option>
+						<option>smaller</option>
+						<option>larger</option>
+					</select></td>
+					</tr>
+<tr>
+<td style="width: 175px">font-style</td>
+					<td style="width: 350px">
+					<select id="Cmdfont-style">
+					<option>normal</option>
+					<option>italic</option>
+					<option>oblique</option>
+					<option>inherit</option>
+										
+					</select>
+					</td>
+					</tr>
+<tr>
+<td style="width: 175px">font-variant</td>
+					<td style="width: 350px">
+					<select id="Cmdfont-variant">
+						<option>normal</option>
+						<option>small-caps</option>
+						<option>inherit</option>
+					</select>
+					
+					</td>
+					</tr>
+<tr>
+<td style="width: 175px">font-weight</td>
+					<td style="width: 350px" >
+					<select id="Cmdfont-weight">
+					<option>normal</option>
+					<option>bold</option>
+					<option>bolder</option>
+					<option>lighter</option>
+					<option>100</option>
+					<option>200</option>
+					<option>300</option>
+					<option>400</option>
+					<option>500</option>
+					<option>600</option>
+					<option>700</option>
+					<option>800</option>
+					<option>900</option>
+					<option>inherit</option>
+										
+										
+					</select>
+					</td >
+					</tr>
+<tr>
+<td style="width: 175px">Color</td>
+					<td style="width: 350px">
+					<select id="Cmdcolor" ><option style="background-color:AliceBlue">AliceBlue</option >
+<option style="background-color:AntiqueWhite">AntiqueWhite</option >
+<option style="background-color:Aqua">Aqua</option >
+<option style="background-color:Aquamarine">Aquamarine</option >
+<option style="background-color:Azure">Azure</option >
+<option style="background-color:Beige">Beige</option >
+<option style="background-color:Bisque">Bisque</option >
+<option style="background-color:Black">Black</option >
+<option style="background-color:BlanchedAlmond">BlanchedAlmond</option >
+<option style="background-color:Blue">Blue</option >
+<option style="background-color:BlueViolet">BlueViolet</option >
+<option style="background-color:Brown">Brown</option >
+<option style="background-color:BurlyWood">BurlyWood</option >
+<option style="background-color:CadetBlue">CadetBlue</option >
+<option style="background-color:Chartreuse">Chartreuse</option >
+<option style="background-color:Chocolate">Chocolate</option >
+<option style="background-color:Coral">Coral</option >
+<option style="background-color:CornflowerBlue">CornflowerBlue</option >
+<option style="background-color:Cornsilk">Cornsilk</option >
+<option style="background-color:Crimson">Crimson</option >
+<option style="background-color:Cyan">Cyan</option >
+<option style="background-color:DarkBlue">DarkBlue</option >
+<option style="background-color:DarkCyan">DarkCyan</option >
+<option style="background-color:DarkGoldenRod">DarkGoldenRod</option >
+<option style="background-color:DarkGray">DarkGray</option >
+<option style="background-color:DarkGrey">DarkGrey</option >
+<option style="background-color:DarkGreen">DarkGreen</option >
+<option style="background-color:DarkKhaki">DarkKhaki</option >
+<option style="background-color:DarkMagenta">DarkMagenta</option >
+<option style="background-color:DarkOliveGreen">DarkOliveGreen</option >
+<option style="background-color:Darkorange">Darkorange</option >
+<option style="background-color:DarkOrchid">DarkOrchid</option >
+<option style="background-color:DarkRed">DarkRed</option >
+<option style="background-color:DarkSalmon">DarkSalmon</option >
+<option style="background-color:DarkSeaGreen">DarkSeaGreen</option >
+<option style="background-color:DarkSlateBlue">DarkSlateBlue</option >
+<option style="background-color:DarkSlateGray">DarkSlateGray</option >
+<option style="background-color:DarkSlateGrey">DarkSlateGrey</option >
+<option style="background-color:DarkTurquoise">DarkTurquoise</option >
+<option style="background-color:DarkViolet">DarkViolet</option >
+<option style="background-color:DeepPink">DeepPink</option >
+<option style="background-color:DeepSkyBlue">DeepSkyBlue</option >
+<option style="background-color:DimGray">DimGray</option >
+<option style="background-color:DimGrey">DimGrey</option >
+<option style="background-color:DodgerBlue">DodgerBlue</option >
+<option style="background-color:FireBrick">FireBrick</option >
+<option style="background-color:FloralWhite">FloralWhite</option >
+<option style="background-color:ForestGreen">ForestGreen</option >
+<option style="background-color:Fuchsia">Fuchsia</option >
+<option style="background-color:Gainsboro">Gainsboro</option >
+<option style="background-color:GhostWhite">GhostWhite</option >
+<option style="background-color:Gold">Gold</option >
+<option style="background-color:GoldenRod">GoldenRod</option >
+<option style="background-color:Gray">Gray</option >
+<option style="background-color:Grey">Grey</option >
+<option style="background-color:Green">Green</option >
+<option style="background-color:GreenYellow">GreenYellow</option >
+<option style="background-color:HoneyDew">HoneyDew</option >
+<option style="background-color:HotPink">HotPink</option >
+<option style="background-color:IndianRed ">IndianRed </option >
+<option style="background-color:Indigo ">Indigo </option >
+<option style="background-color:Ivory">Ivory</option >
+<option style="background-color:Khaki">Khaki</option >
+<option style="background-color:Lavender">Lavender</option >
+<option style="background-color:LavenderBlush">LavenderBlush</option >
+<option style="background-color:LawnGreen">LawnGreen</option >
+<option style="background-color:LemonChiffon">LemonChiffon</option >
+<option style="background-color:LightBlue">LightBlue</option >
+<option style="background-color:LightCoral">LightCoral</option >
+<option style="background-color:LightCyan">LightCyan</option >
+<option style="background-color:LightGoldenRodYellow">LightGoldenRodYellow</option >
+<option style="background-color:LightGray">LightGray</option >
+<option style="background-color:LightGrey">LightGrey</option >
+<option style="background-color:LightGreen">LightGreen</option >
+<option style="background-color:LightPink">LightPink</option >
+<option style="background-color:LightSalmon">LightSalmon</option >
+<option style="background-color:LightSeaGreen">LightSeaGreen</option >
+<option style="background-color:LightSkyBlue">LightSkyBlue</option >
+<option style="background-color:LightSlateGray">LightSlateGray</option >
+<option style="background-color:LightSlateGrey">LightSlateGrey</option >
+<option style="background-color:LightSteelBlue">LightSteelBlue</option >
+<option style="background-color:LightYellow">LightYellow</option >
+<option style="background-color:Lime">Lime</option >
+<option style="background-color:LimeGreen">LimeGreen</option >
+<option style="background-color:Linen">Linen</option >
+<option style="background-color:Magenta">Magenta</option >
+<option style="background-color:Maroon">Maroon</option >
+<option style="background-color:MediumAquaMarine">MediumAquaMarine</option >
+<option style="background-color:MediumBlue">MediumBlue</option >
+<option style="background-color:MediumOrchid">MediumOrchid</option >
+<option style="background-color:MediumPurple">MediumPurple</option >
+<option style="background-color:MediumSeaGreen">MediumSeaGreen</option >
+<option style="background-color:MediumSlateBlue">MediumSlateBlue</option >
+<option style="background-color:MediumSpringGreen">MediumSpringGreen</option >
+<option style="background-color:MediumTurquoise">MediumTurquoise</option >
+<option style="background-color:MediumVioletRed">MediumVioletRed</option >
+<option style="background-color:MidnightBlue">MidnightBlue</option >
+<option style="background-color:MintCream">MintCream</option >
+<option style="background-color:MistyRose">MistyRose</option >
+<option style="background-color:Moccasin">Moccasin</option >
+<option style="background-color:NavajoWhite">NavajoWhite</option >
+<option style="background-color:Navy">Navy</option >
+<option style="background-color:OldLace">OldLace</option >
+<option style="background-color:Olive">Olive</option >
+<option style="background-color:OliveDrab">OliveDrab</option >
+<option style="background-color:Orange">Orange</option >
+<option style="background-color:OrangeRed">OrangeRed</option >
+<option style="background-color:Orchid">Orchid</option >
+<option style="background-color:PaleGoldenRod">PaleGoldenRod</option >
+<option style="background-color:PaleGreen">PaleGreen</option >
+<option style="background-color:PaleTurquoise">PaleTurquoise</option >
+<option style="background-color:PaleVioletRed">PaleVioletRed</option >
+<option style="background-color:PapayaWhip">PapayaWhip</option >
+<option style="background-color:PeachPuff">PeachPuff</option >
+<option style="background-color:Peru">Peru</option >
+<option style="background-color:Pink">Pink</option >
+<option style="background-color:Plum">Plum</option >
+<option style="background-color:PowderBlue">PowderBlue</option >
+<option style="background-color:Purple">Purple</option >
+<option style="background-color:Red">Red</option >
+<option style="background-color:RosyBrown">RosyBrown</option >
+<option style="background-color:RoyalBlue">RoyalBlue</option >
+<option style="background-color:SaddleBrown">SaddleBrown</option >
+<option style="background-color:Salmon">Salmon</option >
+<option style="background-color:SandyBrown">SandyBrown</option >
+<option style="background-color:SeaGreen">SeaGreen</option >
+<option style="background-color:SeaShell">SeaShell</option >
+<option style="background-color:Sienna">Sienna</option >
+<option style="background-color:Silver">Silver</option >
+<option style="background-color:SkyBlue">SkyBlue</option >
+<option style="background-color:SlateBlue">SlateBlue</option >
+<option style="background-color:SlateGray">SlateGray</option >
+<option style="background-color:SlateGrey">SlateGrey</option >
+<option style="background-color:Snow">Snow</option >
+<option style="background-color:SpringGreen">SpringGreen</option >
+<option style="background-color:SteelBlue">SteelBlue</option >
+<option style="background-color:Tan">Tan</option >
+<option style="background-color:Teal">Teal</option >
+<option style="background-color:Thistle">Thistle</option >
+<option style="background-color:Tomato">Tomato</option >
+<option style="background-color:Turquoise">Turquoise</option >
+<option style="background-color:Violet">Violet</option >
+<option style="background-color:Wheat">Wheat</option >
+<option style="background-color:White">White</option >
+<option style="background-color:WhiteSmoke">WhiteSmoke</option >
+<option style="background-color:Yellow">Yellow</option >
+<option style="background-color:YellowGreen">YellowGreen</option >
+
+
+					</select>
+					
+					</td>
+					</tr>
+					<tr><td colspan="2" class="Head" >
+					<hr />	<h3><a id="Text"> </a>Styling Text</h3><hr />
+					</td></tr>
+<tr>
+<td style="width: 175px">text Direction</td>
+					<td style="width: 350px">
+					<select id="Cmdtext-decoration" name="D1">
+					<option>none</option>
+					<option>underline</option>
+					<option>overline</option>
+					<option>line-through</option>
+					<option>blink</option>
+											
+					</select></td>
+					</tr>
+<tr>
+<td style="width: 175px">text-align</td>
+					<td style="width: 350px">
+					<select id="Cmdtext-align" name="D1">
+					<option style="text-align:left">left</option>
+					<option style="text-align:right">right</option>
+					<option style="text-align:center">center</option>
+					<option style="text-align:justify">justify</option>
+											
+					</select></td>
+					
+					
+					</tr>
+		<td style="width: 175px">text-overflow</td>
+							<td style="width: 350px">
+							<select id="Cmdtext-overflow" name="D1">
+							<option style="text-align:left">clip</option>
+							<option style="text-align:right">ellipsis</option>		
+							</select></td>
+							
+							
+							</tr>
+		<td style="width: 175px">text-transform</td>
+							<td style="width: 350px">
+							<select id="Cmdtext-transform" name="D1">
+							<option style="text-transform:capitalize">capitalize</option>
+							<option style="text-transform:lowercase">lowercase</option>
+							<option style="text-transform:none">none</option>
+							<option style="text-transform:uppercase">uppercase</option>
+							<option style="text-transform:inherit">inherit</option>
+							</select></td>
+							
+							
+							</tr>
+
+
+<tr>
+<td style="width: 175px"></td>
+					<td style="width: 350px"></td>
+					</tr>
+
+				</table>
+
+
+				<hr /><h1><a id="table"></a> Border</h1><hr />
+				 <table id="TblBorder" class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+						<th ></th>
+						<th >Style</th>
+						<th >Width</th>
+						<th >Color</th>
+					</tr>
+					<tr>
+						<td class="Head">
+						ValueSet
+						</td>
+						<td ><span style="font-size:x-large;color:red ">{</span>
+								<span class="BorderStyle" >none</span>
+								<span class="BorderStyle" style="border-style:dotted;">dotted</span>,
+								<span class="BorderStyle" style="border-style:dashed;">dashed</span>,
+								<span class="BorderStyle"  style="border-style:solid;">solid</span>,
+								<span class="BorderStyle"  style="border-style:double;">double</span>,
+								<span class="BorderStyle"  style="border-style:groove;">groove</span>,
+								<span  class="BorderStyle" style="border-style:ridge;">ridge</span>,
+								<span  class="BorderStyle" style="border-style:inset;">inset</span>,
+								<span  class="BorderStyle" style="border-style:outset;">outset</span>,
+								<span class="BorderStyle"  style="border-style:hidden;">hidden</span><span style="font-size:x-large;color:red ">}</span></td>
+						<td>
+						<span style="font-size:x-large;color:red ">{</span>
+								<span class="Borderweight" style="border-width:thin">thin</span>,
+								<span class="Borderweight" style="border-width:medium;">medium</span>,
+								<span class="Borderweight"  style="border-width:thick;">thick</span>,
+								<span class="Borderweight"  >Value</span>
+								<span style="font-size:x-large;color:red ">}</span>
+						</td>
+						<td>	
+							<span style="font-size:x-large;color:red ">{</span>
+							Colors
+						<span style="font-size:x-large;color:red ">}</span>
+						<span class="BorderColor" >none</span>
+								<span class="BorderColor" style="border-color:blue;">blue</span>,
+								<span class="BorderColor"  style="border-color:red ;">red </span>,
+								<span class="BorderColor"  style="border-color:green;">green</span>,
+								<span class="BorderColor"  style="border-color:gray;">gray</span>,
+								<span  class="BorderColor" style="border-color:maroon;">maroon</span>,
+								<span  class="BorderColor" style="border-color:lime;">lime</span>,
+								<span  class="BorderColor" style="border-color:fuchsia;">fuchsia</span>,
+								<span class="BorderColor"  style="border-color:white;">white</span>
+						</td>
+					</tr>
+						
+				<tr>
+				<td class="Head" >Top</td>
+				<td  ><div id="Div-top-style" title="border-top-style" style="border-top-style:solid ">border-top-style:
+				<span class="BorderStyleView">solid </span></div></td>
+				<td  ><div id="Div-top-Width" title="border-top-Width" style="border-style:solid ;border-right-width:thin">border-top-Width:
+				<span  class="BorderWidthView">thin </span></div></td>
+				<td  ><div id="Div-top-Color" title="border-top-color" style="border-style:solid;border-top-color:red">border-top-color:
+				<span  class="BorderColorView">Red </span></div></td>
+				
+				</tr>
+				<tr>
+					<td class="Head"  >right</td>
+					<td  ><div id="Div-right-style" title="border-right-style" style="border-right-style:solid ">border-right-style:
+					<span class="BorderStyleView">solid </span></div></td>
+					<td  ><div id="Div-right-Width" title="border-right-Width" style="border-style:solid ;border-right-width:thin">border-right-Width:
+					<span  class="BorderWidthView">thin</span></div></td>
+				<td  ><div id="Div-right-Color" title="border-right-color" style="border-style:solid;border-right-color:red ">border-right-color:
+				<span  class="BorderColorView">Red </span></div></td>
+
+				</tr>		
+				<tr>
+				<td class="Head" >bottom</td>
+				<td  ><div id="Div-bottom-style" title="border-bottom-style" style="border-bottom-style:solid ">border-bottom-style:
+				<span class="BorderStyleView">solid </span></div></td>
+						
+				<td  ><div id="Div-bottom-Width" title="border-bottom-Width" style="border-style:solid ;border-bottom-width:thin">border-bottom-Width:
+				<span  class="BorderWidthView">thin</span></div></td>
+				<td  ><div id="Div-bottom-Color" title="border-bottom-color" style="border-style:solid;border-bottom-color:red">border-bottom-color:
+				<span  class="BorderColorView">Red </span></div></td>
+
+				</tr>		
+				<tr>
+				<td class="Head" >Left</td>
+				<td  ><div id="Div-left-style" title="border-left-style" style="border-left-style:solid ">border-left-style:
+				<span class="BorderStyleView">solid </span></div></td>
+						
+				<td  ><div id="Div-left-Width" title="border-left-Width" style="border-style:solid ;border-left-width:thin">border-left-Width:
+				<span  class="BorderWidthView">thin</span></div></td>
+				<td  ><div id="Div-left-Color" title="border-left-color" style="border-style:solid;border-left-color:red">border-left-color:
+				<span  class="BorderColorView">Red </span></div></td>
+
+				</tr>		
+				<tr>
+				<td class="Head" >border</td>
+				<td  ><div id="Div-style" title="border-style" style="border-style:solid ">border-style:
+				<span class="BorderStyleView">solid </span></div></td>
+				
+				<td  ><div id="Div-Width" title="border-Width" style="border-style:solid ;border-width:thin">border-Width:
+				<span  class="BorderWidthView">thin</span></div></td>
+				<td  ><div id="Div-Color" title="border-color" style="border-style:solid;border-color:red">border-color:
+				<span  class="BorderColorView">Red </span></div></td>
+
+				</tr>		
+												
+						
+				</table>
+				
+				<hr />
+	<h1><a id="Boxing"> </a>Boxing</h1>
+	<img alt="CssBoxing" src="CSSBoxing.png" />
+	<hr />
+				<table id="TblBoxing" class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+						<th ></th>
+						<th >padding</th>
+						<th >margin</th>
+						 
+					</tr>
+					<tr>
+						<td class="Head">
+						ValueSet
+						</td>
+						<td ><span style="font-size:x-large;color:red ">{</span> 
+						<span class="Borderweight"  >Value</span>
+
+						<span style="font-size:x-large;color:red ">}</span></td>
+						<td>
+						<span style="font-size:x-large;color:red ">{</span>
+								<span class="Borderweight"  >Value</span>
+								<span style="font-size:x-large;color:red ">}</span>
+						</td>
+						
+					</tr>
+						
+				<tr>
+				<td class="Head" >Top</td>
+				<td  ><div id="Div-padding-top" title="padding-top"  >padding-top :
+				<span class="paddingView">Value</span></div></td>
+				<td  ><div id="Div-margin-top" title="margin-top"  >margin-top:
+				<span  class="marginView">Value</span></div></td>
+				
+				
+				</tr>
+				<tr>
+					<td class="Head"  >right</td>
+							<td  ><div id="Div-padding-right" title="padding-right"  >padding-right:
+								<span class="paddingView">Value</span></div></td>
+								<td  ><div id="Div-margin-right" title="margin-right"  >margin-right:
+								<span  class="marginView">Value</span></div></td>
+
+				</tr>		
+				<tr>
+				<td class="Head" >bottom</td>
+				
+							<td  ><div id="Div-padding-bottom" title="padding-bottom"  >padding-bottom:
+								<span class="paddingView">Value</span></div></td>
+								<td  ><div id="Div-margin-bottom" title="margin-bottom"  >margin-bottom:
+								<span  class="marginView">Value</span></div></td>
+
+
+				</tr>		
+				<tr>
+				<td class="Head" >Left</td>
+							<td  ><div id="Div-padding-Left" title="padding-Left"  >padding-Left:
+								<span class="paddingView">Value</span></div></td>
+								<td  ><div id="Div-margin-Left" title="margin-Left"  >margin-Left:
+								<span  class="marginView">Value</span></div></td>
+
+
+				</tr>		
+				<tr>
+				<td class="Head" >Boxing</td>
+										<td  ><div id="Div-padding" title="padding"  >padding:
+								<span class="paddingView">Value</span></div></td>
+								<td  ><div id="Div-margin" title="margin"   >margin:
+								<span  class="marginView">Value</span></div></td>
+				
+
+				</tr>		
+												
+						
+				</table>
+				
+				<hr />
+				<h1><a id="Symbol"> </a></h1>
+				<hr />
+		</td>
+	</tr>
+</table>
+			
+
+</body>
+
+</html>

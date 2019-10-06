@@ -7,6 +7,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 
 import { AppLayoutComponent } from './Layout/app-layout/app-layout.component';
 import { HttpClientComponent } from './components/http-client/http-client.component';
+import { AnimateComponent } from './components/animate/animate.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
       {path:"directives",component:DirectivesComponent},
       {path:"forms",component:FormsComponent},
       {path:"HttpClient",component:HttpClientComponent},
+      {path:"animate",component:AnimateComponent},
     ]
   }
  ,

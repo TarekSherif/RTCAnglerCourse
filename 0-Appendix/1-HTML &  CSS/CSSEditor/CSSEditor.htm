@@ -1,0 +1,4804 @@
+<!DOCTYPE html>
+<!-- saved from url=(0020)http://jqueryui.com/ -->
+<html>
+ <head>
+  
+     
+	<title>CSS Editor</title>
+   <link href="Images/css3.ico" rel="shortcut icon" type="image/x-icon" />
+
+	<script  type="text/javascript"   src="Images/jquery-1.9.1.js"></script>
+		<script type="text/javascript"  >
+		    var TblProperty = new Array();
+		    var FILTER_VALS = {};
+
+		    function reset() {
+		        FILTER_VALS = {};
+		        render();
+		 
+
+		        var ranges = document.querySelectorAll('input[type="range"]');
+		        for (var i = 0, r; r = ranges[i]; i++) {
+		            r.value = r.min;
+		        }
+		    }
+
+		    function set(filter, value) {
+		        FILTER_VALS[filter] = typeof value == 'number' ? Math.round(value * 10) / 10 : value;
+		        if (value == 0 || (typeof value == 'string' && value.indexOf('0') == 0)) {
+		            delete FILTER_VALS[filter];
+		        }
+		        render();
+		    }
+
+		    function render() {
+		        var vals = [];
+		        Object.keys(FILTER_VALS).sort().forEach(function (key, i) {
+		            vals.push(key + '(' + FILTER_VALS[key] + ')');
+		        });
+		        var val = vals.join(' ');
+		
+		        var filter = (val ? val : 'none') ;
+		        $('#MainTxtFilter').text('-webkit-filter: ' + filter);
+
+		        
+		        Insert("-webkit-filter", filter);
+		        Insert("filter", filter);
+		   //     $("#MainTxtFilter").text('-webkit-filter: ' + (val ? val : 'none') + ';');
+		    }
+
+
+			function alerts(PMassage) {
+			    //Pstatus =>{'S','s','show','H','h','hide'}
+
+
+
+			    var Divalert = $("div#popup");
+
+
+			    if (Divalert.length == 0) {
+			        var StrHTML = '<div id="popup"  \
+                                    style="position:fixed;top:0px;left:0px;  \
+                                    width:100%;height:100%; padding:10%;background-color: rgba(0,0,0,.8);"> \
+                                    <div style="background:rgba(255,255,0,.8);width: 80%;height:70%;border-radius:10px;">\
+                                    <div  id="Msgheader" style="background-color:rgba(192,192,192,.8);width: 100%;height:10%;border-radius: 5px;"> \
+                                        <H1 id="MsgTitle" style="display:inline;"></H1> \
+                                        <span id="MsgClose" style="font-size:small;font-weight:bold; float: right;color:white;background-color:red;border:1px solid black" >&nbsp; X &nbsp;</span>\
+                                    </div >\
+                                    <div id="MsgBady"  style="width: 100%;height:100%;height:90%;padding:15px;overflow:auto;" ></div >\
+                                    </div > </div > ';
+			        $("body").append(StrHTML);
+
+			        var MsgClose = $("#MsgClose");
+
+			        MsgClose.on({
+			            mouseenter: function (e) {
+			                $(this).css({ "color": "black" });
+			            },
+			            mouseleave: function (e) {
+
+			                $(this).css({ "color": "white" });
+
+			            },
+			            click: function (e) {
+			                alerts();
+			            },
+
+
+			        });
+
+			        Divalert = $("div#popup");
+			   
+			        Divalert.slideUp(0);
+			    }
+
+
+			    if (PMassage !== undefined) {
+			        $("body").css("overflow", "hidden");
+			        Divalert.slideDown("slow");
+			        $("#MsgTitle").text($(PMassage).text());// $(this).siblings()
+			        $("#MsgBady").html($(PMassage).siblings(".Desc").clone().css("display", "block").html());
+
+			    } else {
+			        Divalert.slideUp("slow");
+			        $("body").css("overflow", "auto");
+			        //alert();
+
+			    }
+
+			}
+
+
+			$(function () {
+			 
+					
+					$(".menupopup").click(function(){
+						var Vmenupopup=$(this).text()
+						$('.DivTab').css("display","none");
+						$("#tabs-"+Vmenupopup).css("display","block");
+					});
+
+
+					$(".BG-position").click(function(){
+						var Vposition=$(this).text();
+						Insert("background-position",Vposition);
+						});
+
+					$("select").change(function () {
+					    if (!$(this).hasClass("UOM")) {
+
+					        var VSelect = $(this).val();
+					        var PropertyName = this.id.substr(3);
+					        Insert(PropertyName, VSelect);
+
+					    }
+			 	
+			 		 
+					 });
+					 $("#Cmdoverflow").change(function () {
+					    
+					     if ($(this).val() == "auto")
+					     {
+					         $("#Cmdresize").prop("disabled", false); 
+					     }
+					     else
+					     {
+					         $("#Cmdresize").prop("disabled", true);
+					     }
+					 });
+					 $("#Cmdposition").change(function () {
+
+					     if ($(this).val() != "static") {
+					         $("#TblpositionNotstatic").css("pointer-events", "auto");
+
+					     }
+					     else {
+					         $("#TblpositionNotstatic").css("pointer-events", "none");
+					         $("#TblpositionNotstatic input").val("");
+					     }
+					 });
+
+					 $('input[type!="number"],input[type!="range"]').change(function () {
+					     if (!$(this).hasClass("CSS3")) {
+					         var VSelect = $(this).val();
+					         var PropertyName =this.id.substr(3) ;
+					         Insert(PropertyName, VSelect);
+					        
+					     }
+
+					 		  });
+			
+
+					 $('input[type="number"]').change(function () {
+					     if (!$(this).hasClass("CSS3")) {
+					         var UomVal=$(this).siblings(".UOM").val();
+					         var Uom = (UomVal != undefined ? UomVal : "");
+					         var VSelect = $(this).val() +Uom ;
+					         var PropertyName =  this.id.substr(3);
+					         Insert(PropertyName, VSelect);
+					     }
+					 });
+
+
+			 		  	  	 $('.rotate').change(function () {
+
+			 		  	  	     var VSelect = $(this).val() + "deg)\n";
+			 		  	  	     var PropertyName=this.id.substr(3);
+                                 
+			 		  	  	     Insert("-moz-transform", PropertyName + "(" + VSelect); /* Opera */
+                                 Insert("-ms-transform", PropertyName + "(" + VSelect); /* IE 9 */
+                                 Insert("-webkit-transform",PropertyName+"("+VSelect); /* Safari and Chrome */
+                                 Insert("transform",PropertyName+"("+VSelect); /* Firefox */
+                                 	  	  	   
+			 		  	  	 });
+
+			 		  	  	 $('.translate').change(function () {
+                                 
+			 		  	  	     var translate_x = ($("#Txttranslate_X").val() + "px," == "px,") ? "0px," : $("#Txttranslate_X").val() + "px,";
+			 		  	  	     var translate_y = ($("#Txttranslate_Y").val() + "px)\n" == "px)\n") ? "0px)\n" : $("#Txttranslate_Y").val() + "px)\n";
+			 		  	  	     
+			 		  	  	     Insert("transform", "translate(" + translate_x + translate_y);
+			 		  	  	     Insert("-ms-transform", "translate(" + translate_x + translate_y); /* IE 9 */
+			 		  	  	     Insert("-webkit-transform", "translate(" + translate_x + translate_y); /* Safari and Chrome */
+			 		  	  	     Insert("-moz-transform", "translate(" + translate_x + translate_y); /* Opera */
+			 		  	  	     Insert("transform", "translate(" + translate_x + translate_y); /* Firefox */
+			 		  	  	 });
+			 		  	  	 $('.scale').change(function () {
+			 		  	  	     
+			 		  	  	     var scale_x = ($("#Txtscale-X").val() + "," == ",") ? "1," : $("#Txtscale-X").val() + ",";
+			 		  	  	     var scale_y = ($("#Txtscale-Y").val() + ")\n" == ")\n") ? "1)\n" : $("#Txtscale-Y").val() + ")\n";
+			 		  	  	  
+			 		  	  	     Insert("transform", "scale(" + scale_x + scale_y);
+			 		  	  	     Insert("-ms-transform", "scale(" + scale_x + scale_y); /* IE 9 */
+			 		  	  	     Insert("-webkit-transform", "scale(" + scale_x + scale_y); /* Safari and Chrome */
+			 		  	  	     Insert("-moz-transform", "scale(" + scale_x + scale_y);/* Firefox */
+			 		  	  	     Insert("-o-transform", "scale(" + scale_x + scale_y);  /* Opera */
+			 		  	  	 });
+			 		  	  	 $('.skew').change(function () {
+
+			 		  	  	     var skew_x = ($("#Txtskew_X").val() + "deg," == ",") ? "1deg," : $("#Txtskew_X").val() + "deg,";
+			 		  	  	     var skew_y = ($("#Txtskew_Y").val() + "deg)\n" == ")\n") ? "1deg)\n" : $("#Txtskew_Y").val() + "deg)\n";
+
+			 		  	  	     Insert("transform", "skew(" + skew_x + skew_y);
+			 		  	  	     Insert("-ms-transform", "skew(" + skew_x + skew_y); /* IE 9 */
+			 		  	  	     Insert("-webkit-transform", "skew(" + skew_x + skew_y); /* Safari and Chrome */
+			 		  	  	     Insert("-moz-transform", "skew(" + skew_x + skew_y); /* Firefox */
+			 		  	  	     Insert("-o-transform", "skew(" + skew_x + skew_y);  /* Opera */
+			 		  	  	 });
+			 		  	  	 $('.matrix').change(function () {T
+			 		  	  	     var matrix1 = $("#Txtmatrix1").val() + ",";
+			 		  	  	     var matrix2 = $("#Txtmatrix2").val() + ",";
+			 		  	  	     var matrix3 = $("#Txtmatrix3").val() + ",";
+			 		  	  	     var matrix4 = $("#Txtmatrix4").val() + ",0,0)\n";
+
+			 		  	  	     Insert("transform", "matrix(" + matrix1 + matrix2 + matrix3+ matrix4);
+			 		  	  	     Insert("-ms-transform", "matrix(" + matrix1 + matrix2 + matrix3+ matrix4) /* IE 9 */
+			 		  	  	     Insert("-webkit-transform", "matrix(" + matrix1 + matrix2 + matrix3+ matrix4) /* Safari and Chrome */
+			 		  	  	     Insert("-o-transform", "matrix(" + matrix1 + matrix2 + matrix3+ matrix4) /* Opera */
+			 		  	  	     Insert("-moz-transform", "matrix(" + matrix1 + matrix2 + matrix3+ matrix4) /* Firefox */
+                        
+			 		  	  	 });
+
+			 		  	  	 $('.transition').change(function () {
+			 		  	  	     	 		  	  	     		 		  	  	                                 
+                                 var transition_property = $("#Txttransition_property").val() + " ";
+			 		  	  	     var transition_duration = $("#Txttransition_duration").val() + "s ";
+			 		  	  	     var transition_timing_function = $("#Txttransition_timing_function").val() + " ";
+			 		  	  	     var transition_delay = $("#Txttransition_delay").val() + "s \n";
+
+
+			 		  	  	  
+			 		  	  	     Insert("transform",  transition_property + transition_duration + transition_timing_function + transition_delay);
+			 		  	  	   
+			 		  	  	     Insert("-webkit-transform",  transition_property + transition_duration + transition_timing_function + transition_delay); /* Safari and Chrome */
+			 		  	  	     Insert("-o-transform",  transition_property + transition_duration + transition_timing_function + transition_delay); /* Opera */
+			 		  	  	     Insert("-moz-transform", transition_property + transition_duration + transition_timing_function + transition_delay); /* Firefox */
+
+			 		  	  	 });
+			 		  $("#Txtbackground-image").change(function(){
+					 		 var VSelect=$(this).val()
+					 		 var PropertyName=this.id.substr(3);
+					 		 Insert(PropertyName,VSelect);
+						  });
+				$(".compatible").hover(function(){
+				    var Vhidden = new Number($(this).find('input[type="hidden"]:first-child').val());
+				    
+				    for (var i = 4; i >= 0; i--)
+				    {
+				        var Vindex = Math.pow(2,i);
+				        if (Vhidden >= Vindex) {
+				            Vhidden -= Vindex;
+				            document.getElementById("Img" + Vindex).src='images/C' + Vindex + '.gif';
+				           // $("Img" + Vindex).attr('src', 'images/C' + Vindex + '.gif');
+				             }
+				        else
+				        {
+				            document.getElementById("Img" + Vindex).src = 'images/X' + Vindex + '.gif';
+				            //$("Img" + Vindex).attr('src', 'images/X' + Vindex + '.gif');
+				            
+				        }
+				       
+				    }
+				    if ($(this).hasClass("CSS3"))
+				        $("#HCSS3").css("display", "block");
+				    else
+				        $("#HCSS3").css("display", "none");
+
+				   $("#BrowserCompatible").css("display","block");
+				  
+				 	},function(){
+				   $("#BrowserCompatible").css("display","none");
+					});
+
+				$("label").click(function () {
+				  
+				    alerts($(this));
+				});
+
+				$(".compatible").mousemove(function (e) {
+				    $("#BrowserCompatible").css({ "display": "block", "top": e.pageY + 10, "left": e.pageX });
+				  // $("#BrowserCompatible").css("display","block").css("top", e.pageY+10).css("left", e.pageX );
+				});
+
+				$(".UOM").append(" <option>%</option> <option>in</option> <option>cm</option> <option>mm</option> <option>em</option> <option>ex</option><option>pt</option><option>pc</option> <option selected >px</option>")
+                         .attr("title", "Units Measurement Values ");
+				
+			                        /*<!--	percentage -->
+                                   	<!--	inch-->
+                                   	<!--	centimeter-->
+                                   	<!--	millimeter-->
+                                   	<!--	1em is equal to the current font size. 2em means 2 times the size of the current font. E.g., if an element is displayed with a font of 12 pt, then '2em' is 24 pt. The 'em' is a very useful unit in CSS, since it can adapt automatically to the font that the reader uses-->
+                                   	<!--	one ex is the x-height of a font (x-height is usually about half the font-size)-->
+                                    <!--	point (1 pt is the same as 1/72 inch)-->
+                                    <!--	pica (1 pc is the same as 12 points)-->
+                                   	<!--	pixels (a dot on the computer screen)-->)*/
+				
+			 	});
+			 function Search(PropertyName)
+			{
+				var index =new Number(-1);	
+				for(var i=0;i<TblProperty.length ;i++)
+					{
+					if (TblProperty[i][0]==PropertyName)
+						index=i;
+					}	
+					return index ;
+				}
+	
+			 function Insert(PropertyName,value)
+			{
+					
+					var Index=Search(PropertyName);
+					if ( Index==-1)
+						{
+						var NewProperty=new Array(PropertyName,value);
+						TblProperty.push(NewProperty);
+						}
+					else
+					TblProperty[Index][1]=value;
+					
+					$(".preview").css(PropertyName, value);
+					Description();
+			}
+			function Description()
+			{
+				 $("#txtDescription").val("");
+				for(var i=0;i<TblProperty.length ;i++)
+				{
+				 $("#txtDescription").val($("#txtDescription").val()+TblProperty[i][0]+":"+TblProperty[i][1]+";");
+				}
+ 			}
+			
+				</script>
+
+ 
+
+	 
+	
+ 
+	<style type="text/css">
+	/*#0769AD*/
+    #listExample  li {
+   border:1px solid red;
+}
+	    table {
+	    text-align:center;
+        }
+	.cols {
+  -webkit-columns: 3;
+  columns: 3;
+  width: 80%;
+}
+.cols > span {
+  display: inline-block;
+  width: 100%;
+}
+.cols > span > span {
+  width: 35%;
+  display: inline-block;
+  white-space: nowrap;
+}
+.cols > span > span:after {
+  content: '():';
+}
+
+	    .preview {
+	        background-color: orange;
+            box-shadow:5px 5px 10px black;
+	    }
+
+	   
+	.background	{background-color:#0F212E}
+		.Head,th{background:#0F212E;color:#5FB221;font-size:x-large;text-align:center }
+		td{text-align:left;border: thin #0F212E solid;}
+		.Tbl{border: thin #0F212E solid;width:100%}
+		input{text-align:center;color:teal }
+	  
+		.menupopup{font-weight:bold; color:#FFFFFF; background-color:#84D32D;text-align:left;border-bottom-color:#A9E06C;border-bottom-style:solid ;border-bottom-width:thin}
+		.BG-position:hover,.menupopup:hover{color:#0074CA; background-color:#FFE990}
+	     label,.compatible {font-weight:bold;text-transform:capitalize;}
+	    span.Condition {
+	    background-color:yellow;
+        color:red;
+        font-size:large;
+       font-weight:bold;
+        }
+	    label {
+            color:black;
+	    }
+	        label:hover {
+                 color:red;
+	        }
+	    .Desc,.DivTab {
+	    display:none;
+        }
+       
+	</style>
+
+</head>
+<body class="background"  >
+<div>
+   
+<table style="display:none;position:absolute;color:#0074CA; background-color:#FFE990;box-shadow: 10px 10px 5px #888888;" id="BrowserCompatible"  >
+<tr ><td colspan="3" style="border-right-width:0px">
+<h4 style="text-shadow:5px 5px 5px red;" >  
+Browser 
+<span style="color:#5FB221">Support </span></h4>
+</td>
+    <td style="color:white;border-left-width:0px" colspan="2">
+        <h4 class="menupopup"  id="HCSS3"
+            style="transform:rotate(40deg)
+;-ms-transform:rotate(40deg)
+;-moz-transform:rotate(40deg)
+;-webkit-transform:rotate(40deg)
+;">CSS 3</h4>
+
+    </td>
+</tr>
+		<tr>
+		
+			<td ><img id="Img16" alt="Internet Explorer"> </td>
+			<td ><img id="Img8"  alt="Firefox"> </td>
+			<td ><img id="Img4"  alt="Opera"> </td>
+			<td ><img id="Img2"  alt="Chrome"> </td>
+			<td > <img id="Img1" alt="Safari"> </td>
+		</tr>
+</table>
+</div>
+<div  style="text-align:center">
+<table style="width:90%; margin:20px;background-color:#5FB221;border-style:outset;border-radius:10px;text-align:center">
+
+<tr  class="background" >
+
+<td>
+<h1 style="font-size:xx-large;color:white  ;">  <span style="color:#5FB221">CSS </span>
+Editor</h1>
+</td></tr>
+<tr style="background-color:#FFFFFF"><td>
+
+
+
+
+
+
+	<table  style="background:lime;width:100%"">
+		<tr style="height:50%">
+			<td style="width:20%; vertical-align: top;">
+			<ul style="list-style:none;padding:0px;margin:0px;">
+				<li class="menupopup">Background</li>
+				<li class="menupopup">Font</li>
+				<li class="menupopup">Border</li>
+				<li class="menupopup">Boxing</li>
+				<li class="menupopup">position</li>
+				<li class="menupopup">Layout</li>
+                <li class="menupopup">Controls</li>
+                <li class="menupopup">Filter</li>
+            	<li class="menupopup">Transforms</li>
+                <li class="menupopup">Transitions</li>
+                <li class="menupopup" >Animation</li>
+                 <li class="menupopup">MultipleColumns</li>
+			</ul>
+               
+			</td>
+			<td>
+			
+                
+	<div id="tabs-Background" class="DivTab">
+	<table class="Tbl"    > 
+					<tr>
+						<th colspan="2" class="compatible" >
+								<input type="hidden" value="31">Background</th>
+					 </tr>
+					<tr>
+						<td style="width: 330px"  class="compatible" >
+								<input type="hidden" value="31">
+                                 <label  > background-color:		</label>
+                                 <div  class="Desc">
+                                <h2>Definition and Usage</h2>
+<p>The background-color property sets the background color of an element.</p>
+<p>The background of an element is the total size of the element, including 
+padding and border (but not the margin).</p>
+<p><b>Tip:</b> Use a background color and a text color that makes the text easy 
+to read.</p>
+<div >
+<table  >
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>transparent</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_background-color">Try it</a>
+</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.backgroundColor=&quot;#00FF00&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_background-color">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+                            </div>		
+
+						</td>
+						<td>
+						<input id="Txtbackground-color" name="background-color" type="color" value="#ff6600"  >
+
+						
+						</td>
+
+					</tr>
+
+					<tr>
+						<td style="width: 330px"  class="compatible" >
+								<input type="hidden" value="31">
+                             <label  > background-image:		</label>
+                                 <div  class="Desc">
+                                     
+<h2>Definition and Usage</h2>
+<p>The background-image property sets one or more background images for an element.</p>
+<p>The background of an element is the total size of the element, including 
+padding and border (but not the margin).</p>
+<p>By default, a background-image is placed at the top-left corner of an 
+element, and repeated both vertically and horizontally.</p>
+<p><b>Tip: </b>Always set a background-color to be used if the image is unavailable.</p>
+<div >
+<table  >
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>none</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1 + new values in CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.backgroundImage=&quot;url(smiley.gif)&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_background-image">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+
+
+                                 </div>
+                            <br/>
+								  
+						</td>
+						<td > 
+						<input id="Txtbackground-image"    name="background-image" type="text"  >
+						</td>
+					</tr>
+
+					<tr>
+						<td style="width: 330px; "  class="compatible" >
+								<input type="hidden" value="31"><label    >background-repeat:</label>
+								   <div  class="Desc">
+
+                                       
+<h2>Definition and Usage</h2>
+<p>The background-repeat property sets if/how a background image will be 
+repeated.</p>
+<p>By default, a background-image is repeated both vertically and horizontally.</p>
+<p><b>Tip: </b>The background image is placed according to the 
+background-position property. If no background-position is specified, the image 
+is always placed at the element's top left corner.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>repeat</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.backgroundRepeat=&quot;repeat-x&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_background-repeat">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+								   </div>
+						</td>
+					
+						<td style="height: 38px" > 
+					<select id="Cmdbackground-repeat" name="background-repeat"  >
+						<option>no-repeat</option>
+						<option>repeat</option>
+						<option>repeat-x</option>
+						<option>repeat-y</option>
+
+					</select>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 330px"  class="compatible"  >
+							<input type="hidden" value="31"> 
+                              <label  > background-attachment :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The background-attachment property sets whether a background image is fixed or scrolls with the rest of the page.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>scroll</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.backgroundAttachment=&quot;fixed&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_background-attachment">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+                                 </div>
+					
+						</td>
+							<td > 
+					<select id="Cmdbackground-attachment" name="background-attachment"  >
+						<option>scroll</option>
+						<option>fixed</option>
+					</select>
+						</td>
+					</tr>
+
+                     <tr>
+						<td style="width: 330px"  class="compatible CSS3"  >
+							<input type="hidden" value="31">
+                            <label  > background-origin:  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>The background-origin property specifies where the background image is 
+positioned.</p>
+<p><b>Note:</b> If the background-attachment property is set to &quot;fixed&quot;, this property has no effect.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>padding-box</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.backgroundOrigin=&quot;content-box&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_background-origin">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                            	  
+					
+						</td>
+						<td > 
+					    <select id="Cmdbackground-origin" name="background-origin"  >
+						    <option>padding-box</option>
+						    <option>border-box</option>
+                            <option>content-box</option>
+					    </select>
+						</td>
+					</tr>
+          <tr>
+						<td style="width: 330px;"  class="compatible CSS3"  >
+							<input type="hidden" value="31">
+                            <label  > background-clip:  		</label>
+                                 <div  class="Desc">	
+                                     
+<h2>Definition and Usage</h2>
+<p>The background-clip property specifies the painting area of the 
+background.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>border-box</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.backgroundClip=&quot;content-box&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_background-clip">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                            	  
+					
+						</td>
+						<td > 
+					    <select id="Cmdbackground-clip" name="background-clip"  >
+                             <option>border-box</option>
+						    <option>padding-box</option>
+						   
+                            <option>content-box</option>
+					    </select>
+						</td>
+					</tr>
+           <tr>
+						<td style="width: 330px"  class="compatible CSS3"  >
+							<input type="hidden" value="31">
+                            <label  > background-size:  		</label>
+                                 <div  class="Desc">	
+
+
+<h2>Definition and Usage</h2>
+<p>The background-size property specifies the size of the background images.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>auto</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_background-size">Try it</a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.backgroundSize=&quot;60px 120px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_background-size">Try it</a>
+</td>
+  </tr>
+	</table>
+</div>
+<hr>
+
+
+
+                                 </div>
+                            	  
+					
+						</td>
+						<td > 
+					    <select id="Cmdbackground-size" name="background-size">
+                            <option>auto</option>
+                            <option>cover</option>
+                            <option>contain</option>
+                            <option>initial</option>
+                            <option>100px 100px</option>
+						    <option>50% 50%</option>
+				
+					    </select>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 330px"  class="compatible" >
+							<input type="hidden" value="31">
+                            <label  > background-position :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The background-position property sets the starting position of a background image.</p>
+<p><b>Tip: </b>By default, a background-image is placed at the top-left corner of an 
+element, and repeated both vertically and horizontally.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>0% 0%</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_background-position">Try it</a>
+</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.backgroundPosition=&quot;center&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_background-position">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+                                 </div>
+                            	
+						</td>
+						<td>
+						<table class="Tbl">
+									<tr>
+										<td><div  class="BG-position" >left top</div></td>
+										<td><div  class="BG-position" >top</div></td>
+										<td><div  class="BG-position" >right top</div></td>
+									</tr>
+
+									<tr>
+										<td><div  class="BG-position" >left</div></td>
+										<td><div  class="BG-position"   >center</div></td>
+										<td><div  class="BG-position" >right</div></td>
+									</tr>
+
+									<tr>
+										<td><div  class="BG-position" >left bottom</div></td>
+										<td><div  class="BG-position" > bottom</div></td>
+										<td><div  class="BG-position" >right bottom</div></td>
+									</tr>
+
+								</table>
+								
+						</td>
+						
+					</tr>
+					<tr>
+						<td style="width: 330px"  class="compatible"  >
+							<input type="hidden" value="31">	background:Shorthand property<br/>
+					
+						</td>
+						<td> <div>{background:#ffffff url('img_tree.png') no-repeat right top;}</div></td>
+					</tr>
+
+
+					
+				</table>
+
+	</div>
+	
+		<div id="tabs-Font" class="DivTab" >
+	
+	<table  class="Tbl"    > 
+					<tr style="text-align:center">
+					<th colspan="2"class="compatible" >
+								<input type="hidden" value="31">Styling  Font</th>
+					</tr>
+					<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > font-family :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The font-family property specifies the font for an element.</p>
+<p>The font-family property can hold several font names as a &quot;fallback&quot; system. 
+If the browser does not support the first font, it tries the next font.</p>
+<p>There are two types of font family names:</p>
+
+<ul>
+<li><b>family-name</b> - The name of a font-family, like &quot;times&quot;, &quot;courier&quot;, &quot;arial&quot;, etc.</li>
+<li><b>generic-family</b> - The name of a generic-family, like &quot;serif&quot;, &quot;sans-serif&quot;, &quot;cursive&quot;, &quot;fantasy&quot;, &quot;monospace&quot;.</li>
+</ul>
+
+<p>Start with the font you want, and always end with a generic family, to let the browser pick a similar font in the generic family, if no other fonts are available.</p>
+<p><b>Note:</b> Separate each value with a comma.</p>
+<p><b>Note: </b>If a font name contains white-space, it must be quoted. Single quotes must be used when using the &quot;style&quot; attribute in HTML.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td><i>depends on the browser</i></td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.fontFamily=&quot;Verdana,sans-serif&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_font-family">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+                                 </div>
+                        </td>
+					<td style="width: 350px">
+					<select id="Cmdfont-family">
+<option style="font-family:Georgia">Georgia</option>
+<option style="font-family:Palatino Linotype">Palatino Linotype</option>
+<option style="font-family:Book Antiqua">Book Antiqua</option>
+<option style="font-family:Times New Roman">Times New Roman</option>
+<option style="font-family:Arial">Arial</option>
+<option style="font-family:Helvetica">Helvetica</option>
+<option style="font-family:Arial Black">Arial Black</option>
+<option style="font-family:Impact">Impact</option>
+<option style="font-family:Lucida Sans Unicode">Lucida Sans Unicode</option>
+<option style="font-family:Tahoma">Tahoma</option>
+<option style="font-family:Verdana">Verdana</option>
+<option style="font-family:Courier New">Courier New</option>
+<option style="font-family:Lucida Console">Lucida Console</option>
+					
+
+					</select>
+					</td>
+					
+
+					</tr>
+					<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31"> 
+                        <label  > font-size :  		</label>
+                                 <div  class="Desc">	
+
+<h2>Definition and Usage</h2>
+<p>The font-size property sets the size of a font.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>medium</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_font-size">Try it</a>
+</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.fontSize=&quot;14px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_font-size">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                        </td>
+					<td style="width: 350px"><select id="Cmdfont-size">
+					
+						<option>xx-small	</option>
+						<option>x-small	</option>
+						<option>small	</option>
+						<option>medium	</option>
+						<option>large	</option>
+						<option>x-large</option>
+						<option>xx-large</option>
+						<option>smaller</option>
+						<option>larger</option>
+					</select></td>
+					</tr>
+					<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > font-style :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The font-style property specifies the font style for a text.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>normal</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.fontStyle=&quot;italic&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_font-style">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+                                 </div>
+                         </td>
+					<td style="width: 350px">
+					<select id="Cmdfont-style">
+					<option>normal</option>
+					<option>italic</option>
+					<option>oblique</option>
+					<option>inherit</option>
+										
+					</select>
+					</td>
+					</tr>
+					<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > font-variant :  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>In a small-caps font, all lowercase letters are converted to uppercase letters.
+However, the converted uppercase letters appears in a smaller font size than the original uppercase letters in the text.</p>
+<p>The font-variant property specifies whether or not a text should be displayed in a small-caps font.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>normal</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.fontVariant=&quot;small-caps&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_font-variant">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+
+                                 </div>
+                         </td>
+					<td style="width: 350px">
+					<select id="Cmdfont-variant">
+						<option>normal</option>
+						<option>small-caps</option>
+						<option>inherit</option>
+					</select>
+					
+					</td>
+					</tr>
+					<tr>
+					<td style="width: 175px"  class="compatible" ><input type="hidden" value="31">
+                        <label  > font-weight :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The font-weight property sets how thick or thin characters in text should be displayed.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>normal</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_font-weight">Try it</a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.fontWeight=&quot;bold&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_font-weight">Try it</a>
+</td>
+  </tr>
+	</table>
+</div>
+<hr>
+
+                                 </div>
+                         </td>
+					<td style="width: 350px" >
+					<select id="Cmdfont-weight">
+					<option>normal</option>
+					<option>bold</option>
+					<option>bolder</option>
+					<option>lighter</option>
+					<option>100</option>
+					<option>200</option>
+					<option>300</option>
+					<option>400</option>
+					<option>500</option>
+					<option>600</option>
+					<option>700</option>
+					<option>800</option>
+					<option>900</option>
+					<option>inherit</option>
+										
+										
+					</select>
+					</td >
+					</tr>
+				
+					<tr><td colspan="2" class="Head compatible" >
+								<input type="hidden" value="31">
+						Styling Text
+					</td></tr>
+					
+				<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31"> 
+                        <label  > text-indent :  		</label>
+                                 <div  class="Desc">	
+
+
+<h2>Definition and Usage</h2>
+<p>The text-indent property specifies the indentation of the first line in a text-block.</p>
+<p><b>Note:</b>  Negative values are allowed. The first line will be indented to the left if the value is negative.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>0</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_text-indent">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.textIndent=&quot;50px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_text-indent">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                        </td>
+					<td style="width: 350px">
+						<input type="number" id="Txttext-indent" name="text-indent" title="Specifies the indentation of the first line in a text-block"  >
+                        
+                           	<select  class="UOM" >
+								   
+	   						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > text-decoration :  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>The text-decoration property specifies the decoration added to text.</p>
+<p><b>Note:</b> In CSS3, the text-decoration property is a shorthand property for <a href="css3_pr_text-decoration-line.asp">text-decoration-line</a>,
+<a href="css3_pr_text-decoration-color.asp">text-decoration-color</a>, and <a href="css3_pr_text-decoration-style.asp">text-decoration-style</a>, but this is currently not supported in any of the major browsers.</p>
+<p><b>Note:</b> In CSS3 you can use the 
+<a href="css3_pr_text-decoration-color.asp">text-decoration-color</a> property to change the color of the decoration, otherwise the color is the same as the color of the text.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>none</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no, <i>see individual properties</i>. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1, renewed in CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.textDecoration=&quot;underline&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_text-decoration">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+
+                                 </div>
+                        </td>
+					<td style="width: 350px">
+						<select id="Cmdtext-decoration" name="text-decoration" title="Specifies the decoration added to text">
+							<option>none</option>
+							<option>underline</option>
+							<option>overline</option>
+							<option>line-through</option>
+							<option>blink</option>
+						</select>
+					</td>
+					</tr>
+				<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > text-align :  		</label>
+                                 <div  class="Desc">	
+                                     
+<h2>Definition and Usage</h2>
+<p>The text-align property specifies the horizontal alignment of text in an element.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>left if direction is ltr, and right if direction is rtl</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.textAlign=&quot;right&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_text-align">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+
+                                 </div>
+                        </td>
+					<td style="width: 350px">
+						<select id="Cmdtext-align" name="text-align"  title="Specifies the horizontal alignment of text">
+							<option style="text-align:left">left</option>
+							<option style="text-align:right">right</option>
+							<option style="text-align:center">center</option>
+							<option style="text-align:justify">justify</option>
+						</select>
+					</td>
+					
+					
+					</tr>
+					<tr>
+							<td style="width: 175px; " class="compatible"><input type="hidden" value="31">
+                                <label  >  text-overflow :  		</label>
+                                 <div  class="Desc">	
+                                     
+<h2>Definition and Usage</h2>
+<p>The text-overflow property specifies how overflowed content that is not 
+displayed should be signaled to the user.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>clip</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.textOverflow=&quot;ellipsis&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_text-overflow">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                               </td>
+								<td style="width: 350px; height: 37px;">
+								<select id="Cmdtext-overflow"   name="text-overflow">
+								<option style="text-align:left">clip</option>
+								<option style="text-align:right">ellipsis</option>		
+								</select>
+							</td>
+							
+							
+						</tr>
+						<tr>
+							<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                                <label  > text-transform :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+
+<h2>Definition and Usage</h2>
+<p>The text-transform property controls the capitalization of text.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>none</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.textTransform=&quot;uppercase&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_text-transform">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+                                 </div>
+                                </td>
+							<td style="width: 350px">
+								<select id="Cmdtext-transform" name="text-transform" title="Controls the capitalization of text">
+								<option style="text-transform:capitalize">capitalize</option>
+								<option style="text-transform:lowercase">lowercase</option>
+								<option style="text-transform:none">none</option>
+								<option style="text-transform:uppercase">uppercase</option>
+								<option style="text-transform:inherit">inherit</option>
+								</select>
+							</td>
+					</tr>
+					<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="15">
+                        <label  >  text-shadow :  		</label>
+                                 <div  class="Desc">	
+                                     
+<h2>Definition and Usage</h2>
+<p>The text-shadow property adds shadow to text.</p>
+<p>This property accepts a comma-separated list of shadows to be applied to the 
+text.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td><i>none</i></td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_text-shadow">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.textShadow=&quot;2px 5px 5px red&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_text-shadow">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+
+                                 </div>
+                       </td>
+					<td style="width: 350px">
+						<select id="Cmdtext-shadow" name="text-shadow"  title="The text-shadow property applies shadow to text.">
+							<option>2px 2px red</option>
+							<option>5px 5px red</option>
+							<option>20px 20px red</option>
+							<option>-10px 10px red</option>
+							<option>-10px -10px red</option>
+							<option>5px 5px red</option>
+							<option>5px 5px 1px red</option>
+							<option>5px 5px 2px red</option>
+							<option>5px 5px 3px red</option>
+							<option>5px 5px 4px red</option>
+							<option>5px 5px 5px red</option>
+							<option>5px 5px 10px red</option>
+							<option>5px 5px 10px blue</option>
+							<option>5px 5px 10px black</option>
+							<option>5px 5px 10px #00FF00</option>
+						
+						</select>						
+						
+					</td>
+				</tr>
+        				<tr><td colspan="2" class="Head compatible" >
+								<input type="hidden" value="31">
+						Styling Word
+					</td></tr>
+
+        	<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > word-spacing :  		</label>
+                                 <div  class="Desc">	
+
+<h2>Definition and Usage</h2>
+<p>The word-spacing property increases or decreases the white space between words.</p>
+<p><b>Note:</b>    Negative values are allowed.</p>
+
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>normal</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_word-spacing">Try it</a>
+</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.wordSpacing=&quot;20px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_word-spacing">Try it</a>
+</td>
+  </tr>
+</table>
+
+
+
+                                 </div>
+                        </td>
+					<td style="width: 350px">
+                        <input type="number" id="Txtword-spacing" name="word-spacing" title="Increases or decreases the space between words in a text"  >
+                        
+                           	<select   class="UOM" >
+								  
+	   						</select>
+					</td>
+				</tr>
+        	<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > word-wrap:  		</label>
+                                 <div  class="Desc">	
+
+                                     
+
+<h2>Definition and Usage</h2>
+<p>The word-wrap property allows long words to be able to be broken and wrap 
+onto the next line.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>normal</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.wordWrap=&quot;break-word&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_word-wrap">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                        </td>
+					<td style="width: 350px">
+                           
+                           	<select  name="word-wrap" id="Cmdword-wrap" title="word-wrap" >
+								      <option> normal</option>
+                                   <option>break-word</option>
+                                   
+                                   <option> initial</option>
+                                   <option> inherit</option>
+	   						</select>
+					</td>
+				</tr>
+        	<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > word-break:		</label>
+                                <div class="Desc">	
+
+
+<h2>Definition and Usage</h2>
+<p>The word-break property specifies line breaking rules for non-CJK scripts.</p>
+<p><b>Tip:</b> CJK scripts are Chinese, Japanese and Korean (&quot;CJK&quot;) scripts.</p>
+
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>normal</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.wordBreak=&quot;break-all&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_word-break">Try it</a>
+</td>
+  </tr>
+</table>
+
+
+
+                               
+                        </div>
+                        </td>
+					<td style="width: 350px">
+                         
+                           	<select   name=" word-break" title=" word-break" id="Cmdword-break" >
+                                   <option> normal</option>
+                                   <option>break-all</option>
+                                   <option> keep-all</option>
+                                   <option> initial</option>
+                                   <option> inherit</option>
+                                  						  
+	   						</select>
+					</td>
+				</tr>
+
+
+        <tr><td colspan="2" class="Head compatible" >
+								<input type="hidden" value="31">
+						Styling Other
+		</td></tr>
+        	<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > Color :  		</label>
+                                 <div  class="Desc">	
+                                     <h2>CSS Colors</h2>
+                                <p>     Note: For W3C compliant CSS: If you define the color property, you must also define the background-color property.</p>
+
+<p>Colors in CSS can be specified by the following methods:</p>
+<ul>
+	<li>Hexadecimal colors</li>
+	<li>RGB colors</li>
+	<li>RGBA colors</li>
+	<li>HSL colors</li>
+	<li>HSLA colors</li>
+	<li>Predefined/Cross-browser color names</li>
+</ul>
+<hr>
+
+
+
+                                 </div>
+                        </td>
+					<td style="width: 350px">
+					<input type="color" id="Txtcolor" name="color" >					
+					</td>
+					</tr>
+				<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  >white-space :  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>The white-space property specifies how white-space inside an element is handled.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>normal</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.whiteSpace=&quot;nowrap&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_white-space">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                        </td>
+					<td style="width: 350px">
+						<select id="Cmdwhite-space" name="white-space" title="Specifies how white-space inside an element is handled">
+							<option>normal</option>
+							<option>nowrap</option>
+							<option>pre</option>
+							<option>pre-line</option>
+							<option>pre-wrap</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td style="width: 175px"  class="compatible" ><input type="hidden" value="31">
+                        <label  > vertical-align :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The vertical-align property sets the vertical alignment of an element.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>baseline</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_vertical-align">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.verticalAlign=&quot;top&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_vertical-align">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                       </td>
+					<td style="width: 350px">
+						<select id="Cmdvertical-align" name="vertical-align" title="Sets the vertical alignment of an element">
+							<option>baseline</option>
+							<option>sub</option>
+							<option>super</option>
+							<option>top</option>
+							<option>text-top</option>
+							<option>middle</option>
+							<option>bottom</option>
+							<option>text-bottom</option>
+							<option>0px</option>
+							<option>10px</option>
+							<option>25px</option>
+							<option>-25px</option>
+							<option>-50px</option>
+							<option>1cm</option>
+							<option>10%</option>
+							<option>50%</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > direction :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+
+<h2>Definition and Usage</h2>
+<p>The direction property specifies the text direction/writing direction.</p>
+<p>Tip: Use this property together with the <a href="pr_text_unicode-bidi.asp">
+unicode-bidi</a> property to set or return whether the text should be overridden 
+to support multiple languages in the same document.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>ltr</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.direction=&quot;rtl&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_direction">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+                                 </div>
+                        </td>
+					<td style="width: 350px">
+						<select id="Cmddirection" name="direction" title="Specifies the text direction/writing direction { ltr or rtl }" style="width:90px">
+							<option>ltr</option>
+							<option>rtl</option>
+						</select>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > letter-spacing :  		</label>
+                                 <div  class="Desc">	
+                                     
+<h2>Definition and Usage</h2>
+<p>The letter-spacing property increases or decreases the space between characters in a text.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>normal</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_letter-spacing">Try it</a>
+</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.letterSpacing=&quot;3px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_letter-spacing">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                        </td>
+					<td style="width: 350px"  >
+						<input type="number" id="Txtletter-spacing"  name="letter-spacing"  title="Increases or decreases the space between characters in a text"  >
+                        
+                           	<select    class="UOM" >
+								 
+	   						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td style="width: 175px"  class="compatible"><input type="hidden" value="31">
+                        <label  > line-height :  		</label>
+                                 <div  class="Desc">	
+
+
+<h2>Definition and Usage</h2>
+<p>The line-height property specifies the line height.</p>
+<p><b>Note:</b> Negative values are not allowed.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>normal</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_line-height">Try it</a>
+</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.lineHeight=&quot;30px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_line-height">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                       </td>
+					<td style="width: 350px">
+                        <input type="number" id="Txtline-height" title="Sets the line height"  >
+                        
+                           	<select     class="UOM" >
+								  
+	   						</select>
+					</td>
+				</tr>
+				
+				</table>
+
+		</div>
+
+	<div id="tabs-Border"  class="DivTab">
+	<table id="TblBorder" class="Tbl"    >
+ 
+					<tr style="text-align:center">
+						<th ></th>
+				
+						<th class="compatible" >
+								<input type="hidden" value="31">Width</th>
+                        <th class="compatible" >
+								<input type="hidden" value="31">Style</th>
+						<th class="compatible" >
+								<input type="hidden" value="31">Color</th>
+                        <th class="compatible" >
+								<input type="hidden" value="31">image-slice</th>
+                        
+						<th class="compatible CSS3" >
+								<input type="hidden" value="31">Radius</th>
+                         
+					</tr>
+        		<tr>
+                       <td class="Head">
+						Shorthand
+						</td>
+					
+				
+						<td>
+						   <select title="border-width" id="Cmdborder">
+								<option  style="border-width:thin">thin</option >
+								<option  style="border-width:medium;">medium</option >
+								<option  style="border-width:thick;">thick</option >
+								<option  >Value</option >
+							</select>
+						</td>
+                        <td >
+							<select  title="border-style" id="Cmd">
+								 <option >none	</option>
+								  <option style="border-style:dotted;">dotted</option>
+								 <option  style="border-style:dashed;">dashed</option>
+								 <option  style="border-style:solid;">solid</option>
+								 <option  style="border-style:double;">double</option>
+								 <option  style="border-style:groove;">groove</option>
+								 <option  style="border-style:ridge;">ridge</option>
+								 <option  style="border-style:inset;">inset</option>
+								 <option  style="border-style:outset;">outset</option>
+								 <option  style="border-style:hidden;">hidden</option>
+								 </select>
+							</td>
+						<td>	
+						<input type="color"  title="border-color" id="Txt" >
+
+						</td>
+                    
+							<td rowspan="3">
+						
+						<table class="Tbl" >
+									<tr>
+										<td>
+											<input id="Txtborder-top-left-radius"  title="border-top-left-radius" type="number" style="border-top-left-radius:20px;width: 50px" ><select    class="UOM" ></select>
+                                            	
+										</td>
+										<td>&nbsp;</td>
+										<td>	
+											<input id="Txtborder-top-right-radius"  title="border-top-right-radius" type="number" style="width: 50px" ><select    class="UOM"  style="border-top-right-radius:20px;" ></select>
+										</td>
+									</tr>
+
+									<tr>
+										<td>&nbsp;</td>
+										<td>
+											<input type="number"   id="Txtborder-radius" style="background-color:orange;border-top-left-radius:20px;border-bottom-left-radius:20px;width: 50px" ><select   style="border-top-right-radius:20px;border-bottom-right-radius:20px;" class="UOM" ></select>
+										</td>
+										<td>&nbsp;</td>
+									</tr>
+
+									<tr>
+										<td>
+											<input id="Txtborder-bottom-left-radius"  title="border-bottom-left-radius" type="number" style="border-bottom-left-radius:20px;width: 50px" ><select    class="UOM" ></select>
+										</td>
+										<td>&nbsp;</td>
+										<td>
+											<input id="Txtborder-bottom-right-radius"  title="border-bottom-right-radius" type="number" style="width: 50px" ><select   style="border-bottom-right-radius:20px;" class="UOM" ></select>
+										</td>
+									</tr>
+
+                            </table>
+                            </td>
+                          
+                     
+                      
+					</tr>
+					<tr>
+                   
+						<td class="Head">
+						Shorthand
+						</td>
+				
+						<td>
+						   <select title="border-width" id="Cmdborder-width">
+								<option  style="border-width:thin">thin</option >
+								<option  style="border-width:medium;">medium</option >
+								<option  style="border-width:thick;">thick</option >
+								<option  >Value</option >
+							</select>
+						</td>
+                        <td >
+							<select  title="border-style" id="Cmdborder-style">
+								 <option >none	</option>
+								  <option style="border-style:dotted;">dotted</option>
+								 <option  style="border-style:dashed;">dashed</option>
+								 <option  style="border-style:solid;">solid</option>
+								 <option  style="border-style:double;">double</option>
+								 <option  style="border-style:groove;">groove</option>
+								 <option  style="border-style:ridge;">ridge</option>
+								 <option  style="border-style:inset;">inset</option>
+								 <option  style="border-style:outset;">outset</option>
+								 <option  style="border-style:hidden;">hidden</option>
+								 </select>
+							</td>
+						<td>	
+						<input type="color" id="Txtborder-color" title="border-color" >
+
+						</td>
+						
+                      
+					</tr>
+						
+				<tr>
+				<td class="Head" >Top</td>
+			
+				<td  >
+							<select title="border-top-Width" id="Cmdborder-top-Width">
+								<option  style="border-width:thin">thin</option >
+								<option  style="border-width:medium;">medium</option >
+								<option  style="border-width:thick;">thick</option >
+								<option  >Value</option >
+							</select>
+
+				</td>
+                    	<td  >
+							<select  title="border-top-style" id="Cmdborder-top-style">
+								 <option >none	</option>
+								  <option style="border-style:dotted;">dotted</option>
+								 <option  style="border-style:dashed;">dashed</option>
+								 <option  style="border-style:solid;">solid</option>
+								 <option  style="border-style:double;">double</option>
+								 <option  style="border-style:groove;">groove</option>
+								 <option  style="border-style:ridge;">ridge</option>
+								 <option  style="border-style:inset;">inset</option>
+								 <option  style="border-style:outset;">outset</option>
+								 <option  style="border-style:hidden;">hidden</option>
+								 </select>
+				</td>
+				<td  >
+				<input type="color" id="Txtborder-top-color" title="border-top-color" >
+						
+				
+			</td>
+				
+				</tr>
+				<tr>
+					<td class="Head"  >right</td>
+		
+					<td  >
+						<select title="border-right-Width" id="Cmdborder-right-Width">
+								<option  style="border-width:thin">thin</option >
+								<option  style="border-width:medium;">medium</option >
+								<option  style="border-width:thick;">thick</option >
+								<option  >Value</option >
+							</select>
+
+				</td>
+                    			<td  >
+					<select  title="border-right-style" id="Cmdborder-right-style">
+								 <option >none	</option>
+								  <option style="border-style:dotted;">dotted</option>
+								 <option  style="border-style:dashed;">dashed</option>
+								 <option  style="border-style:solid;">solid</option>
+								 <option  style="border-style:double;">double</option>
+								 <option  style="border-style:groove;">groove</option>
+								 <option  style="border-style:ridge;">ridge</option>
+								 <option  style="border-style:inset;">inset</option>
+								 <option  style="border-style:outset;">outset</option>
+								 <option  style="border-style:hidden;">hidden</option>
+								 </select>
+					
+					</td>
+				<td  >
+								<input type="color" id="Txtborder-right-color" title="border-right-color" >
+				</td>
+
+				</tr>		
+				<tr>
+				<td class="Head" >bottom</td>
+		
+						
+				<td  >
+							<select title="border-bottom-Width" id="Cmdborder-bottom-Width">
+								<option  style="border-width:thin">thin</option >
+								<option  style="border-width:medium;">medium</option >
+								<option  style="border-width:thick;">thick</option >
+								<option  >Value</option >
+							</select>
+				</td>
+                    		<td  >
+				<select  title="border-bottom-style" id="Cmdborder-bottom-style">
+								 <option >none	</option>
+								  <option style="border-style:dotted;">dotted</option>
+								 <option  style="border-style:dashed;">dashed</option>
+								 <option  style="border-style:solid;">solid</option>
+								 <option  style="border-style:double;">double</option>
+								 <option  style="border-style:groove;">groove</option>
+								 <option  style="border-style:ridge;">ridge</option>
+								 <option  style="border-style:inset;">inset</option>
+								 <option  style="border-style:outset;">outset</option>
+								 <option  style="border-style:hidden;">hidden</option>
+								 </select>
+
+				</td>
+				<td  >
+					<input type="color" id="Txtborder-bottom-color" title="border-bottom-color" >
+				</td>
+         
+				</tr>		
+				<tr>
+				<td class="Head" >Left</td>
+		
+										
+				<td >
+							<select title="border-left-Width" id="Cmdborder-left-Width">
+								<option  style="border-width:thin">thin</option >
+								<option  style="border-width:medium;">medium</option >
+								<option  style="border-width:thick;">thick</option >
+								<option  >Value</option >
+							</select>
+				</td>
+                    		<td  >
+				<select  title="border-Left-style" id="Cmdborder-Left-style">
+								 <option >none	</option>
+								  <option style="border-style:dotted;">dotted</option>
+								 <option  style="border-style:dashed;">dashed</option>
+								 <option  style="border-style:solid;">solid</option>
+								 <option  style="border-style:double;">double</option>
+								 <option  style="border-style:groove;">groove</option>
+								 <option  style="border-style:ridge;">ridge</option>
+								 <option  style="border-style:inset;">inset</option>
+								 <option  style="border-style:outset;">outset</option>
+								 <option  style="border-style:hidden;">hidden</option>
+								 </select>
+
+				</td>
+				<td  >
+					<input type="color" id="Txtborder-left-color" title="border-left-color" >
+				</td>
+
+				</tr>		
+			
+        	<tr style="background-color:#4CAF50;color:#73AD21">
+				<td class="Head" >outline</td>
+		
+										
+				<td >
+							<select title="outline-Width" name="outline-Width" id="Cmdoutline-Width">
+								<option  style="border-width:thin">thin</option >
+								<option  style="border-width:medium;">medium</option >
+								<option  style="border-width:thick;">thick</option >
+								<option  >Value</option >
+							</select>
+				</td>
+                    		<td  >
+				<select  title="outline-style" name="outline-style" id="Cmdoutline-style">
+								 <option >none	</option>
+								  <option style="border-style:dotted;">dotted</option>
+								 <option  style="border-style:dashed;">dashed</option>
+								 <option  style="border-style:solid;">solid</option>
+								 <option  style="border-style:double;">double</option>
+								 <option  style="border-style:groove;">groove</option>
+								 <option  style="border-style:ridge;">ridge</option>
+								 <option  style="border-style:inset;">inset</option>
+								 <option  style="border-style:outset;">outset</option>
+								 <option  style="border-style:hidden;">hidden</option>
+								 </select>
+
+				</td>
+				<td  >
+					<input type="color" id="Txtoutline-color" name="outline-color" title="outline-color" >
+				</td>
+                	<td   >
+					<table>
+                        <tr>
+                        	<td style="width:120px"  class="compatible"><input type="hidden" value="31"> 
+                        <label  > outline-offset:  		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The outline-offset property adds space between an outline and the edge or 
+border of an element.</p>
+<p>Outlines differ from borders in two ways:</p>
+<ul>
+	<li>An outline is a line drawn around elements, outside the border edge</li>
+	<li>A outline do not take up space</li>
+	<li>An outline may be non-rectangular</li>
+</ul>
+<br>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>0</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes, <i>see individual properties</i>. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_outline-offset">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.outlineOffset=&quot;15px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_outline-offset">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+outline-offset: <i>length</i>|initial|inherit;</div></div>
+<h2>Property Values</h2>
+<div class="w3-responsive">
+<table class="w3-table-all notranslate">
+  <tr>
+    <th>Value</th>
+    <th>Description</th>
+  </tr>  
+  <tr>
+    <td> <i>length</i></td>
+    <td>The distance the outline is outset from the border edge. Default value is 0</td>
+  </tr>
+	<tr>
+    <td>initial</td>
+    <td>Sets this property to its default value. <a href="css_initial.asp">Read about <em>initial</em></a></td>
+    </tr>
+	<tr>
+    <td>inherit</td>
+    <td>Inherits this property from its parent element. <a href="css_inherit.asp">Read about <em>inherit</em></a></td>
+    </tr>
+  </table>
+</div>
+  
+
+
+
+                                 </div>
+                        </td>
+                            <td  >
+						<input type="number" id="Txtoutline-offset" name="outline-offset" title="outline-offset : " style="width:50px" >
+                        
+                           	<select  class="UOM" >
+								   
+	   						</select>
+					</td>
+                             <TH  class="compatible CSS3" ><input type="hidden" value="31">Box Shadow</TH>
+
+                                <td >
+                              
+                                          	<select id="Cmdbox-shadow" title="The box-shadow property applies shadow to box.">
+							                        <option>2px 2px red</option>
+							                        <option>5px 5px red</option>
+							                        <option>20px 20px red</option>
+							                        <option>-10px 10px red</option>
+							                        <option>-10px -10px red</option>
+							                        <option>5px 5px red</option>
+							                        <option>5px 5px 1px red</option>
+							                        <option>5px 5px 2px red</option>
+							                        <option>5px 5px 3px red</option>
+							                        <option>5px 5px 4px red</option>
+							                        <option>5px 5px 5px red</option>
+							                        <option>5px 5px 10px red</option>
+							                        <option>5px 5px 10px blue</option>
+							                        <option>5px 5px 10px black</option>
+							                        <option>5px 5px 10px #00FF00</option>
+						
+						                        </select>
+                                
+
+                            </td> 
+
+                            </tr>
+					</table>
+				</td>
+           
+				</tr>			
+												
+						
+				</table>
+
+	
+	</div>
+	<div id="tabs-Boxing" class="DivTab" >
+	
+<table id="TblBoxing" class="Tbl"    > 
+					<tr style="text-align:center">
+						<th ></th>
+						<th class="compatible" >
+								<input type="hidden" value="31">padding</th>
+						<th class="compatible" >
+								<input type="hidden" value="31">margin</th>
+						 
+					</tr>
+					<tr>
+						<td class="Head">
+						ValueSet
+						</td>
+						<td >
+							<input type="number" id="Txtpadding" title="padding"  >
+                            
+                           	<select    class="UOM" >
+								   
+	   						</select>
+						</td>
+						<td>
+							<input type="number" id="Txtmargin" title="margin"  >
+                            
+                           	<select   class="UOM" >
+								   
+	   						</select>
+						</td>
+						
+					</tr>
+						
+				<tr>
+				<td class="Head" >Top</td>
+				<td  >
+					<input type="number" id="Txtpadding-top" title="padding-top"  >
+                    
+                           	<select   class="UOM" >
+								   
+	   						</select>
+				</td>
+				<td  >
+					<input type="number" id="Txtmargin-top" title="margin-top"  >
+                    
+                           	<select   class="UOM" >
+								 
+	   						</select>
+				</td>
+				
+				
+				</tr>
+				<tr>
+					<td class="Head"  >right</td>
+				<td  >
+					<input type="number" id="Txtpadding-right" title="padding-right"  >
+                    
+                           	<select    class="UOM" >
+								 
+	   						</select>
+				</td>
+				<td  >
+					<input type="number" id="Txtmargin-right" title="margin-right"  >
+                    
+                           	<select    class="UOM" >
+								 
+	   						</select>
+				</td>
+				
+				</tr>		
+				<tr>
+				<td class="Head" >bottom</td>
+				
+				<td  >
+					<input type="number" id="Txtpadding-bottom" title="padding-bottom"  >
+                    
+                           	<select     class="UOM" >
+								 
+	   						</select>
+				</td>
+				<td  >
+					<input type="number" id="Txtmargin-bottom" title="margin-bottom"  >
+                    
+                           	<select   class="UOM" >
+								 
+	   						</select>
+				</td>
+				
+				</tr>		
+				<tr>
+				<td class="Head" >Left</td>
+						
+
+				<td  >
+					<input type="number" id="Txtpadding-Left" title="padding-Left"  >
+                    
+                           	<select     class="UOM" >
+								   
+	   						</select>
+				</td>
+				<td  >
+					<input type="number" id="Txtmargin-Left" title="margin-Left"  >
+                    
+                           	<select   class="UOM" >
+								  
+	   						</select>
+				</td>
+
+				</tr>		
+				<tr>
+				<td class="Head" >Boxing</td>
+										<td  ><div id="Div-padding" title="padding"  >padding:
+								<span class="paddingView">Value</span></div></td>
+								<td  ><div id="Div-margin" title="margin"   >margin:
+								<span  class="marginView">Value</span></div></td>
+				
+
+				</tr>		
+												
+						
+				</table>
+				
+	</div>
+
+			<div id="tabs-position" class="DivTab" >
+	
+				<table id="Tblposition" class="Tbl"    > 
+					<tr style="text-align:center">
+						<th colspan="4" class="compatible" >
+								<input type="hidden" value="31">position</th>
+					</tr>						
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  >position :  		</label>
+                                 <div  class="Desc">	
+
+
+                                 </div>
+                            </td>
+						<td>
+							<select name="position" title="element position " id="Cmdposition">
+								<option>static</option>	<!--Default. Elements render in order, as they appear in the document flow -->
+								<option>absolute</option>	<!--The element is positioned relative to its first positioned (not static) ancestor element	-->
+								<option>fixed</option>	<!-- The element is positioned relative to the browser window	-->
+								<option>relative</option>	<!-- The element is positioned relative to its normal position, so "left:20" adds 20 pixels to the element's LEFT position	-->
+								<option>inherit</option> <!--	The value of the position property is inherited from the parent element	-->
+	   						</select>
+
+						</td>
+						<td class="compatible" ><input type="hidden" value="31">
+                            <label  >  z-index :  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>The z-index property specifies the stack order of an element.</p>
+<p>An element with greater stack order is always in front of an element with a lower stack order.</p>
+<p><b>Note:</b> z-index only works on positioned elements (position:absolute, position:relative, or position:fixed).</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>auto</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_z-index">Try it</a>
+</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.zIndex=&quot;-1&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_z-index">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+
+                                 </div>
+                           </td>
+						<td><input type="number" id="Txtz-index" title=""></td>
+
+					</tr>
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > width :  		</label>
+                                 <div  class="Desc">	
+
+
+                                 </div>
+                            </td>
+						<td>
+							<input type="number" id="Txtwidth" title="width">
+                           	<select    class="UOM" >
+								   
+	   						</select>
+						</td>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > height :  		</label>
+                                 <div  class="Desc">	
+
+
+                                 </div>
+                            </td>
+						<td>
+							<input type="number" id="Txtheight" title="height">
+                            
+                           	<select    class="UOM" >
+								   
+	   						</select>
+						</td>
+
+					</tr>
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > min-width :  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>The min-width property is used to set the minimum width of an element.</p>
+<p>This prevents the value of the width property from becoming smaller than 
+min-width.</p>
+<p><strong>Note:</strong> The value of the min-width property overrides both
+<a href="pr_dim_max-width.asp">max-width</a> and <a href="pr_dim_width.asp">
+width</a>.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>0</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes, <i>see individual properties</i>. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_min-width">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.minWidth=&quot;400px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_min-width">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                            </td>
+						<td>
+							<input type="number" id="Txtmin-width" name="min-width" title="min-width">
+                           	<select    class="UOM" >
+								   
+	   						</select>
+						</td>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > min-height :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The min-height property is used to set the minimum height of an element.</p>
+<p>This prevents the value of the height property from becoming smaller than 
+min-height.</p>
+<p><strong>Note:</strong> The value of the min-height property overrides both
+<a href="pr_dim_max-height.asp">max-height</a> and <a href="pr_dim_height.asp">
+height</a>.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>0</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes, <i>see individual properties</i>. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_min-height">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.minHeight=&quot;400px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_min-height">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                            </td>
+						<td>
+							<input type="number" id="Txtmin-height" title="min-height">
+                            
+                           	<select    class="UOM" >
+								   
+	   						</select>
+						</td>
+
+					</tr>
+                    					<tr>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > max-width :  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>The max-width property is used to set the maximum width of an element.</p>
+<p>This prevents the value of the width property from becoming larger than 
+max-width.</p>
+<p><strong>Note:</strong> The value of the max-width property overrides
+<a href="pr_dim_width.asp">width</a>.&nbsp;</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>none</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes, <i>see individual properties</i>. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_max-width">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.maxWidth=&quot;600px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_max-width">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+
+<hr>
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+max-width: none|<i>length</i>|initial|inherit;</div></div>
+
+</div>
+
+                                 </div>
+                            </td>
+						<td>
+							<input type="number" id="Txtmax-width" title="max-width">
+                           	<select    class="UOM" >
+								   
+	   						</select>
+						</td>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > max-height :  		</label>
+                                 <div  class="Desc">	
+                                     <h2>Definition and Usage</h2>
+
+<p>The max-height property is used to set the maximum height of an element.</p>
+<p>This prevents the value of the height property from becoming larger than 
+max-height.</p>
+<p><strong>Note:</strong> The value of the max-height property overrides
+<a href="pr_dim_height.asp">height</a>.&nbsp;</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>none</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes, <i>see individual properties</i>. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_max-height">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.maxHeight=&quot;100px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_max-height">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                            </td>
+						<td>
+							<input type="number" id="Txtmax-height" title="max-height">
+                            
+                           	<select    class="UOM" >
+								   
+	   						</select>
+						</td>
+
+					</tr>               
+<tr>
+    <td colspan="4" style="text-align:center" >
+        <span class="Condition" > position ^= static</span>
+        <table id="TblpositionNotstatic" style="background-color:yellow;width:100%;pointer-events:none;">
+                	<tr>
+						<td  class="compatible" style="height: 38px"><input type="hidden" value="31">
+                            <label  > top :  		</label>
+                                 <div  class="Desc">	
+                                     
+<h2>Definition and Usage</h2>
+<p>For absolutely positioned elements, the top property sets the top edge of an element to a unit above/below the top edge of its 
+nearest positioned ancestor. <strong>Note:</strong> If an absolute positioned 
+element has no positioned ancestors, it uses the document body, and moves along 
+with page scrolling. <strong>Note:</strong> A &quot;positioned&quot; element is one whose 
+position is anything except static.</p>
+<p>For relatively positioned elements, the top property sets the top edge of an element to a unit above/below its normal position. </p>
+<p><b>Note:</b> If &quot;position:static&quot;, the top property has no effect.&nbsp;</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>auto</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_top">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.top=&quot;100px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_top">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+<h2>CSS Syntax</h2>
+<div ><div>
+bottom: auto|<i>length</i>|initial|inherit;</div></div>
+
+                                 </div>
+                            </td>
+						<td style="height: 38px">
+							<input type="number" id="Txttop" title="top">
+                            
+                           	<select  class="UOM" >
+								    
+	   						</select>
+						</td>
+						<td  class="compatible" style="height: 38px"><input type="hidden" value="31">
+                            <label  >right :  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>For absolutely positioned elements, the right property sets the right edge of an element to a unit 
+to the left/right of the right edge of its nearest positioned ancestor. <strong>
+Note:</strong> If an absolute positioned element has no positioned ancestors, it 
+uses the document body, and moves along with page scrolling. <strong>Note:</strong> 
+A &quot;positioned&quot; element is one whose position is anything except static.</p>
+<p>For relatively positioned elements, the right property sets the right edge of an element to a unit to the left/right to its normal position. </p>
+<p><b>Note:</b> If &quot;position:static&quot;, the right property has no effect.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>auto</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_right">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.right=&quot;200px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_right">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+<h2>CSS Syntax</h2>
+<div ><div>
+bottom: auto|<i>length</i>|initial|inherit;</div></div>
+
+                                 </div>
+                            </td>
+						<td style="height: 38px">
+							<input type="number" id="Txtright" title="right">
+                            
+                           	<select   class="UOM" >
+								   
+	   						</select>
+						</td>
+
+					</tr>
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  >bottom :  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>For absolutely positioned elements, the bottom property sets the bottom edge of an element to a unit above/below the 
+bottom edge of its nearest positioned ancestor. <strong>Note:</strong> If an 
+absolute positioned element has no positioned ancestors, it uses the document 
+body, and moves along with page scrolling. <strong>Note:</strong> A &quot;positioned&quot; 
+element is one whose position is anything except static.</p>
+<p>For relatively positioned elements, the bottom property sets the bottom edge of an element to a unit above/below its normal position.</p>
+<p><b>Note:</b> If &quot;position:static&quot;, the bottom property has no effect.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>auto</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_bottom">Try it</a>
+</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.bottom=&quot;10px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_bottom">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+bottom: auto|<i>length</i>|initial|inherit;</div></div>
+
+
+
+                                 </div>
+                            </td>
+						<td>
+							<input type="number" id="Txtbottom" name="bottom">
+                            
+                           	<select  class="UOM" >
+								  
+	   						</select>
+						</td>
+						<td  class="compatible" ><input type="hidden" value="31">
+                            <label  > left :  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>For absolutely positioned elements, the left property sets the left edge of an element to a unit 
+to the left/right of the left edge of its nearest positioned ancestor.</p>
+<p><strong>Note:</strong> If an absolute positioned element has no positioned ancestors, it 
+uses the document body, and moves along with page scrolling.</p>
+<p><strong>Note:</strong> A &quot;positioned&quot; element is one whose position is anything except static.</p>
+<p>For relatively positioned elements, the left property sets the left edge of an element to a unit to the left/right to its normal position. </p>
+<p><b>Note:</b> If &quot;position:static&quot;, the left property has no effect.</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>auto</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_left">Try it</a>
+</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.left=&quot;100px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_left">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+<h2>CSS Syntax</h2>
+<div  ><div>
+bottom: auto|<i>length</i>|initial|inherit;</div></div>
+
+
+
+                                 </div>
+                            </td>
+						<td>
+							<input type="number" id="Txtleft" name="left">
+                            
+                           	<select   class="UOM" >
+								   
+	   						</select>
+						</td>
+
+					</tr>
+        </table>
+    </td>
+</tr>
+
+				
+				</table>
+				
+	</div>
+    <div id="tabs-Layout" class="DivTab" >
+	
+				<table id="TblLayout" class="Tbl"    > 
+					<tr style="text-align:center">
+						<th colspan="4" class="compatible" >
+								<input type="hidden" value="31">Layout</th>
+					</tr>						
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > visibility :  		</label>
+                                 <div  class="Desc">	
+                                     
+
+<h2>Definition and Usage</h2>
+<p>The visibility property specifies whether or not an element is visible.</p>
+<p><b>Tip:</b> Even invisible elements take up space on the page. Use the 
+<a href="pr_class_display.asp">display</a> property to create invisible elements that do not take up space!</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>visible</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.visibility=&quot;hidden&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_visibility">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+
+                                 </div>
+                            </td>
+						<td>
+							<select   title="visibility" id="Cmdvisibility">
+								<option>collapse</option>	<!--Default. Elements render in order, as they appear in the document flow -->
+								<option>hidden</option>	<!--The element is positioned relative to its first positioned (not static) ancestor element	-->
+								<option>visible</option>	<!-- The element is positioned relative to the browser window	-->
+								<option>inherit</option> <!--	The value of the position property is inherited from the parent element	-->
+	   						</select>
+
+						</td>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > overflow :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The overflow property specifies what happens if content overflows an element's box.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>visible</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.overflow=&quot;scroll&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_overflow">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+<hr>
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+overflow: visible|hidden|scroll|auto|initial|inherit;</div></div>
+
+<h2>Property Values</h2>
+<div class="w3-responsive">
+<table class="w3-table-all notranslate">
+  <tr>
+    <th style="width:14%">Value</th>
+    <th>Description</th>
+    <th>Play it</th>    
+  </tr>
+  <tr>
+    <td>visible</td>
+    <td>The overflow is not clipped. It renders outside the element's 
+	box. 
+	This is default</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_overflow">Play it &raquo;</a></td>		                  	
+  </tr>
+	<tr>
+    <td>hidden</td>
+    <td>The overflow is clipped, and the rest of the content&nbsp;will 
+	be invisible</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_overflow&preval=hidden">Play it &raquo;</a></td>		                  		
+  </tr>
+	<tr>
+    <td>scroll</td>
+    <td>The overflow is clipped, but a scroll-bar is added to see the rest of the content</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_overflow&preval=scroll">Play it &raquo;</a></td>		                  		  
+  </tr>
+	<tr>
+    <td>auto</td>
+    <td>If overflow is clipped, a
+      scroll-bar should be added to see the rest of the content</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_overflow&preval=auto">Play it &raquo;</a></td>		                  		
+  </tr>
+	<tr>
+    <td>initial</td>
+    <td>Sets this property to its default value. <a href="css_initial.asp">Read about <em>initial</em></a></td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_overflow&preval=initial">Play it &raquo;</a></td>		                  		
+    </tr>
+	<tr>
+    <td>inherit</td>
+    <td>Inherits this property from its parent element. <a href="css_inherit.asp">Read about <em>inherit</em></a></td>
+	<td></td>
+    </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                            </td>
+						<td>
+							<select  title="Set the overflow property to scroll" id="Cmdoverflow" name="overflow">
+                                <option>visible</option>  <!--visible The overflow is not clipped. It renders outside the element's box. This is default-->
+								<option>auto</option>	<!--auto If overflow is clipped, a scroll-bar should be added to see the rest of the content	-->	
+								<option>hidden</option><!--	 hidden	The overflow is clipped, and the rest of the content will be invisible-->	
+								<option>scroll</option> <!--scroll	The overflow is clipped, but a scroll-bar is added to see the rest of the content-->	
+                                <option>initial</option>  <!-- initial	Sets this property to its default value. Read about initial-->
+								<option>inherit</option> <!-- inherit	Inherits this property from its parent element. Read about inherit-->
+                               
+	   						</select>
+						</td>
+
+					</tr>
+                    	<tr>
+						<td  class="compatible"><input type="hidden"   value="31">
+                            <label  >  overflow-x:		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The overflow-x property specifies what to do with the left/right edges of the content - if it overflows the element's 
+	content area.</p>
+<p><b>Tip:</b> Use the <a href="css3_pr_overflow-y.asp">overflow-y</a> property 
+to determine clipping at the  
+top and bottom edges.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>visible</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.overflowX=&quot;scroll&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_overflow-x">Try it</a>
+</td>
+  </tr>
+	</table>
+</div>
+<hr>
+
+
+                                 </div>
+                           </td>
+						<td>
+							<select  name="overflow-x"  id="Cmdoverflow-x">
+								  <option>visible</option>  <!--visible The overflow is not clipped. It renders outside the element's box. This is default-->
+								<option>auto</option>	<!--auto If overflow is clipped, a scroll-bar should be added to see the rest of the content	-->	
+								<option>hidden</option><!--	 hidden	The overflow is clipped, and the rest of the content will be invisible-->	
+								<option>scroll</option> <!--scroll	The overflow is clipped, but a scroll-bar is added to see the rest of the content-->	
+                                <option>initial</option>  <!-- initial	Sets this property to its default value. Read about initial-->
+								<option>inherit</option> <!-- inherit	Inherits this property from its parent element. Read about inherit-->
+	   						</select>
+						</td>
+						
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > overflow-y: 		</label>
+                                 <div  class="Desc">	
+                                     
+<h2>Definition and Usage</h2>
+<p>The overflow-y property specifies what to do with the top/bottom edges of the content - if it overflows the element's 
+	content area.</p>
+<p><b>Tip:</b> Use the <a href="css3_pr_overflow-x.asp">overflow-x</a> property 
+to determine clipping at the left and right edges.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>visible</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.overflowY=&quot;scroll&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_overflow-y">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                           </td>
+						<td>
+							<select  name="overflow-y"  id="Cmdoverflow-y">
+								  <option>visible</option>  <!--visible The overflow is not clipped. It renders outside the element's box. This is default-->
+								<option>auto</option>	<!--auto If overflow is clipped, a scroll-bar should be added to see the rest of the content	-->	
+								<option>hidden</option><!--	 hidden	The overflow is clipped, and the rest of the content will be invisible-->	
+								<option>scroll</option> <!--scroll	The overflow is clipped, but a scroll-bar is added to see the rest of the content-->	
+                                <option>initial</option>  <!-- initial	Sets this property to its default value. Read about initial-->
+								<option>inherit</option> <!-- inherit	Inherits this property from its parent element. Read about inherit-->
+	   						</select>
+						</td>
+
+					</tr>
+                    <tr>
+						<td  class="compatible"><input type="hidden"   value="31">
+                            <label  >float:  		</label>
+                                 <div  class="Desc">	
+                                     
+<h2>Definition and Usage</h2>
+<p>The float property specifies whether or not a box (an element) should float.</p>
+<p><b>Note:</b> Absolutely positioned elements ignores the float property!</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>none</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.cssFloat=&quot;left&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_float">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+float: none|left|right|initial|inherit;</div></div>
+
+
+<h2>Property Values</h2>
+<div class="w3-responsive">
+<table class="w3-table-all notranslate">
+  <tr>
+    <th style="width:14%">Value</th>
+    <th>Description</th>
+    <th>Play it</th>    
+  </tr>
+  <tr>
+    <td>none</td>
+    <td>The element is not floated, and will be displayed just where it 
+	occurs in the text. This is default</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_float&preval=none">Play it &raquo;</a></td>    
+  </tr>
+  <tr>
+    <td>left</td>
+    <td>The element floats to the left</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_float&preval=left">Play it &raquo;</a></td>    
+  </tr>
+  <tr>
+    <td>right</td>
+    <td>The element floats the right</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_float&preval=right">Play it &raquo;</a></td>        
+  </tr>
+	<tr>
+    <td>initial</td>
+    <td>Sets this property to its default value. <a href="css_initial.asp">Read about <em>initial</em></a></td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_float&preval=initial">Play it &raquo;</a></td>    
+    </tr>
+	<tr>
+    <td>inherit</td>
+    <td>Inherits this property from its parent element. <a href="css_inherit.asp">Read about <em>inherit</em></a></td>
+	<td></td>
+    </tr>
+</table>
+</div>
+<hr>
+
+
+
+                                 </div>
+                            </td>
+						<td>
+							<select  title="float"  id="Cmdfloat">
+								<option>none</option>	
+								<option>left</option>	
+								<option>right</option>
+								<option>initial</option>
+								<option>inherit</option> 
+	   						</select>
+						</td>
+						
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > clear: 		</label>
+                                 <div  class="Desc">	
+                                     
+<h2>Definition and Usage</h2>
+<p>The clear property specifies on which sides of an element floating elements are not allowed 
+to float.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>none</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.clear=&quot;both&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_clear">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+clear: none|left|right|both|initial|inherit;</div></div>
+
+<h2>Property Values</h2>
+<div class="w3-responsive">
+<table class="w3-table-all notranslate">
+  <tr>
+    <th style="width:15%">Value</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>none</td>
+    <td>Default. Allows floating elements on both sides</td>
+  </tr>
+  <tr>
+    <td>left</td>
+    <td>No floating elements allowed on the left side</td>
+  </tr>
+  <tr>
+    <td>right</td>
+    <td>No floating elements allowed on the right side</td>
+  </tr>
+  <tr>
+    <td>both</td>
+    <td>No floating elements allowed on either the left or the right
+      side</td>
+  </tr>
+	<tr>
+    <td>initial</td>
+    <td>Sets this property to its default value. <a href="css_initial.asp">Read about <em>initial</em></a></td>
+    </tr>
+	<tr>
+    <td>inherit</td>
+    <td>Inherits this property from its parent element. <a href="css_inherit.asp">Read about <em>inherit</em></a></td>
+    </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                           </td>
+						<td>
+							<select  title="clear"  id="Cmdclear">
+								<option>none</option>	
+								<option>left</option>	
+								<option>right</option>
+								<option>both</option>
+								<option>initial</option> 
+                                <option>inherit</option> 
+	   						</select>
+						</td>
+
+					</tr>
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > display:  		</label>
+                                 <div  class="Desc">	
+
+
+                                 </div>
+                            </td>
+						<td>
+							<select   title="display" id="Cmddisplay">
+								<option>	inline		</option>
+								<option>	block		</option>
+								<option>	flex		</option>
+								<option>	inline-block		</option>
+								<option>	inline-flex		</option>
+								<option>	inline-table		</option>
+								<option>	list-item		</option>
+								<option>	run-in		</option>
+								<option>	table		</option>
+								<option>	table-caption		</option>
+								<option>	table-column-group		</option>
+								<option>	table-header-group		</option>
+								<option>	table-footer-group		</option>
+								<option>	table-row-group		</option>
+								<option>	table-cell		</option>
+								<option>	table-column		</option>
+								<option>	table-row		</option>
+								<option>	none		</option>
+								<option>	initial		</option>
+								<option>	inherit		</option>
+
+	   						</select>
+						</td>
+						<td   class="compatible CSS3"><input type="hidden" value="15">
+                            <label  > resize:		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The resize property specifies whether or not an element is resizable by the 
+user.</p>
+<p><b>Note:</b> The resize property applies to elements whose computed overflow 
+value is something other than &quot;visible&quot;.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>none</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.resize=&quot;both&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_resize">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+resize: none|both|horizontal|vertical|initial|inherit;</div></div>
+<h2>Property Values</h2>
+<div class="w3-responsive">
+<table class="w3-table-all notranslate">
+  <tr>
+    <th style="width:20%">Value</th>
+    <th style="width:68%">Description</th>
+    <th>Play it</th>                
+  </tr>  
+  <tr>
+    <td> none</td>
+    <td>Default value. The user cannot resize the element</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_resize&preval=none">Play it &raquo;</a></td>   		
+  </tr>
+  <tr>
+    <td> both</td>
+    <td>The user can adjust both the height and the width of the element</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_resize&preval=both">Play it &raquo;</a></td>   		    
+  </tr>
+  <tr>
+    <td> horizontal</td>
+    <td>The user can adjust the width of the element</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_resize&preval=horizontal">Play it &raquo;</a></td>   		    
+  </tr>
+  <tr>
+    <td> vertical</td>
+    <td>The user can adjust the height of the element</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_resize&preval=vertical">Play it &raquo;</a></td>   		    
+  </tr>
+	<tr>
+    <td>initial</td>
+    <td>Sets this property to its default value. <a href="css_initial.asp">Read about <em>initial</em></a></td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_resize&preval=initial">Play it &raquo;</a></td>   		    
+    </tr>
+	<tr>
+    <td>inherit</td>
+    <td>Inherits this property from its parent element. <a href="css_inherit.asp">Read about <em>inherit</em></a></td>
+	<td></td>
+    </tr>
+</table>
+</div> 
+<hr>
+
+
+                                 </div>
+                            </td>
+						<td>
+							<select   title="cursor" id="Cmdresize">
+								<option>both</option>	
+								<option>horizontal</option>	
+								<option>vertical</option>
+						    </select>
+                            <span class="Condition" >overflow:auto;</span>
+						</td>
+
+					</tr>
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  > cursor :  		</label>
+                                 <div  class="Desc">	
+
+                                     
+<h2>Definition and Usage</h2>
+<p>The cursor property specifies the type of cursor to be displayed when pointing on an element.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>auto</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.cursor=&quot;crosshair&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_cursor">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                            </td>
+						<td>
+							<select   title="cursor" id="Cmdcursor">
+								<option>auto</option>	
+								<option>crosshair</option>	
+								<option>default</option>
+								<option>e-resize</option>
+								<option>help</option> 
+								<option>move</option>	
+								<option>n-resize</option>	
+								<option>ne-resize</option>
+								<option>nw-resize</option>
+								<option>pointer</option> 
+								
+								<option>progress</option> 
+								<option>s-resize</option>	
+								<option>se-resize</option>	
+								<option>sw-resize</option>	
+								<option>text</option>
+								<option>w-resize</option>
+								<option>wait</option> 
+								<option>inherit</option>
+	   						</select>
+						</td>
+						<td  class="compatible" ><input type="hidden" value="31">
+                            <label  > pointer-events :  		</label>
+                                 <div  class="Desc">	
+
+                        auto
+The element behaves as it would if the pointer-events property were not specified. In SVG content, this value and the value visiblePainted have the same effect.
+none
+The element is never the target of mouse events; however, mouse events may target its descendant elements if those descendants have pointer-events set to some other value. In these circumstances, mouse events will trigger event listeners on this parent element as appropriate on their way to/from the descendant during the event capture/bubble phases.
+visiblePainted
+SVG only. The element can only be the target of a mouse event when the visibility property is set to visible and when the mouse cursor is over the interior (i.e., 'fill') of the element and the fill property is set to a value other than none, or when the mouse cursor is over the perimeter (i.e., 'stroke') of the element and the stroke property is set to a value other than none.
+visibleFill
+SVG only. The element can only be the target of a mouse event when the visibility property is set to visible and when the mouse cursor is over the interior (i.e., fill) of the element. The value of the fill property does not affect event processing.
+visibleStroke
+SVG only. The element can only be the target of a mouse event when the visibility property is set to visible and when the mouse cursor is over the perimeter (i.e., stroke) of the element. The value of the stroke property does not affect event processing.
+visible
+SVG only. The element can be the target of a mouse event when the visibility property is set to visible and the mouse cursor is over either the interior (i.e., fill) or the perimeter (i.e., stroke) of the element. The values of the fill and stroke do not affect event processing.
+painted
+SVG only. The element can only be the target of a mouse event when the mouse cursor is over the interior (i.e., 'fill') of the element and the fill property is set to a value other than none, or when the mouse cursor is over the perimeter (i.e., 'stroke') of the element and the stroke property is set to a value other than none. The value of the visibility property does not affect event processing.
+fill
+SVG only. The element can only be the target of a mouse event when the pointer is over the interior (i.e., fill) of the element. The values of the fill and visibility properties do not affect event processing.
+stroke
+SVG only. The element can only be the target of a mouse event when the pointer is over the perimeter (i.e., stroke) of the element. The values of the stroke and visibility properties do not affect event processing.
+all
+SVG only. The element can only be the target of a mouse event when the pointer is over the interior (i.e., fill) or the perimeter (i.e., stroke) of the element. The values of the fill, stroke and visibility properties do not affect event processing.
+							
+
+                                 </div>
+                            </td>
+						<td><select   name="pointer-events" id="Cmdpointer-events">
+								<option>auto</option>	
+								<option>none</option>	
+                                <option>visiblePainted</option>	
+                                <option>visibleFill</option>	
+                                <option>visibleStroke</option>	
+                                <option>visible</option>	
+                                <option>painted</option>	
+                                <option>fill</option>	
+                                <option>stroke</option>	
+                                <option>all</option>	
+                                   <option>inherit</option>	
+                            </select>
+						</td>
+
+					</tr>
+                    <tr>
+                    	<td  class="compatible" ><input type="hidden" value="31">
+                            <label  > opacity :  		</label>
+                                 <div  class="Desc">	
+
+      
+<h2>Definition and Usage</h2>
+<p>The opacity property sets the opacity level for an element.</p>
+<p>The opacity-level describes the transparency-level, where 1 is not transparent at all, 0.5 is 50% see-through, and 0 is completely transparent.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>1</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+  <tr>
+    <th>Animatable:</th>
+    <td>yes, <i>see individual properties</i>. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+    <a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_opacity">Try it</a>
+    </td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS3</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.opacity=&quot;0.5&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss3_js_opacity">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+<p><strong>Note:</strong> IE8 and earlier versions supports an alternative, the filter property. Like: filter:Alpha(opacity=50).</p>
+<hr>
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+opacity: <i>number</i>|initial|inherit;</div></div>
+
+                                 </div>
+                            </td>
+						<td><input type="text" id="Txtopacity" name="opacity" title="opacity" />
+<td></td>
+					</tr>
+				
+				</table>
+				
+	</div>
+                  <div id="tabs-Controls" class="DivTab" >
+	<table id="TblControls" class="Tbl"    > 
+					<tr style="text-align:center">
+						<th colspan="4" class="compatible" >
+								<input type="hidden" value="31">Controls</th>
+					</tr>						
+					<tr>
+                        <td>
+                            <br /><br />
+				<table id="TblList" class="Tbl"    > 
+					<tr style="text-align:center">
+						<th colspan="5" class="compatible" >
+								<input type="hidden" value="31">List</th>
+					</tr>						
+					<tr>
+                     
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  >     list-style-position :  		</label>
+                                 <div  class="Desc">	
+                                     
+<h2>Definition and Usage</h2>
+<p>The list-style-position property specifies if the list-item markers should appear inside or outside the content flow.</p>
+<p>Outside:</p>
+<ul style="list-style-position:outside;width:25%;">
+<li style="border:1px solid #000000;">Coffee</li>
+<li style="border:1px solid #000000;border-top:0;">Tea</li>
+<li style="border:1px solid #000000;border-top:0;">Coca-cola</li>
+</ul>
+<p>Inside:</p>
+<ul style="list-style-position:inside;width:25%;">
+<li style="border:1px solid #000000;">Coffee</li>
+<li style="border:1px solid #000000;border-top:0;">Tea</li>
+<li style="border:1px solid #000000;border-top:0;">Coca-cola</li>
+</ul>
+<br>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>outside</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.listStylePosition=&quot;inside&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_list-style-position">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+list-style-position: inside|outside|initial|inherit;</div></div>
+
+
+<h2>Property Values</h2>
+<div class="w3-responsive">
+<table class="w3-table-all notranslate">
+  <tr>
+    <th style="width:14%">Value</th>
+    <th>Description</th>
+    <th>Play it</th>    
+  </tr>
+  <tr>
+    <td>inside</td>
+    <td>Indents the marker and the text. The bullets appear inside 
+	the content flow</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_list-style-position&preval=inside">Play it &raquo;</a></td>		              
+  </tr>
+  <tr>
+    <td>outside</td>
+    <td>Keeps the marker to the left of the text. The bullets 
+	appears outside the content flow. This is default</td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_list-style-position&preval=outside">Play it &raquo;</a></td>		              	
+  </tr>
+	<tr>
+    <td>initial</td>
+    <td>Sets this property to its default value. <a href="css_initial.asp">Read about <em>initial</em></a></td>
+	<td><a target="_blank" class="w3-btn btnplayit" href="playit.asp?filename=playcss_list-style-position&preval=initial">Play it &raquo;</a></td>		              	
+    </tr>
+	<tr>
+    <td>inherit</td>
+    <td>Inherits this property from its parent element. <a href="css_inherit.asp">Read about <em>inherit</em></a></td>
+	<td></td>
+    </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                        </td>
+						<td>
+							<select      title="Specifies where to place the list-item marker. " name="list-style-position" id="Cmdlist-style-position">
+							    <option>outside</option>
+                                <option>inside</option>	
+								<option>initial</option>
+								<option>inherit</option>
+							
+	   						</select>
+
+						</td>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  >  list-style-type:  		</label>
+                                 <div  class="Desc">	
+
+<h2>Definition and Usage</h2>
+<p>The list-style-type specifies the type of list-item marker in a list.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>disc</td>
+  </tr>
+	<tr>
+    <th style="width: 25%">Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th style="width: 25%">Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th style="width: 25%">Version:</th>
+    <td>CSS1</td>
+  </tr>
+	<tr>
+    <th style="width: 25%">JavaScript syntax:</th>
+    <td>  <i>object</i>.style.listStyleType=&quot;square&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_list-style-type">Try it</a>
+
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+                                 </div>
+                            <span class="Condition">(first 3 item Shape)</span></td>
+						<td>
+							<select     title="Set some different list styles:" name="list-style-type" id="Cmdlist-style-type">
+								<option>disc</option>	
+								<option>circle</option>	
+                                <option>square</option> 
+								<option>none</option>
+								
+                                <option>armenian</option> 
+					            <option>cjk-ideographic</option> 
+				                <option>decimal</option> 
+								<option>decimal-leading-zero</option> 
+								<option>georgian</option> 
+								<option>hebrew</option> 
+								<option>hiragana</option> 
+								<option>hiragana-iroha</option> 
+								<option>katakana</option> 
+								<option>katakana-iroha</option> 
+								<option>lower-alpha</option> 
+								<option>lower-greek</option> 
+								<option>lower-latin</option> 
+								<option>lower-roman</option> 
+								<option>upper-alpha</option> 
+								<option>upper-latin</option> 
+								<option>upper-roman</option> 
+								<option>initial</option> 
+                            </select>
+						</td>
+                           <td rowspan="2">
+                           
+                                            <ul class="preview"   >
+                                              <li>Coffee</li>
+                                              <li>Tea</li>
+                                              <li>CocaCola</li>
+                                               <li>Coffee</li>
+                                              <li>Tea</li>
+                                              <li>CocaCola</li>
+                                            </ul>
+                                   
+                        </td>
+
+					</tr>
+                    	
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  >  list-style-image:  		</label>
+                                 <div  class="Desc">	
+
+
+                                 </div>
+                           </td>
+						<td>
+							<input     type="text" id="Txtlist-style-image" title="Specify an image as the list-item marker in a list:" name="list-style-image">
+						</td>
+						<td  class="compatible"><input type="hidden" value="31"> left</td>
+						<td>
+							<input type="number" id="Number13" title="left">
+						</td>
+
+					</tr>
+				
+				</table>
+                      	<table id="TblTable" class="Tbl"    > 
+					<tr style="text-align:center">
+						<th colspan="5" class="compatible" >
+								<input type="hidden" value="31">Table</th>
+					</tr>						
+					<tr>
+                        
+
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  >    border-spacing :  		</label>
+                                 <div  class="Desc">	
+    
+<h2>Definition and Usage</h2>
+<p>The border-spacing property sets the distance between the borders of adjacent cells (only for the &quot;separated borders&quot; model).</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>0</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>yes. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_anim_border-spacing">Try it</a>
+</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.borderSpacing=&quot;15px&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_border-spacing">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+<p><b>Note:</b> IE8 supports the border-spacing property only if a !DOCTYPE 
+is specified.</p>
+<hr>
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+border-spacing: <i>length</i>|initial|inherit;</div></div>
+
+
+
+
+                                 </div>
+                        </td>
+						<td>
+							<select     title="border-spacing " name="border-spacing" id="Cmdborder-spacing">
+							         <option>0px</option>
+                                    <option>1px</option>
+                                    <option>2px</option>
+                                    <option>5px</option>
+                                    <option>10px</option>
+                                    <option>50px</option>
+                                    <option>0px 50px</option>
+                                    <option>1px 5px</option>
+                                    <option>5px 1px</option>
+                                    <option>10px 0px</option>
+                                    <option>50px 70px</option>
+                                    <option>initial</option>	
+															
+	   						</select>
+
+						</td>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  >  border-collapse:  		</label>
+                                 <div  class="Desc">	
+
+
+
+<h2>Definition and Usage</h2>
+<p>The border-collapse property sets whether the table borders are collapsed into a single border or detached as in standard HTML.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>separate</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.borderCollapse=&quot;collapse&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_border-collapse">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+<p><b>Note:</b> If a !DOCTYPE is not specified, the border-collapse property can 
+produce unexpected results.</p>
+<hr>
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+border-collapse: separate|collapse|initial|inherit;</div></div>
+
+
+
+                                 </div>
+                        </td>
+						<td>
+							<select     title="border-collapse" name="border-collapse" id="Cmdborder-collapse">
+								<option>separate</option>	
+								<option>collapse</option>	
+                                <option>initial</option> 
+								<option>inherit</option>
+
+
+                            </select>
+						</td>
+                        <td rowspan="3" >
+ <table class="preview"  >
+     <caption>Table Example</caption>
+                                <tr>
+                                    <td>Cell 1</td>
+                                    <td>Cell 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Cell 3</td>
+                                    <td>Cell 4</td>
+                                </tr>
+                                       <tr>
+                                    <td>Cell 5</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+</td>
+					</tr>
+                    	
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">
+                            <label  >  table-layout:  		</label>
+                                 <div  class="Desc">	
+
+<h2>Definition and Usage</h2>
+<p>The table-layout property sets the table layout algorithm to be used for a table.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>auto</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>no</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td><i>object</i>.style.tableLayout=&quot;fixed&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_table-layout">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+table-layout: auto|fixed|initial|inherit;</div></div>
+
+
+
+
+                                 </div>
+                           </td>
+						<td>
+							<select     id="Cmdtable-layout" title="Stable-layout" name="table-layout">
+                              <option>  auto</option>
+                                <option>fixed</option>
+                                <option>initial</option>
+                                <option>inherit</option> 
+                            </select>
+						</td>
+						<td  class="compatible"><input type="hidden" value="31"> 
+                             <label  >   caption-side:  		</label>
+                                 <div  class="Desc">	
+                            
+<h2>Definition and Usage</h2>
+<p>The caption-side property specifies the placement of a table caption.</p>
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>top</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.captionSide=&quot;bottom&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_caption-side">Try it</a>
+</td>
+  </tr>
+</table>
+</div>
+<hr>
+
+
+<p><b>Note:</b> IE8 supports the caption-side property only if a !DOCTYPE 
+is specified.</p>
+<hr>
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+caption-side: top|bottom|initial|inherit;</div></div>
+
+</div>
+                            
+                           </td>
+						<td>
+							<select     name="caption-side" id="Cmdcaption-side" title="caption-side">
+                                <option>top</option>	
+								<option>bottom</option>	
+                                <option>initial</option> 
+								<option>inherit</option>
+							</select>
+						</td>
+
+					</tr>
+                              <tr>
+					
+
+
+						<td  class="compatible"><input type="hidden" value="31"> 
+                             <label  >   empty-cells:  		</label>
+                                 <div  class="Desc">	
+                            
+<h2>Definition and Usage</h2>
+<p>The empty-cells property sets whether or not to display borders and background on empty cells in a table (only for the &quot;separated borders&quot; model).</p>
+
+<div class="w3-responsive">
+<table class="tecspec">
+  <tr>
+    <th style="width:25%">Default value:</th>
+    <td>show</td>
+  </tr>
+	<tr>
+    <th>Inherited:</th>
+    <td>yes</td>
+  </tr>
+	<tr>
+    <th>Animatable:</th>
+    <td>no. <a href="css_animatable.asp">Read about <em>animatable</em></a>
+	</td>
+  </tr>
+	<tr>
+    <th>Version:</th>
+    <td>CSS2</td>
+  </tr>
+	<tr>
+    <th>JavaScript syntax:</th>
+    <td>  <i>object</i>.style.emptyCells=&quot;hide&quot;
+<a target="_blank" class="w3-btn btnsmall" href="tryit.asp?filename=trycss_js_empty-cells">Try it</a>
+</td>
+  </tr>
+	</table>
+</div>
+<hr>
+
+<h2>Browser Support</h2>
+<p>The numbers in the table specify the first browser version that fully supports the property.</p>
+
+<p><b>Note:</b> IE8 supports the empty-cells property only if a !DOCTYPE 
+is specified.</p>
+<hr>
+
+<h2>CSS Syntax</h2>
+<div class="w3-code w3-border notranslate"><div>
+empty-cells: show|hide|initial|inherit;</div></div>
+
+
+
+</div>
+                            
+                           </td>
+						<td>
+							<select    name="empty-cells" id="Cmdempty-cells" title="empty-cells">
+                                <option>show</option>	
+								<option>hide</option>	
+                                <option>initial</option> 
+								<option>inherit</option>
+							</select>
+						</td>
+                                  <td></td><td></td>
+
+					</tr>
+				
+				</table>
+				</td>
+                        </tr>
+                        </table>
+	</div>
+                <div id="tabs-Filter" class="DivTab" >
+                    <table>
+                          <tr>
+                            <th colspan="2">
+                                Filter
+                            </th>
+
+                          </tr>
+                        <tr>
+                         
+                            <td>
+                              
+                                 <section class="cols">
+    <span><span>blur</span><input type="range" oninput="set('blur', this.value + 'px');" value="0" step="1" min="0" max="10"></span>
+    <span><span>grayscale</span><input type="range" oninput="set('grayscale', this.valueAsNumber);" value="0" step="0.1" min="0" max="1"></span>
+    <span><span>drop-shadow</span><input type="range" oninput="set('drop-shadow', this.value + 'px ' + this.value + 'px 20px black');" value="0" step="1" min="0" max="100"></span>
+    <span><span>sepia</span><input type="range" oninput="set('sepia', this.valueAsNumber);" value="0" step="0.1" min="0" max="1"></span>
+    <span><span>brightness</span><input type="range" oninput="set('brightness', this.valueAsNumber);" value="0" step="0.1" min="0" max="10"></span>
+    <span><span>contrast</span><input type="range" oninput="set('contrast', this.valueAsNumber);" value="0" step="0.1" min="0" max="10"></span>
+    <span><span>hue-rotate</span><input type="range" oninput="set('hue-rotate', this.value + 'deg');" value="0" step="30" min="0" max="360"></span>
+    <span><span>invert</span><input type="range" oninput="set('invert', this.valueAsNumber);" value="0" step="0.1" min="0" max="1"></span>
+    <span><span>saturate</span><input type="range" oninput="set('saturate', this.valueAsNumber);" value="0" step="0.1" min="0" max="10"></span>
+    <span><span>opacity</span><input type="range" oninput="set('opacity', this.valueAsNumber);" value="0" step="0.1" min="0" max="1"></span>
+    <span><button onclick="reset()" style="margin-top:10px;">reset</button></span>
+  </section>
+
+                            </td>
+                               <td>
+                                 <img  class="preview" src="Images/1.jpg" style="width:300px;height:300px;" />
+                                <h3 id="MainTxtFilter"></h3>
+                            </td>
+                        </tr>
+                    </table>
+                   
+				
+	</div>
+                 <div id="tabs-Transforms" class="DivTab" >
+	
+				<table id="TblTransforms" class="Tbl"    > 
+					<tr style="text-align:center">
+						<th colspan="4" class="compatible CSS3" >
+								<input type="hidden" value="31">2D Transforms</th>
+					</tr>						
+					<tr>
+						<td  class="compatible CSS3"><input type="hidden" value="31">translate</td>
+						<td>
+							<input class="translate CSS3" id="Txttranslate_X" title="translate-X" type="number" value="0" />
+                            <input class="translate CSS3" id="Txttranslate_Y" title="translate-Y" type="number" value="0" />
+                            
+                        </td>
+						<td  class="compatible CSS3"><input type="hidden" value="31">skew</td>
+						<td>
+							<input class="skew CSS3" id="Txtskew_X" title="skew-X" type="number" value="0" />
+                            <input class="skew CSS3" id="Txtskew_Y" title="skew-Y" type="number" value="0" />
+                            
+                        </td>
+					</tr>
+					<tr>
+						<td  class="compatible CSS3"><input type="hidden" value="31">Scale</td>
+						<td>
+							<input class="scale CSS3" id="Txtscale-X" title="scale-X" type="number" value="1" />
+                            <input class="scale CSS3" id="Txtscale-Y" title="scale-Y" type="number" value="1" />&nbsp;
+                            
+                        </td>
+						<td  class="compatible CSS3"><input type="hidden" value="31">rotate</td>
+						<td>
+						    <input class="rotate CSS3" type="number" id="Txtrotate" title="rotate"  value="0" />
+
+                           </td>
+
+					</tr>
+					<tr>
+					
+						<td  class="compatible CSS3" ><input type="hidden" value="31">matrix </td>
+						<td colspan="3">
+							 <input  class="matrix CSS3" type="number" id="Txtmatrix1" title="matrix "  value="1" />
+                             <input  class="matrix CSS3" type="number" id="Txtmatrix2" title="matrix "  value="1" />
+                             <input  class="matrix CSS3" type="number" id="Txtmatrix3" title="matrix "  value="1" />
+                             <input  class="matrix CSS3" type="number" id="Txtmatrix4" title="matrix "  value="1" />
+
+						</td>
+
+					</tr>
+						<tr style="text-align:center">
+						<td colspan="4" class="compatible Head CSS3" >
+								<input type="hidden" value="11">3D Transforms</td>
+					</tr>
+					<tr>
+						<td  class="compatible CSS3"><input type="hidden" value="11">rotateX</td>
+						<td class="auto-style2">
+							<input class="rotate CSS3" type="number" id="TxtrotateX" title="rotate-x">
+						</td>
+						<td  class="compatible CSS3"><input type="hidden" value="11"> rotateY</td>
+						<td class="auto-style2">
+							<input  class="rotate CSS3" type="number" id="TxtrotateY" title="rotate-Y">
+						</td>
+
+					</tr>
+				
+				
+				</table>
+				
+	</div>
+	
+	 <div id="tabs-Transitions" class="DivTab" >
+	
+				<table id="TblTransitions" class="Tbl"   > 
+					<tr style="text-align:center">
+						<th colspan="4" class="compatible CSS3" >
+								<input type="hidden" value="15">Transitions</th>
+					</tr>						
+					<tr>
+						<td  class="compatible CSS3"><input type="hidden" value="15">transition-property:</td>
+						<td>
+							<input class="transition CSS3" id="Txttransition_property" title="transition-property" type="text" />
+                            
+&nbsp;</td>
+						<td  class="compatible CSS3"><input type="hidden" value="15">
+                            <label  >   transition-timing-function :  		</label>
+                                 <div  class="Desc">	
+
+
+                                 </div>
+                          </td>
+						<td>
+							<select  class="CSS3" id="Txttransition_timing_function" title="transition-timing-function" >
+                                <option>linear</option>
+                                <option>ease</option>
+                                <option>ease-in</option>
+                                <option>ease-out</option>
+                                <option>ease-in-out</option>
+							</select>
+
+						</td>
+
+					</tr>
+					<tr>
+						<td  class="compatible CSS3"><input type="hidden" value="15">
+                            <label  >transition-duration:		</label>
+                                 <div  class="Desc">	
+
+
+                                 </div>
+                            </td>
+						<td>
+							<input  class="transition CSS3" id="Txttransition_duration" title="transition-duration" type="number" />
+
+						</td>
+						<td   class="compatible CSS3"><input type="hidden" value="15">
+                            <label  > transition-delay:  		</label>
+                                 <div  class="Desc">	
+
+
+                                 </div>
+                            </td>
+						<td>
+							<input  class="transition CSS3" type="number" id="Txttransition_delay" title="transition-delay">
+						</td>
+
+					</tr>
+					
+					<tr>
+						<td  class="compatible CSS3"><input type="hidden" value="15">
+                            <label  > transition: 		</label>
+                                 <div  class="Desc">	
+
+
+                                 </div>
+                            </td>
+						<td colspan="3">
+
+						</td>
+
+					</tr>
+				
+				</table>
+				
+	</div>
+                 <div id="tabs-Animation" class="DivTab" >
+	
+				<table id="Table1" class="Tbl"    > 
+					<tr style="text-align:center">
+						<th colspan="4" class="compatible" >
+								<input type="hidden" value="15">
+                            <label  > Animation :  		</label>
+                                 <span  class="Desc">	
+
+
+                                 </span>
+                            </th>
+					</tr>						
+					<tr>
+						<td  class="compatible"><input type="hidden" value="15">transition-property:</td>
+						<td>
+							<input class="transition" id="Text1" title="transition-property" type="text" />
+                            
+&nbsp;</td>
+						<td  class="compatible"><input type="hidden" value="15">transition-timing-function</td>
+						<td>
+							<input id="Text2" title="transition-timing-function" type="text" value="linear"/></td>
+
+					</tr>
+					<tr>
+						<td  class="compatible"><input type="hidden" value="15">transition-duration:</td>
+						<td>
+							<input  class="transition" id="Number6" title="transition-duration" type="number" />
+
+						</td>
+						<td   class="compatible"><input type="hidden" value="15">transition-delay:</td>
+						<td>
+							<input  class="transition" type="number" id="Number7" title="transition-delay">
+						</td>
+
+					</tr>
+					
+					<tr>
+						<td  class="compatible"><input type="hidden" value="15">transition:</td>
+						<td colspan="3">
+
+						</td>
+
+					</tr>
+				
+				</table>
+				
+	</div>
+	
+	 <div id="tabs-MultipleColumns" class="DivTab" >
+	
+				<table id="TblMultipleColumns" class="Tbl"    > 
+					<tr style="text-align:center">
+						<th colspan="4"class="compatible">
+								<input type="hidden" value="15">Multiple Columns</th>
+					</tr>						
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">transform:translate</td>
+						<td>
+							<input id="Txtbottom0" title="bottom" type="number" />
+                            <input id="Number5" title="bottom" type="number" />
+                            
+&nbsp;</td>
+						<td  class="compatible"><input type="hidden" value="31">overflow</td>
+						<td>
+							<select  title="overflow" id="Select2">
+								<option>auto</option>	
+								<option>hidden</option>	
+								<option>scroll</option>
+								<option>visible</option>
+								<option>inherit</option> 
+	   						</select>
+						</td>
+
+					</tr>
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">display</td>
+						<td>
+							<select style="display:"  title="display" id="Select3">
+								<option>block</option>	
+								<option>inline</option>	
+								<option>inline-block</option>
+								<option>inline-table</option>
+								<option>list-item</option> 
+								<option>none</option>	
+								<option>run-in</option>	
+								<option>table</option>
+								<option>table-caption</option>
+								<option>table-cell</option> 
+								
+								<option>table-column</option> 
+								<option>table-column-group</option>	
+								<option>table-footer-group</option>	
+								<option>table-header-group</option>	
+								<option>table-row</option>
+								<option>table-row-group</option>
+								<option>inherit</option> 
+	   						</select>
+						</td>
+						<td   class="compatible"><input type="hidden" value="31">height</td>
+						<td>
+							<input type="number" id="Number1" title="height">
+						</td>
+
+					</tr>
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">cursor</td>
+						<td>
+							<select   title="cursor" id="Select4">
+								<option>auto</option>	
+								<option>crosshair</option>	
+								<option>default</option>
+								<option>e-resize</option>
+								<option>help</option> 
+								<option>move</option>	
+								<option>n-resize</option>	
+								<option>ne-resize</option>
+								<option>nw-resize</option>
+								<option>pointer</option> 
+								
+								<option>progress</option> 
+								<option>s-resize</option>	
+								<option>se-resize</option>	
+								<option>sw-resize</option>	
+								<option>text</option>
+								<option>w-resize</option>
+								<option>wait</option> 
+								<option>inherit</option>
+	   						</select>
+						</td>
+						<td  class="compatible" ><input type="hidden" value="31">right</td>
+						<td>
+							<input type="number" id="Number2" title="right">
+						</td>
+
+					</tr>
+					<tr>
+						<td  class="compatible"><input type="hidden" value="31">bottom</td>
+						<td>
+							<input type="number" id="Number3" title="bottom">
+						</td>
+						<td  class="compatible"><input type="hidden" value="31"> left</td>
+						<td>
+							<input type="number" id="Number4" title="left">
+						</td>
+
+					</tr>
+				
+				</table>
+				
+	</div>
+	
+	
+
+	
+				<tr style="height:25%">
+			<td>
+				<label for="txtpreview" >preview</label>
+			</td>
+			<td>
+				<div  class="preview" >  boxing Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
+			
+			</td>
+		</tr>
+		<tr style="height:25%">
+			<td>
+				Description:
+			</td>
+			<td>
+				<textarea  id="txtDescription" style="width:99%;border-radius:10px" cols="100"  rows="10"></textarea>
+			</td>
+		</tr>
+
+		
+
+					
+	</table>
+
+
+
+</td></tr>
+<tr><td><br></td></tr>
+</table>
+</div>
+		</body></html>

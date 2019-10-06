@@ -1,0 +1,843 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>HTML Basic </title>
+<link href="jquery-ui-1.10.1.sunny/css/sunny/jquery-ui-1.10.1.custom.css" rel="stylesheet" />
+	<script  type="text/javascript" language="javascript" src="jquery-ui-1.10.1.sunny/js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" language="javascript" src="jquery-ui-1.10.1.sunny/js/jquery-ui-1.10.1.custom.js"></script>
+	<script  type="text/javascript" src="jquery-ui-1.10.1.sunny/js/juery.topbar.js" ></script>
+	
+	
+		<script type="text/javascript" language="javascript">
+			var Vorder=new String();
+			
+			$(function() {
+				$('h4').hover(function(){
+		    	$(this).css("color","red");
+		   		 },function(){
+		    	$(this).css("color","#383838");
+		        });
+				$( "#headSection" ).accordion();
+				$( "#BodySection" ).accordion();
+				$( "#radioset" ).buttonset();
+				
+			});
+				</script>
+	<style type="text/css">
+		 
+		.demoHeaders {margin-top: 2em;}
+	 	.Massage{position: absolute; width: 100%; height: 30%;z-Index:100; background-color:rgba(0, 0, 0, 0.5); display:none;}
+		.Tbl{border: thick solid #C0C0C0;  width:90%; background-color:#FEEEBD}
+		td {border:thin solid #C0C0C0;}
+
+		a:hover{ color: #FF0000;}
+	</style>
+</head>
+
+<body>
+<!-- TopbarMessage-->
+	
+	<table   style="width: 100%">
+		<tr>
+				<td colspan="2" style="text-align: center;" ><h2 class="ui-widget-header ui-corner-all">HTML Quick List </h2> </td>
+		</tr>
+
+		<tr>
+		<td style="width: 20%; vertical-align: top;">
+            <img src="images\SmileToLife.jpg" width="150" />
+		
+<hr/>
+<h3 style="" >Body Section</h3>
+<hr/>
+<!-- Accordion -->
+<div id="BodySection">
+
+	<h3 style="" >HTML Basic</h3>
+	<div>
+		 <a href="#HTMLBasic">HTML Basic</a>
+		 <ul>
+			 <li > <a href="#HTMLBasic">Heading </a></li>
+			 <li > <a href="#HTMLBasic">paragraph</a></li>
+			 <li>  <a href="#HTMLBasic">Grouping</a></li>
+			 <li>  <a href="#HTMLBasic">Image</a></li>
+			 <li > <a href="#HTMLBasic">horizontal </a></li>
+			 <li > <a href="#HTMLBasic">line break</a></li>
+			 <li > <a href="#HTMLBasic">comment </a></li>
+		 </ul>
+
+	</div>
+	<h3>Formatting</h3>
+	<div>
+		 <a href="#Formatting"> Formatting </a>
+		 <ul>
+			 <li > <a href="#Formatting">Italic </a></li>
+			 <li > <a href="#Formatting">Strong</a></li>
+			 <li > <a href="#Formatting">Bookmark</a></li>
+		 </ul>
+		
+	</div>
+	<h3>Links</h3>
+	<div>
+		 <a href="#Links">Links</a>
+		 <ul>
+			 <li > <a href="#Links">Ordinary </a></li>
+			 <li > <a href="#Links">Mailto </a></li>
+			 <li > <a href="#Links">Bookmark</a></li>
+		 </ul>
+	</div>
+	
+	<h3>List</h3>
+	<div>
+		 <a href="#list">List </a>
+		 <ul>
+			 <li > <a href="#list">Unordered </a></li>
+			 <li > <a href="#list">Ordered</a></li>
+			 <li > <a href="#list">Definition </a></li>
+		 </ul>
+	</div>
+	
+<h3>Table</h3>
+	<div>
+		 <a href="#table">Table</a>
+		 <ul>
+			 <li > <a href="#table">Header</a></li>
+			 <li > <a href="#table">Row</a></li>
+			 <li > <a href="#table">Data </a></li>
+		 </ul>
+
+	</div>
+	<h3>Forms</h3>
+	<div>
+		 <a href="#Form">Form</a>
+		 <ul>
+			 <li > <a href="#Form">Text</a></li>
+			 <li > <a href="#Form">password</a></li>
+			 <li > <a href="#Form">checkbox</a></li>
+			 <li > <a href="#Form">Header</a></li>
+			 <li > <a href="#Form">radio</a></li>
+			 <li > <a href="#Form">submit</a></li>
+			 <li > <a href="#Form">reset</a></li>
+			 <li > <a href="#Form">hidden</a></li>
+			  <li > <a href="#Form">Label</a></li>
+		 </ul>
+
+	</div>
+	
+<h3>Symbols</h3>
+		<div>
+		 <a href="#Symbol">Symbol</a>
+		 <ul>
+			 <li > <a href="#Symbol">Space</a></li>
+			 <li > <a href="#Symbol">&lt;</a></li>
+			 <li > <a href="#Symbol">&gt;</a></li>
+			 <li > <a href="#Symbol">&amp;</a></li>
+			 <li > <a href="#Symbol">&cent;</a></li>
+			 <li > <a href="#Symbol">&pound;</a></li>
+			 <li > <a href="#Symbol">&yen;</a></li>
+			 <li > <a href="#Symbol">&euro;</a></li>
+			  <li > <a href="#Symbol">&sect;</a></li>
+			   <li > <a href="#Symbol">&copy;</a></li>
+			  <li > <a href="#Symbol">&reg;</a></li>
+			 <li > <a href="#Symbol">&trade;</a></li>
+			
+		 </ul>
+
+	</div>
+	
+
+	</div>
+<hr/>
+<h3 style="" >head Section</h3>
+<hr/>
+
+<!-- Accordion -->
+<div id="headSection">
+
+	<h3 style="" >head Section</h3>
+	<div>
+		 <a href="#heads">head Section</a>
+		 <ul>
+			 <li > <a href="#heads">Title </a></li>
+			 <li > <a href="#heads">Script</a></li>
+			 <li>  <a href="#heads">Style</a></li>
+			 <li>  <a href="#heads">FrameSet</a></li>
+			 <li > <a href="#heads">meta </a></li>
+		
+		 </ul>
+
+	</div>
+</div>
+
+		
+		</td>
+		<td>
+		
+		
+			<hr />	<h1><a id="HTMLBasic"> </a>HTML Basic</h1><hr />
+				 <table class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+						<td    ><h3 class="ui-widget-header ui-corner-all">Code</h3> </td>
+						<td    ><h3 class="ui-widget-header ui-corner-all">Execute</h3> </td>
+					</tr>
+					<tr>
+						<td  >
+						&lt;h1&gt;Heading 1&lt;/h1&gt;
+						</td>
+						<td  >
+							<h1>Heading 1</h1>
+						</td>
+					</tr>
+					<tr>
+						<td  >
+						&lt;h2&gt;Heading 2&lt;/h2&gt;
+						</td>
+						<td  >
+							<h2>Heading 2</h2>
+						</td  >
+					</tr>
+
+					<tr>
+						<td  >
+						&lt;h3&gt;Heading 3&lt;/h3&gt;
+						</td>
+						<td  >
+							<h3>Heading 3</h3>
+						</td>
+					</tr>
+
+					<tr>
+						<td  >
+						&lt;h4&gt;Heading 4&lt;/h4&gt;
+						</td>
+						<td  >
+							<h4>Heading 4</h4>
+						</td>
+					</tr>
+
+					<tr>
+						<td  >
+						&lt;h5&gt;Heading 5&lt;/h5&gt;
+						</td>
+						<td  >
+							<h5>Heading 5</h5>
+						</td>
+					</tr>
+
+					<tr>
+						<td  >
+						&lt;h6&gt;Heading 6&lt;/h6&gt;
+						</td>
+						<td  >
+							<h6>Heading 6</h6>
+						</td>
+					</tr>
+<tr>
+						<td  >
+						&lt;p&gt;This is a paragraph.&lt;/p&gt; 
+						</td>
+						<td  >
+							<p>This is a paragraph.</p>
+						</td>
+					</tr>
+							<tr>
+						<td  >
+						 &lt;div>A block-level section in a document&lt;/div><br/>
+						 &lt;span>An inline section in a document&lt;/span>
+						</td>
+						<td  >
+							<div>A block-level section in a document</div>
+							<span>An inline section in a document</span>
+						</td>
+					</tr>
+
+					<tr>
+						<td  >
+						&lt;img  src="SmileToLife.jpg" alt=&quot;SmileToLife&quot;  width="100" / &gt;
+						</td>
+						<td  >
+							<img src="SmileToLife.jpg"  width="150" />
+						</td>
+					</tr>
+
+					<tr>
+						<td  >
+						&lt;hr/&gt;
+						</td>
+						<td  >
+							<hr/> 
+						</td>
+					</tr>
+					<tr>
+						<td  >
+						&lt;br/&gt;
+						
+						</td>
+						<td  >
+							 <br/> 
+						</td>
+					</tr>
+					<tr>
+						<td  >
+						&lt;!-- This is a comment --&gt;						</td>
+						<td  >
+							 <!-- This is a comment --> 
+						</td>
+					</tr>
+
+				</table>
+
+
+			<hr />	<h1><a id="Formatting"> </a>Formatting</h1><hr />
+				 <table class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+						<td   ><h3 class="ui-widget-header ui-corner-all">Code</h3> </td>
+						<td   ><h3 class="ui-widget-header ui-corner-all">Execute</h3> </td>
+					</tr>
+					<tr>
+						<td  >
+						&lt;em>Emphasized text&lt;/em><br/>
+						&lt;i>Italic text&lt;/i>
+
+						 
+						</td>
+						<td  >
+						
+							<em>Emphasized text</em><br/>
+							<i>Italic text</i>
+
+						</td>
+					</tr>
+					<tr>
+						<td  >
+							&lt;strong>Important text&lt;/strong><br/>
+
+							&lt;b>Bold text&lt;/b>
+					 
+						</td>
+						<td  >
+							
+							<strong>Important text</strong><br/>
+							<b>Bold text</b>
+
+						</td>
+					</tr>
+
+					<tr>
+						<td  >
+							&lt;small>Smaller text&lt;/small><br/>
+							&lt;del> (deleted text)&lt;/del><br/>
+							&lt;ins> (inserted text)&lt;/ins><br/>
+							&lt;sub> (subscripted text)&lt;/sub>
+							&lt;sup> (superscripted text)&lt;/sup><br/>
+
+ 
+						</td>
+						<td  >
+							<small>Smaller text</small><br/>
+							<del> (deleted text)</del><br/>
+							<ins> (inserted text)</ins><br/>
+							<sub> (subscripted text)</sub>
+							<sup> (superscripted text)</sup><br/>
+						</td>
+					</tr>
+
+					
+				</table>
+				
+				
+				<br/><br/><br/><br/><br/>
+
+
+
+
+				
+			<hr />	<h1><a id="Links"> </a>Links</h1><hr />
+			
+				 <table class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+						<td   ><h3 class="ui-widget-header ui-corner-all">Code</h3> </td>
+						<td   ><h3 class="ui-widget-header ui-corner-all">Execute</h3> </td>
+					</tr>
+					<tr>
+						<td  >
+							<strong>Ordinary link:</strong><br/>
+							&lt;a href=&quot;http://www.example.com/&quot;&gt;<br/>
+						&nbsp;&nbsp;	Link-text goes here
+							<br/>&lt;/a&gt; 
+						
+						</td>
+						<td  >
+						
+							Ordinary link: <a href="http://www.example.com/">Link-text goes here</a>
+						</td>
+					</tr>
+					<tr>
+						<td  >
+								<strong>Mailto link:</strong><br/>
+							&lt;a href="mailto:webmaster@example.com"><br/>
+						&nbsp;&nbsp; Send e-mail
+						<br/>&lt;/a>
+							
+							
+						</td>
+						<td  >
+							
+						Mailto link: <a href="mailto:webmaster@example.com">Send e-mail</a>
+
+						</td>
+					</tr>
+
+					<tr>
+						<td  >
+							<p><strong>Bookmark:</strong><br/>
+							&lt;a id=&quot;tips&quot;&gt;Tips Section&lt;/a&gt;<br/>
+
+							&lt;a href=&quot;#tips&quot;&gt;Jump to the Tips Section&lt;/a&gt;</p>
+
+						 					 
+ 
+						</td>
+						<td  >
+							Bookmark:
+						<a id="tips">Tips Section</a>
+						<a href="#tips">Jump to the Tips Section</a>
+						</td>
+					</tr>
+
+					
+				</table>
+				
+			<hr />	<h1><a id="list"> </a>list</h1><hr />
+				 <table class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+						<td   ><h3 class="ui-widget-header ui-corner-all">Code</h3> </td>
+						<td   ><h3 class="ui-widget-header ui-corner-all">Execute</h3> </td>
+					</tr>
+					<tr>
+						<td  >
+						
+						<strong>Unordered list :</strong><br/>
+							&lt;ul><br/>
+						&nbsp;&nbsp;	  &lt;li>Item&lt;/li><br/>
+						&nbsp;&nbsp;	  &lt;li>Item&lt;/li><br/>
+							&lt;/ul><br/>
+
+						
+						</td>
+						<td  >
+						
+							
+							<strong>Unordered list</strong>	
+							<ul>
+							  <li>Item</li>
+							  <li>Item</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td  >
+						<strong>	Ordered list:</strong><br/>
+						&lt;ol><br/>
+						&nbsp;&nbsp;  &lt;li>First item&lt;/li><br/>
+						&nbsp;&nbsp;  &lt;li>Second item&lt;/li><br/>
+						&lt;/ol><br/>
+							
+							
+						</td>
+						<td  >
+							
+						<strong>Ordered list</strong>
+						<ol>
+						  <li>First item</li>
+						  <li>Second item</li>
+						</ol>
+						</td>
+					</tr>
+
+					<tr>
+						<td  >
+									 
+						<strong> Definition list :</strong>		<br/>
+								 &lt;dl><br/>
+
+					&nbsp;&nbsp;  &lt;dt>Item 1&lt;/dt><br/>
+					&nbsp;&nbsp;	    &lt;dd>Describe item 1&lt;/dd><br/>
+					&nbsp;&nbsp;	 &lt;dt>Item 2&lt;/dt><br/>
+					&nbsp;&nbsp;	    &lt;dd>Describe item 2&lt;/dd><br/>
+						&lt;/dl><br />
+
+						</td>
+						
+						<td  >
+						
+							<strong>Definition list</strong>							
+							<dl>
+							  <dt>Item 1</dt>
+							    <dd>Describe item 1</dd>
+							  <dt>Item 2</dt>
+							    <dd>Describe item 2</dd>
+							</dl>
+							
+						</td>
+					</tr>
+
+					
+				</table>
+
+
+
+				<h1><a id="table"> </a>Table</h1>
+				 <table class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+						<td   ><h3 class="ui-widget-header ui-corner-all">Code</h3> </td>
+						<td   ><h3 class="ui-widget-header ui-corner-all">Execute</h3> </td>
+					</tr>
+					<tr>
+						<td  >
+						
+		
+												
+					 &lt;table border="1"><br/>
+					 &nbsp;&nbsp;  &lt;tr><br/>
+					 &nbsp;&nbsp;&nbsp;&nbsp;    &lt;th>table header &lt;/th><br/>
+					 &nbsp;&nbsp;&nbsp;&nbsp;    &lt;th>table header &lt;/th><br/>
+					 &nbsp;&nbsp;  &lt;/tr><br/>
+					 &nbsp;&nbsp;  &lt;tr><br/>
+					  &nbsp;&nbsp;&nbsp;&nbsp;   &lt;td>table data &lt;/td><br/>
+					  &nbsp;&nbsp;&nbsp;&nbsp;   &lt;td>table data &lt;/td><br/>
+					 &nbsp;&nbsp;  &lt;/tr><br/>
+					 &lt;/table><br/>
+				
+						
+						</td>
+						<td  >
+						
+												
+					<table border="1">
+					  <tr>
+					    <th>table header</th>
+					    <th>table header</th>
+					  </tr>
+					  <tr>
+					    <td>table data</td>
+					    <td>table data</td>
+					  </tr>
+					</table>
+						</td>
+					</tr>
+					
+					
+				</table>
+				
+				<hr />
+	<h1><a id="Form"> </a>Forms</h1>
+	
+	<hr />
+				 <table class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+						<td   ><h3 class="ui-widget-header ui-corner-all">Code</h3> </td>
+						<td   ><h3 class="ui-widget-header ui-corner-all">Execute</h3> </td>
+					</tr>
+					<tr>
+						<td  >
+						&lt;form action=&quot;demo_form.asp&quot; method=&quot;post/get&quot;&gt;
+						 
+						</td>
+						<td  >
+												
+						</td>
+					</tr>
+					<tr>
+						<td  >
+							 &lt;input type=&quot;text&quot; name=&quot;email&quot;
+							 /&gt;</td>
+						<td  >
+							<input type="text" name="email" />
+						</td>
+					</tr>
+					<tr>
+						<td  >
+							&lt;input type=&quot;password&quot;/> 
+						</td>
+						<td  >
+								<input type="password"/> 
+						</td>
+					</tr>
+					<tr>
+						<td  >
+							&lt;input type=&quot;checkbox&quot; checked=&quot;checked&quot;/> 
+						</td>
+						<td  >
+<input type="checkbox" checked="checked"/> 
+						</td>
+					</tr>
+					<tr>
+						<td  >
+							 &lt;input type=&quot;radio&quot; checked=&quot;checked&quot;/> 						</td>
+						<td  >
+<input type="radio" checked="checked"/> 
+						</td>
+					</tr>
+
+					<tr>
+						<td  >
+							&lt;input type=&quot;submit&quot; value=&quot;Send&quot;/> 
+						</td>
+						<td  >
+<input type="submit" value="Send"/> 
+						</td>
+					</tr>
+	<tr>
+						<td  >
+							&lt;input type=&quot;reset&quot;/> 
+						</td>
+						<td  >
+<input type="reset" />
+						</td>
+					</tr>
+	<tr>
+						<td  >
+						&lt;input type=&quot;hidden&quot;>	 
+						</td>
+						<td  >
+
+						</td>
+					</tr>
+	<tr>
+						<td  >
+							 &lt;select&gt;<br>
+								&lt;option&gt;Apples&lt;/option&gt;<br>
+								&lt;option selected=&quot;selected&quot;&gt;Bananas&lt;/option&gt;<br>
+								&lt;option&gt;Cherries&lt;/option&gt;<br>
+							&lt;/select&gt; 
+						</td>
+						<td  >
+<select>
+<option>Apples</option>
+<option selected="selected">Bananas</option>
+<option>Cherries</option>
+</select> 
+						</td>
+					</tr>
+	<tr>
+						<td  >
+						&lt;textarea name=&quot;comment&quot; rows=&quot;60&quot;
+cols=&quot;20&quot;&gt;&lt;/textarea&gt;<br/><br/>
+&nbsp;</td>
+						<td  >
+<textarea name="comment" rows="10" cols="20"></textarea>
+						</td>
+					</tr>
+								<tr>
+						<td  >
+ <br/>
+&lt;lable &gt;	 name :&lt;/label>
+
+						</td>
+						<td  >
+ <label  >name :</label>
+						</td>
+					</tr>
+
+
+			<tr>
+						<td  >
+ <br/>
+&lt;/form&gt;	 
+						</td>
+						<td  >
+ 
+						</td>
+					</tr>
+		
+				
+				</table>
+				
+				
+				<hr />
+				<h1><a id="Symbol"> </a>Symbols</h1>
+				<hr />
+				 <table class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+						<td   ><h3 class="ui-widget-header ui-corner-all">Result</h3> </td>
+						<td   ><h3 class="ui-widget-header ui-corner-all">Description</h3> </td>
+						<td   ><h3 class="ui-widget-header ui-corner-all">Entity Name</h3> </td>
+						<td   ><h3 class="ui-widget-header ui-corner-all">Entity Number</h3> </td>
+					</tr>
+					
+					<tr>
+				      <td>&nbsp;</td>
+				      <td>non-breaking space</td>
+				      <td>&amp;nbsp;</td>
+				      <td>&amp;#160;</td>
+				    </tr>
+				    <tr>
+				      <td>&#60;</td>
+				      <td>less than</td>
+				      <td>&amp;lt;</td>
+				      <td>&amp;#60;</td>
+				    </tr>
+				    <tr>
+				      <td>&gt;</td>
+				      <td>greater than</td>
+				      <td>&amp;gt;</td>
+				      <td>&amp;#62;</td>
+				    </tr>
+				    <tr>
+				      <td>&amp;</td>
+				      <td>ampersand</td>
+				      <td>&amp;amp;</td>
+				      <td>&amp;#38;</td>
+				    </tr>
+				    <tr>
+				      <td>&cent;</td>
+				      <td>cent</td>
+				      <td>&amp;cent;</td>
+				      <td>&amp;#162;</td>
+				    </tr>
+				    <tr>
+				      <td>&pound;</td>
+				      <td>pound</td>
+				      <td>&amp;pound;</td>
+				      <td>&amp;#163;</td>
+				    </tr>
+				    <tr>
+				      <td>&yen;</td>
+				      <td>yen</td>
+				      <td>&amp;yen;</td>
+				      <td>&amp;#165;</td>
+				    </tr>
+				    <tr>
+				      <td>&euro;</td>
+				      <td>euro</td>
+				      <td>&amp;euro;</td>
+				      <td>&amp;#8364;</td>
+				    </tr>
+				    <tr>
+				      <td style="height: 32px">&sect;</td>
+				      <td style="height: 32px">section</td>
+				      <td style="height: 32px">&amp;sect;</td>
+				      <td style="height: 32px">&amp;#167;</td>
+				    </tr>
+				    <tr>
+				      <td>&copy;</td>
+				      <td>copyright</td>
+				      <td>&amp;copy;</td>
+				      <td>&amp;#169;</td>
+				    </tr>
+				    <tr>
+				      <td>&#174;</td>
+				      <td>registered trademark</td>
+				      <td>&amp;reg;</td>
+				      <td>&amp;#174;</td>
+				    </tr>
+				    <tr>
+				      <td>&#8482;</td>
+				      <td>trademark</td>
+				      <td>&amp;trade;</td>
+				      <td>&amp;#8482;</td>
+				    </tr>
+				</table>
+				
+				
+				
+				<hr /><h1><a id="heads"> </a>head Section</h1><hr />
+				 <table class="Tbl"  align="center" > 
+					<tr style="text-align:center">
+						<td   ><h3 class="ui-widget-header ui-corner-all">Title</h3>	&lt;title>HTML Basic 	&lt;/title> </td>
+					</tr>
+					
+					<tr >
+						<td   ><h3 class="ui-widget-header ui-corner-all">Add Internal Script</h3>	
+						&lt; script  type="text/javascript" language="javascript"   ><br/>
+						......<br/>
+						......<br/>
+						&lt;/ script >
+
+						  </td>
+					</tr>
+				<tr  >
+						<td   ><h3 class="ui-widget-header ui-corner-all">Import Externam Script</h3>
+						&lt; script  type="text/javascript" language="javascript" src=".." / >
+
+						 </td>
+					</tr>
+				    <tr  >
+						<td   ><h3 class="ui-widget-header ui-corner-all">Add Internal Style</h3>
+						
+				&lt;style type="text/css"> <br/>
+				......<br/>
+						......<br/>
+						&lt;/ style >
+
+				
+				</td>
+					</tr>
+				<tr  >
+						<td   ><h3 class="ui-widget-header ui-corner-all">Import Externam Style</h3>
+						&lt; link href="..." rel="stylesheet" />
+		 
+						 </td>
+					</tr>
+						<tr  >
+						<td   ><h3 class="ui-widget-header ui-corner-all">FrameSet</h3>
+							<table width="100%">
+							<tr  >
+								<td>
+								&lt; FRAMESET cols="20%, 80%"><br/>
+								   &#160 &lt; FRAMESET rows="100, 200"><br/>
+								     &#160 &#160  &lt; FRAME src="contents_of_frame1.html"><br/>
+								    &#160 &#160  &lt; FRAME src="contents_of_frame2.gif"><br/>
+								 &#160 &lt; /FRAMESET><br/>
+								  &#160 &lt; FRAME src="contents_of_frame3.html"><br/>
+								   &#160 &lt; NOFRAMES><br/>
+								  &#160 &#160    This frameset document contains:<br/>
+								 &#160 &lt; /NOFRAMES><br/>
+								&lt; /FRAMESET><br/>
+								</td>
+								<td>
+								
+								<pre >
+ ---------------------------------------
+|         |                             |
+|         |                             |
+| Frame 1 |                             |
+|         |                             |
+|         |                             |
+|---------|                             |
+|         |          Frame 3            |
+|         |                             |
+|         |                             |
+|         |                             |
+| Frame 2 |                             |
+|         |                             |
+|         |                             |
+|         |                             |
+|         |                             |
+ ---------------------------------------
+ 
+ </pre>
+								
+								</td>
+
+							</tr>
+
+							</table>
+		 
+						 </td>
+					</tr>
+
+
+			</table>
+
+
+		</td>
+	</tr>
+</table>
+			
+
+</body>
+
+</html>

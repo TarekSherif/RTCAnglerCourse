@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from 'src/app/serves/post.service';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-http-client',
